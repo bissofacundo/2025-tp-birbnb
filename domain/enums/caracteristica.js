@@ -2,6 +2,10 @@ export class Caracteristica {
     constructor(nombre) {
         this.nombre = nombre;
     }
+
+    static fromString(token) {
+        return values(Caracteristica).find(caracteristica => caracteristica.nombre.toUpperCase() === token);
+    }
 }
 
 Caracteristica.PISCINA = new Caracteristica("PISCINA");
