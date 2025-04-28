@@ -17,15 +17,25 @@ export class Reserva {
         this.rangoFechas = rangoFechas
         this.estado = Estado.PENDIENTE
         this.precioPorNoche = alojamiento.precioPorNoche
-        this.factoryNotificacion = new FactoryNotificacion()
-        this.notificaciones = [this.factoryNotificacion.crearSegunReserva(this)]
     }
 
     actualizarEstado(estado) {
         this.estado = estado
-        notificacion = this.factoryNotificacion.crearSegunReserva(this)
-        this.notificaciones.push(notificacion)
-        //No se si mandar al usuario o no
     }
 
+    getNombreAlojamiento() {
+        return this.alojamiento.nombre
+    }
+
+    getNombreHuespedReservador() {
+        return this.huespedReservador.nombre
+    }
+
+    getFechaInicio() {
+        return this.rangoFechas.fechaInicio.toString()
+    }
+
+    getCantidadDias() {
+        return this.rangoFechas.cantidadDias.toString()
+    }
 }
