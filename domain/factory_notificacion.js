@@ -1,4 +1,4 @@
-import { Notificacion } from "./notificacion"
+import { Notificacion } from "./notificacion.js"
 
 export class FactoryNotificacion {
 
