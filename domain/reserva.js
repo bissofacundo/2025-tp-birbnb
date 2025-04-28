@@ -1,5 +1,4 @@
 import { Estado } from "./enums/estado_reserva.js"
-import { FactoryNotificacion } from "./factory_notificacion.js"
 export class Reserva {
     fechaAlta
     huespedReservador
