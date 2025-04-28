@@ -45,12 +45,12 @@ export class Direccion {
             throw new DireccionInvalida(this.constructor.name,`La calle, la altura, la ciudad, latitud y longitud son obligatorios, se recibio calle: ${calle}, altura: ${altura}, ciudad: ${ciudad}, latitud: ${lat} y longitud: ${long}`);
         }
         rango_lat = 90;
-        if(!this.validarRangoCoordenada(lat,rango_lat)){
-            throw new DireccionInvalida(this.constructor.name,`La latitud debe estar entre -${rango_lat} y ${rango_lat}, se recibio: ${lat}`);
+        if(!this.validarRangoCoordenada(lat,rangoLat)){
+            throw new DireccionInvalida(this.constructor.name,`La latitud debe estar entre -${rangoLat} y ${rangoLat}, se recibio: ${lat}`);
         }
-        rango_long = 180;
-        if(!this.validarRangoCoordenada(long,rango_long)){
-            throw new DireccionInvalida(this.constructor.name,`La longitud debe estar entre -${rango_long} y ${rango_long}, se recibio: ${long}`);
+        rangoLong = 180;
+        if(!this.validarRangoCoordenada(long,rangoLong)){
+            throw new DireccionInvalida(this.constructor.name,`La longitud debe estar entre -${rangoLong} y ${rangoLong}, se recibio: ${long}`);
         }
     }
 

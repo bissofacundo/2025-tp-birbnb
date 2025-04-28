@@ -1,7 +1,7 @@
 export class Usuario {
     nombre
     email
-    tipo_usuario
+    tipoUsuario
 
     constructor(nombre, email, tipoUsuario) {
         this.validarDatosIngresados(nombre,email,tipoUsuario);

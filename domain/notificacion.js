@@ -11,14 +11,14 @@ export class Notificacion {
         }
         this.usuario = usuario; 
         this.mensaje = mensaje; 
-        this.fecha_alta = new Date();
+        this.fechaAlta = new Date();
         this.leida = false;
-        this.fecha_leida = null;
+        this.fechaLeida = null;
     }
 
     marcarComoLeida() {
         this.leida = true;
-        this.fecha_leida = new Date();
+        this.fechaLeida = new Date();
     }
 
 

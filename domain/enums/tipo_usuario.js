@@ -1,12 +1,12 @@
 export class TipoUsuario  {
-    tipo_usuario;
+    tipoUsuario;
 
     static fromString(token){
-        return values(TipoUsuario).find(tipo => tipo.tipo_usuario.toUpperCase() === token)
+        return values(TipoUsuario).find(tipo => tipo.tipoUsuario.toUpperCase() === token)
     }
 
     constructor(tipo){
-        this.tipo_usuario = tipo
+        this.tipoUsuario = tipo
     }
 
 }
