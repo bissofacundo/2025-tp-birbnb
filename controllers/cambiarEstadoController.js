@@ -1,6 +1,8 @@
 //TODO: agregar imports
-import { ReservaRepository } from "../repositories/reservaRepository"
-import { NotificationController } from "./notificationController"
+import { ReservaRepository } from "../repositories/reservaRepository.js"
+import { NotificationController } from "./notificationController.js"
+import { NotificacionRepository } from "../repositories/notificacion_repository.js"
+import { CambioEstadoReserva } from "../domain/cambio_estado_reserva.js"
 
 export const CambiarEstadoController = {
     cambiarEstado(req, res) {
@@ -9,21 +11,17 @@ export const CambiarEstadoController = {
         motivo = req.body.motivo
         usuario = req.body.usuario
         reservaActualizada = ReservaRepository.cambiarEstado(idReserva, nuevoEstado) 
-        cambiarEstado = new CambioEstadoResrva( //cambioRest
-            nuevoEstadostado,
+        cambiarEstado = new CambioEstadoReserva( 
+            nuevoEstado,
             reservaActualizada,
             motivo,
             usuario
         )
-        if(Estado.CANCELADA === cambiarEstado.estado){
-            mensaje = motivo
-        } else {
-            mensaje = ''
-        } //devolver error si descubre que el estado es PENDIENTE
-        notificacion = NotificationController.crearNoti(reservaNueva, mensaje)
         
+        notificacion = NotificationController.crearNotificacion(reservaNueva, cambiarEstado.motivo)
+        NotificacionRepository.guardarNotificacion(notificacion)
         res.status(200).json(
-            ...notificacion
+            reservaActualizada
         )
     },
     /*

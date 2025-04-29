@@ -1,9 +1,11 @@
 //TODO: agregar imports
 
 export const NotificationController = {
-    crearNoti(reserva, mensaje){
+    crearNotificacion(reserva, mensaje){
         notificacion = FactoryNotification.crearSegunReserva(reserva)
-        notificacion.mensaje = mensaje
+        if(Estado.CANCELADA === reserva.Estado) {
+            notificacion.mensaje = mensaje
+        }
         return notificacion
     }
 }

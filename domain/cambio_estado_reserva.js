@@ -1,4 +1,4 @@
-class CambioEstadoReserva {
+export class CambioEstadoReserva {
     fecha
     estadoReserva 
     motivo

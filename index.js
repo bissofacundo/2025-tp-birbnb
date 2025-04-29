@@ -1,11 +1,14 @@
-import express from ("express")
-import CambiarEstadoController from ("./controllers/cambiarEstadoController.js")
-
+import express from "express"
+import { CambiarEstadoController } from "./controllers/cambiarEstadoController.js"
+const puerto = 3000
 const app = express()
-const router = app.Router()
 
-router.put("/reservas/:id/estado", CambiarEstadoController.cambiarEstado)
+app.put("/reservas/:id/estado", CambiarEstadoController.cambiarEstado)
 
-router.get("healthCheck",(req, res)=>{
-    res.status(200).json({ status: 'La página funciona Correctamente :D' });
-  } )
+app.get("/healthCheck", (req, res) => {
+  res.status(200).json({ status: 'La página funciona Correctamente :D' });
+})
+
+app.listen(puerto, () => {
+  console.log(`Estamos escuchando en el puerto ${puerto}`)
+})
