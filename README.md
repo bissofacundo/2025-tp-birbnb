@@ -1,2 +1,2 @@
 # 2025-tp-birbnb
-# Prueba Pull Request
+En nuestro TP seguiremos el Github Flow para implementar funcionalidades y/o corregir bugs. Para repartir nuestra carga de trabajo, en cada entrega nos juntaremos para dividirnos los temas y cada uno creará una rama resolviendo los issues que le corresponda.

@@ -1,7 +1,7 @@
 export const NotificacionRepository = {
     notificaciones: [],
 
-    guardarNoti(notificacion){
+    guardarNotificacion(notificacion){
         this.notificaciones.push(notificacion)
     }
 }

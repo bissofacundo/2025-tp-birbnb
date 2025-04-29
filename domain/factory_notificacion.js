@@ -1,8 +1,8 @@
 import { Estado } from "./enums/estado_reserva.js"
 import { Notificacion } from "./notificacion.js"
 
-export class FactoryNotificacion {
-
+export const FactoryNotificacion = {
+    
     crearSegunReserva(unaReserva) {
         let usuario = unaReserva.getAnfitrion()
         let mensaje = ""

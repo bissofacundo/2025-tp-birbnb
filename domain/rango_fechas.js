@@ -21,13 +21,16 @@ export class RangoFechas {
     }
 
     tieneInterseccionCon(rangoFechas) {
-        if (this.fechaInicio < rangoFechas.fechaInicio) {
-            return !(this.fechaFin <= rangoFechas.fechaInicio)
-        }
-        if (rangoFechas.fechaInicio < this.fechaInicio) {
-            return !(rangoFechas.fechaFin <= this.fechaInicio)
-        }
-        return true
+        return fechaInicioMenorIgualAlDe(rangoFechas) || fechaInicioMayorAlDe(rangoFechas)
+    }
+
+    fechaInicioMenorIgualAlDe(rangoFechas) {
+        return this.fechaInicio <= rangoFechas.fechaInicio && 
+            rangoFechas.fechaInicio <= this.fechaFin
+    }
+    fechaInicioMayorAlDe(rangoFechas) {
+        return rangoFechas.fechaInicio < this.fechaInicio && 
+            rangoFechas.fechaFin >= this.fechaInicio
     }
 }
 
