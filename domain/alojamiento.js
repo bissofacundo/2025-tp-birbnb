@@ -1,3 +1,5 @@
+import {sumBy} from "lodash-es";
+
 export class Alojamiento {
     anfitrion;
     nombre;
@@ -45,5 +47,21 @@ export class Alojamiento {
             moneda: ${moneda}, horarioCheckIn: ${horarioCheckIn}, horarioCheckOut: ${horarioCheckOut},
             direccion: ${direccion}, cantHuespedesMax: ${cantHuespedesMax}` );
         }
+    }
+
+    tuPrecioEstaDentroDe(valorMinimo, valorMaximo){
+        return this.precioPorNoche > valorMinimo && this.precioPorNoche < valorMaximo
+    }
+
+    tenesCaracteristica(caracteristica){
+        return this.caracteristicas.some(c => c === caracteristica)
+    }
+
+    puedenAlojarse(cantHuespedes){
+        return (this.cantHuespedesMax - sumBy(this.reservas, r => r.cantHuespedes)) >= cantHuespedes
+    }
+
+    estasDisponibleEn(rangoDeFechas){
+        return !this.reservas.some(r => r.teSuperponesCon(rangoDeFechas))
     }
 }
