@@ -1,0 +1,49 @@
+export class Alojamiento {
+    anfitrion;
+    nombre;
+    descripcion;
+    precioPorNoche;
+    moneda;
+    horarioCheckIn;
+    horarioCheckOut;
+    direccion;
+    cantHuespedesMax;
+    caracteristicas;
+    reservas;
+    fotos;
+
+    constructor(anfitrion, nombre, descripcion,
+        precioPorNoche, moneda, horarioCheckIn,
+        horarioCheckOut, direccion, cantHuespedesMax,
+        caracteristicas, fotos)
+    {
+        this.validarParametros()
+        this.anfitrion = anfitrion
+        this.nombre = nombre
+        this.descripcion = descripcion
+        this.precioPorNoche = precioPorNoche
+        this.moneda = moneda
+        this.horarioCheckIn = horarioCheckIn
+        this.horarioCheckOut = horarioCheckOut
+        this.direccion = direccion
+        this.cantHuespedesMax = cantHuespedesMax
+        this.caracteristicas = caracteristicas || []
+        this.fotos = fotos || []
+        this.reservas = []
+    }
+
+    validarParametros(anfitrion, nombre,
+        precioPorNoche, moneda, horarioCheckIn,
+        horarioCheckOut, direccion, cantHuespedesMax
+        ) {
+        if ([anfitrion, nombre,
+            precioPorNoche, moneda, horarioCheckIn,
+            horarioCheckOut, direccion, cantHuespedesMax].some(v => !v)) {
+          throw new AlojamientoInvalido(`El alojamiento necesita anfitrion, nombre, precioPorNoche, 
+            moneda, horarioCheckIn, horarioCheckOut, direccion, cantHuespedesMax, 
+            se recibio anfitrion: ${anfitrion}, nombre: ${nombre}, precioPorNoche: ${precioPorNoche},
+            moneda: ${moneda}, horarioCheckIn: ${horarioCheckIn}, horarioCheckOut: ${horarioCheckOut},
+            direccion: ${direccion}, cantHuespedesMax: ${cantHuespedesMax}` );
+        }
+    }
+}
