@@ -12,6 +12,7 @@ export const ReservaRepository = {
     findReservaId(id){
         return this.reservas.find(e => e.id === id)
     },
+    
     agregarReserva(nuevaReserva){
         this.reservas.push(nuevaReserva)
     }
