@@ -10,5 +10,5 @@ app.get("/healthCheck", (req, res) => {
 })
 
 app.listen(puerto, () => {
-  console.log(`Estamos escuchando en el puerto ${puerto}`)
+  console.log(`Servidor escuchando en el puerto ${puerto}!`)
 })
