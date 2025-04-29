@@ -37,4 +37,8 @@ export class Reserva {
     getCantidadDias() {
         return this.rangoFechas.cantidadDias.toString()
     }
+
+    teSuperponesCon(rangoFechas){
+        return this.rangoFechas.tieneInterseccionCon(rangoFechas)
+    }
 }
