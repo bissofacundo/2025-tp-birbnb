@@ -19,6 +19,19 @@ export class RangoFechas {
             throw new RangoFechasInvalido(`La fecha de inicio (${inicio}) no puede ser mayor a la fecha de fin (${fin})`);
         }
     }
+
+    tieneInterseccionCon(rangoFechas) {
+        return fechaInicioMenorIgualAlDe(rangoFechas) || fechaInicioMayorAlDe(rangoFechas)
+    }
+
+    fechaInicioMenorIgualAlDe(rangoFechas) {
+        return this.fechaInicio <= rangoFechas.fechaInicio && 
+            rangoFechas.fechaInicio <= this.fechaFin
+    }
+    fechaInicioMayorAlDe(rangoFechas) {
+        return rangoFechas.fechaInicio < this.fechaInicio && 
+            rangoFechas.fechaFin >= this.fechaInicio
+    }
 }
 
 
