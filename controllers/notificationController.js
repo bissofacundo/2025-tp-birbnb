@@ -1,8 +1,8 @@
-//TODO: agregar imports
+import { FactoryNotificacion } from "../domain/factory_notificacion.js"
 
 export const NotificationController = {
     crearNotificacion(reserva, mensaje){
-        notificacion = FactoryNotification.crearSegunReserva(reserva)
+        notificacion = FactoryNotificacion.crearSegunReserva(reserva)
         if(Estado.CANCELADA === reserva.Estado) {
             notificacion.mensaje = mensaje
         }

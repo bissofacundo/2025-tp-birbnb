@@ -1,4 +1,3 @@
-//TODO: agregar imports
 import { ReservaRepository } from "../repositories/reservaRepository.js"
 import { NotificationController } from "./notificationController.js"
 import { NotificacionRepository } from "../repositories/notificacion_repository.js"
@@ -24,30 +23,5 @@ export const CambiarEstadoController = {
             reservaActualizada
         )
     },
-    /*
-    cambioRest(cambio){}
-    */
-}
-
-/*
-
-cambiarEstadoController{
-
-    cambiarEstado = ...
-    reserva = reservaController().cambiarEstado()
-    if(Estado.CANCELADA === cambiarEstado.estado){
-            mensaje = motivo
-        } else {
-            mensaje = ''
-        }
-    noti = notificacionController().crearNoti(reserva, mensaje)
-
-    res.status... json(
-        ,
-        noti
     
-    )
-
 }
-
-*/
