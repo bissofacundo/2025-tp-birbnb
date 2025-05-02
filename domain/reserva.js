@@ -38,18 +38,18 @@ export class Reserva {
 
     //Requerimiento 2
     aceptarReserva() {
-        notificacion = this.crearNotificacionPorCambioA(Estado.CONFIRMADA)
+        notificacion = this.actualizarEstadoConNotificacion(Estado.CONFIRMADA)
         this.huespedReservador.guardarNotificacion(notificacion)
     }
 
-    crearNotificacionPorCambioA(estado) {
-        reserva.actualizarEstado(estado)
+    actualizarEstadoConNotificacion(estado) {
+        this.actualizarEstado(estado)
         return FactoryNotificacion.crearSegunReserva(reserva)
     }
 
     //Requerimiento 3
     cancelarReserva(motivo){
-        notificacion = this.crearNotificacionPorCambioA(Estado.CANCELADA)
+        notificacion = this.actualizarEstadoConNotificacion(Estado.CANCELADA)
         notificacion.aniadirMotivo(motivo)
         this.getAnfitrion().guardarNotificacion(notificacion)
     }
