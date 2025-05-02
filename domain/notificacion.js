@@ -17,7 +17,7 @@ export class Notificacion {
     }
 
     aniadirMotivo(motivo){
-        if(motivo !== ""){
+        if(motivo.length > 0){
             this.mensaje = "Motivo: ".concat(motivo) 
         }
     }
