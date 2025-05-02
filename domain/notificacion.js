@@ -16,6 +16,12 @@ export class Notificacion {
         this.fechaLeida = null;
     }
 
+    aniadirMotivo(motivo){
+        if(motivo.length > 0){
+            this.mensaje = "Motivo: ".concat(motivo) 
+        }
+    }
+
     marcarComoLeida() {
         this.leida = true;
         this.fechaLeida = new Date();

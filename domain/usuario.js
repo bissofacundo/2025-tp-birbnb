@@ -2,12 +2,14 @@ export class Usuario {
     nombre
     email
     tipoUsuario
+    notificaciones
 
     constructor(nombre, email, tipoUsuario) {
         this.validarDatosIngresados(nombre,email,tipoUsuario);
         this.nombre = nombre;
         this.email = email;
         this.tipoUsuario = tipoUsuario;
+        this.notificaciones = []
     }
 
     validarEmail(email) {
@@ -22,5 +24,9 @@ export class Usuario {
         if(!this.validarEmail(email)) {
             throw new UsuarioInvalido(`El email ingresado tiene un formato invalido, se recibio: ${email}`);
         }
+    }
+
+    guardarNotificacion(notificacion) {
+        this.notificaciones.push(notificacion)
     }
 }

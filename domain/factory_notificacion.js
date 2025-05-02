@@ -11,8 +11,12 @@ export const FactoryNotificacion = {
                 + " para el dia " + unaReserva.getFechaInicio() + " durante " + unaReserva.getCantidadDias() + " dia/s"
         }
         else if (unaReserva.estado === Estado.CONFIRMADA) {
-            usuario = unaReserva.huespedReservador
+            usuario = unaReserva.getHuespedReservador()
             mensaje = "La reserva fue confirmada por el Anfitrion " + unaReserva.getNombreAnfitrion()
+        }
+        else if (unaReserva.estado === Estado.CANCELADA) {
+            usuario = unaReserva.getAnfitrion()
+            mensaje = "No se fue dado un motivo"
         }
         return new Notificacion(usuario, mensaje)
     }

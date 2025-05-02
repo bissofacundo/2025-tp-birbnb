@@ -1,4 +1,7 @@
 import {sumBy} from "lodash-es";
+import { ReservaInvalida, AlojamientoInvalido } from "../exceptions/alojamiento";
+import { Reserva } from "./reserva";
+import { FactoryNotificacion } from "./factory_notificacion";
 
 export class Alojamiento {
     anfitrion;
@@ -63,5 +66,13 @@ export class Alojamiento {
 
     estasDisponibleEn(rangoDeFechas){
         return !this.reservas.some(r => r.teSuperponesCon(rangoDeFechas))
+    }
+
+    agregarReserva(reserva){
+        this.reservas.push(reserva)
+    }
+
+    getAnfitrion(){
+        return this.anfitrion
     }
 }
