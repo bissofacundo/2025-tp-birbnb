@@ -30,12 +30,24 @@ export class Reserva {
         return this.huespedReservador.nombre
     }
 
+    getHuespedReservador() {
+        return this.huespedReservador
+    }
+
     getFechaInicio() {
         return this.rangoFechas.fechaInicio.toString()
     }
 
     getCantidadDias() {
         return this.rangoFechas.cantidadDias.toString()
+    }
+
+    getNombreAnfitrion() {
+        return this.alojamiento.getAnfitrion().nombre
+    }
+
+    getAnfitrion() {
+        return this.alojamiento.getAnfitrion()
     }
 
     teSuperponesCon(rangoFechas){
