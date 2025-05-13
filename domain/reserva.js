@@ -1,7 +1,7 @@
 import { ReservaInvalida } from "../exceptions/alojamiento.js"
 import { Estado } from "./enums/estado_reserva.js"
 import { FactoryNotificacion } from "./factory_notificacion.js"
-import { RangoFechas } from "./rango_fechas.js"
+
 export class Reserva {
     fechaAlta
     huespedReservador
@@ -21,7 +21,7 @@ export class Reserva {
         this.rangoFechas = rangoFechas
         this.estado = Estado.PENDIENTE
         this.precioPorNoche = alojamiento.precioPorNoche
-        notificacion = FactoryNotificacion.crearSegunReserva(this)
+        const notificacion = FactoryNotificacion.crearSegunReserva(this)
         this.getAnfitrion().guardarNotificacion(notificacion)
     }
 
@@ -38,18 +38,18 @@ export class Reserva {
 
     //Requerimiento 2
     aceptarReserva() {
-        notificacion = this.actualizarEstadoConNotificacion(Estado.CONFIRMADA)
+        const notificacion = this.actualizarEstadoConNotificacion(Estado.CONFIRMADA)
         this.huespedReservador.guardarNotificacion(notificacion)
     }
 
     actualizarEstadoConNotificacion(estado) {
         this.actualizarEstado(estado)
-        return FactoryNotificacion.crearSegunReserva(reserva)
+        return FactoryNotificacion.crearSegunReserva(this)
     }
 
     //Requerimiento 3
     cancelarReserva(motivo){
-        notificacion = this.actualizarEstadoConNotificacion(Estado.CANCELADA)
+        const notificacion = this.actualizarEstadoConNotificacion(Estado.CANCELADA)
         notificacion.aniadirMotivo(motivo)
         this.getAnfitrion().guardarNotificacion(notificacion)
     }

@@ -3,6 +3,10 @@ export class Estado {
         this.nombre = nombre;
     }
 
+    toString() {
+        return this.nombre
+    }
+
     static fromString(token) {
         return values(Estado).find(estado => estado.nombre.toUpperCase() === token);
     }

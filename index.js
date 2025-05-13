@@ -2,6 +2,7 @@ import express from "express"
 import { CambiarEstadoController } from "./controllers/cambiarEstadoController.js"
 const puerto = 3000
 const app = express()
+app.use(express.json())
 
 app.put("/reservas/:id/estado", CambiarEstadoController.cambiarEstado)
 

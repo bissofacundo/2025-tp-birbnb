@@ -1,7 +1,4 @@
-import {sumBy} from "lodash-es";
-import { ReservaInvalida, AlojamientoInvalido } from "../exceptions/alojamiento";
-import { Reserva } from "./reserva";
-import { FactoryNotificacion } from "./factory_notificacion";
+import { AlojamientoInvalido } from "../exceptions/alojamiento";
 
 export class Alojamiento {
     anfitrion;
@@ -61,10 +58,10 @@ export class Alojamiento {
     }
 
     puedenAlojarse(cantHuespedes){
-        return (this.cantHuespedesMax - sumBy(this.reservas, r => r.cantHuespedes)) >= cantHuespedes
+        return this.cantHuespedesMax >= cantHuespedes
     }
 
-    estasDisponibleEn(rangoDeFechas){
+    estaDisponibleEn(rangoDeFechas){
         return !this.reservas.some(r => r.teSuperponesCon(rangoDeFechas))
     }
 
