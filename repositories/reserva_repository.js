@@ -1,10 +1,26 @@
+import { reservaModel } from "./schemas/reserva_schema.js"
 
+const aDB = (reserva) => {
+    const reservaDB = {
+        ...reserva,
+        fechaInicio: reserva.getFechaInicio(),
+        fechaFin: reserva.getFechaFin()
+    }
+    delete reservaDB.rangoFechas
+    return reservaDB
+}
 
 export class ReservaRepository {
-    coleccionReserva
+    reservaModel
 
-    constructor(DBCLIENT) {
-        this.coleccionReserva = DBCLIENT.colection("")
+    constructor() {
+        this.reservaModel = reservaModel
     }
 
+    async save(reserva) {
+        const nuevaReserva = this.reservaModel(aDB(reserva))
+        const reservaGuardada = await nuevaReserva.save().populate('Usuario').populate('Alojamiento')
+        reserva.id = reservaGuardada.insertedId
+        return reserva
+    }
 }

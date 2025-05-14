@@ -16,7 +16,7 @@ export class ReservaController {
         this.reservaService = reservaService
     }
 
-    crearReserva(req, res) {
+    async crearReserva(req, res) {
         try {
             const rangoDefechas = { fechaInicio: req.body.fechaInicio, 
                                   fechaFin: req.body.fechaFin}
@@ -26,7 +26,7 @@ export class ReservaController {
             if(isNaN(cantHuespedes)) {
                 throw new Error("");
             }
-            const reservaNueva = this.reservaService.crearReserva(rangoDefechas, idAlojamiento, idHuespedReservador, cantHuespedes)
+            const reservaNueva = await this.reservaService.crearReserva(rangoDefechas, idAlojamiento, idHuespedReservador, cantHuespedes)
             res.status(201).json(aReservaRest(reservaNueva))
         } catch (error) {
             res.status(400).json(error)

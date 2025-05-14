@@ -13,10 +13,10 @@ export class ReservaService {
         this.usuarioRepository = usuarioRepository
     }
 
-    crearReserva(rangoDefechas, idAlojamiento, idHuespedReservador, cantHuespedes) {
+    async crearReserva(rangoDefechas, idAlojamiento, idHuespedReservador, cantHuespedes) {
         const rangoFechas = new RangoFechas(rangoDefechas.fechaInicio, rangoDefechas.fin)
-        const alojamiento = this.alojamientoRepository.findById(idAlojamiento)
-        const huespedReservador = this.usuarioRepository.findById(idHuespedReservador)
+        const alojamiento = await this.alojamientoRepository.findById(idAlojamiento)
+        const huespedReservador = await this.usuarioRepository.findById(idHuespedReservador)
         
         if(!alojamiento.estaDisponibleEn(rangoFechas) || !alojamiento.puedenAlojarse(cantHuespedes) ) {
             throw new ReservaInvalida(`algo`)
