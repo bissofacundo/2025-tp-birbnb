@@ -4,7 +4,7 @@ import { Reserva } from "./reserva";
 import { FactoryNotificacion } from "./factory_notificacion";
 
 export class Alojamiento {
-    anfitrion;
+    anfitrion  ;
     nombre;
     descripcion;
     precioPorNoche;
