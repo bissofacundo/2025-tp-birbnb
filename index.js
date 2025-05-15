@@ -1,10 +1,15 @@
+import dotenv from "dotenv";
+dotenv.config(); 
+
 import express from "express"
-import { CambiarEstadoController } from "./controllers/cambiarEstadoController.js"
+import { MongoDBClient } from "./config/db_config.js";
+
 const puerto = 3000
 const app = express()
 app.use(express.json())
 
-app.put("/reservas/:id/estado", CambiarEstadoController.cambiarEstado)
+// eslint-disable-next-line no-undef
+MongoDBClient.connect(process.env)
 
 app.get("/healthCheck", (req, res) => {
   res.status(200).json({ status: 'La página funciona Correctamente :D' });

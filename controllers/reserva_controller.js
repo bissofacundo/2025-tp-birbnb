@@ -23,13 +23,10 @@ export class ReservaController {
             const idAlojamiento = parseInt(req.body.alojamiento)
             const idHuespedReservador = parseInt(req.body.huespedReservador)
             const cantHuespedes = parseInt(req.body.cantHuespedes)
-            if(isNaN(cantHuespedes)) {
-                throw new Error("");
-            }
             const reservaNueva = await this.reservaService.crearReserva(rangoDefechas, idAlojamiento, idHuespedReservador, cantHuespedes)
             res.status(201).json(aReservaRest(reservaNueva))
         } catch (error) {
-            res.status(400).json(error)
+            res.status(400).json({error: error.message})
         } 
     }
 }
