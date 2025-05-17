@@ -22,7 +22,7 @@ export class ReservaRepository {
     async save(reserva) {
         const nuevaReserva = this.reservaModel(aDB(reserva))
         const reservaGuardada = await nuevaReserva.save()
-        reserva.id = reservaGuardada.insertedId
+        reserva.id = reservaGuardada.id
         return reserva
     }
 }

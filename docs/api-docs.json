@@ -21,10 +21,6 @@
             "description": "ID único de la reserva",
             "readOnly": true
           },
-          "fechaAlta": {
-            "type": "date",
-            "description": "Fecha de creacion de la reserva"
-          },
           "huespedReservador": {
             "type": "object",
             "description": "El usuario huesped que crea la reserva"
@@ -45,6 +41,14 @@
           "fechaFin": {
             "type": "date",
             "description": "Fecha con la que termina la reserva"
+          },
+          "estado": {
+            "type": "string",
+            "description": "Estado de la reserva. Puede ser pendiente, aceptada o rechazada"
+          },
+          "precioPorNoche": {
+            "type": "number",
+            "description": "El precio que sale el alojamiento por noche"
           }
 
         },

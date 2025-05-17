@@ -19,7 +19,9 @@ export class Alojamiento {
         horarioCheckOut, direccion, cantHuespedesMax,
         caracteristicas, fotos)
     {
-        this.validarParametros()
+        this.validarParametros(anfitrion, nombre,
+        precioPorNoche, moneda, horarioCheckIn,
+        horarioCheckOut, direccion, cantHuespedesMax)
         this.anfitrion = anfitrion
         this.nombre = nombre
         this.descripcion = descripcion
@@ -36,8 +38,7 @@ export class Alojamiento {
 
     validarParametros(anfitrion, nombre,
         precioPorNoche, moneda, horarioCheckIn,
-        horarioCheckOut, direccion, cantHuespedesMax
-        ) {
+        horarioCheckOut, direccion, cantHuespedesMax) {
         if ([anfitrion, nombre,
             precioPorNoche, moneda, horarioCheckIn,
             horarioCheckOut, direccion, cantHuespedesMax].some(v => !v)) {

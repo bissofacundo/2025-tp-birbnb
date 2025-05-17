@@ -1,6 +1,7 @@
 import { RangoFechas } from "../domain/rango_fechas.js"
 import { ReservaInvalida } from "../exceptions/alojamiento.js"
 import { Reserva } from "../domain/reserva.js"
+import { EntidadNoEncontrada } from "../exceptions/busqueda_entidad.js"
 
 export class ReservaService {
     reservaRepository
@@ -15,9 +16,17 @@ export class ReservaService {
 
     async crearReserva(rangoDefechas, idAlojamiento, idHuespedReservador, cantHuespedes) {
         const rangoFechas = new RangoFechas(rangoDefechas.fechaInicio, rangoDefechas.fechaFin)
-        const alojamiento = await this.alojamientoRepository.findById(idAlojamiento)
-        const huespedReservador = await this.usuarioRepository.findById(idHuespedReservador)
         
+        const alojamiento = await this.alojamientoRepository.findById(idAlojamiento)
+        if(!alojamiento){
+            throw new EntidadNoEncontrada(`No se encontro el alojamiento con el identificador ${idAlojamiento}`)
+        }
+        const huespedReservador = await this.usuarioRepository.findById(idHuespedReservador)
+        if(!huespedReservador){
+            throw new EntidadNoEncontrada(`No se encontro el alojamiento con el identificador ${idHuespedReservador}`)
+        }
+
+
         const reservaNueva = new Reserva(huespedReservador, cantHuespedes, alojamiento, rangoFechas)
 
         if(!alojamiento.estaDisponibleEn(rangoFechas)) {

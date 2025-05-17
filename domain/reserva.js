@@ -70,6 +70,10 @@ export class Reserva {
         return this.rangoFechas.fechaInicio.toString()
     }
 
+    getFechaFin() {
+        return this.rangoFechas.fechaFin.toString()
+    }
+
     getCantidadDias() {
         return this.rangoFechas.cantidadDias().toString()
     }
