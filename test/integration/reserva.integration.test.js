@@ -24,7 +24,9 @@ const alojamientoPrueba = new Alojamiento(anfitrionPrueba, "El pinzon", "Una lin
 const alojamientoRepository = {
     findById: jest.fn().mockResolvedValue(
         alojamientoPrueba
-    )
+    ),
+
+    actualizarAlojamiento: jest.fn()
 }
 
 const usuarioRepository = {
@@ -32,15 +34,19 @@ const usuarioRepository = {
         nombre: "Juancito",
         email: "juancito@gmail.com",
         tipoUsuario: TipoUsuario.HUESPED 
-    })
+    }),
+    actualizarUsuario: jest.fn()
 }
 
+
 const reservaRepository = {
-    save: jest.fn(reserva => { 
+    crearReserva: jest.fn(reserva => { 
         reserva.id = 1
         return reserva
     })
 }
+
+
 
 const reservaService = new ReservaService(reservaRepository, alojamientoRepository, usuarioRepository)
 const reservaController = new ReservaController(reservaService)
@@ -60,7 +66,9 @@ describe("POST /reservas", () => {
 
         console.log(response.body)
         expect(response.status).toBe(201)
-        expect(reservaRepository.save).toHaveBeenCalledWith(expect.any(Reserva))
+        expect(reservaRepository.crearReserva).toHaveBeenCalledWith(expect.any(Reserva))
+        expect(usuarioRepository.actualizarUsuario).toHaveBeenCalled()
+        expect(alojamientoRepository.actualizarAlojamiento).toHaveBeenCalled()
     })
 
     test("Creación de una reserva con la fecha de inicio erronea", async () => {
@@ -76,6 +84,7 @@ describe("POST /reservas", () => {
 
         console.log(response.body)
         expect(response.status).toBe(400)
+        expect(response.body.tipoError).toBe("Error de validacion")
     })
 
     test("Creación de una reserva superando la cantidad de huespedes del alojamiento", async () => {
@@ -83,14 +92,59 @@ describe("POST /reservas", () => {
             alojamiento: 1,
             huespedReservador: 1,
             cantHuespedes: 16,
-            fechaInicio: "2025-02-14",
-            fechaFin: "2025-03-15"
+            fechaInicio: "2025-03-16",
+            fechaFin: "2025-03-20"
         }
         
         const response =  await request(app).post('/reservas').send(reservaRequest)
 
         console.log(response.body)
         expect(response.status).toBe(400)
-        expect(response.body.error).toBe(`la reserva ingresada no cumple con los requisitos: La reserva supero la maxima cantidad de huespedes que el alojamiento ${alojamientoPrueba.nombre} permite. La maxima cantidad de huespedes que admite el alojamiento es ${alojamientoPrueba.cantHuespedesMax}`)
+        expect(response.body.error).toBe(`Error: la reserva ingresada no cumple con los requisitos: La reserva supero la maxima cantidad de huespedes que el alojamiento ${alojamientoPrueba.nombre} permite. La maxima cantidad de huespedes que admite el alojamiento es ${alojamientoPrueba.cantHuespedesMax}`)
+        expect(response.body.tipoError).toBe("Reserva creada invalida")
+    })
+
+    test("Creación de una reserva con datos demas", async () => {
+        const reservaRequest = {
+            idBasura: 389234892,
+            saraza: "luendo",
+            alojamiento: 1,
+            huespedReservador: 1,
+            cantHuespedes: 2,
+            fechaInicio: "2025-03-16",
+            fechaFin: "2025-03-20"
+        }
+        
+        const response =  await request(app).post('/reservas').send(reservaRequest)
+
+        console.log(response.body)
+        expect(response.status).toBe(201)
+    })
+
+    test("Creación de una reserva sin pasar datos", async () => {
+        const reservaRequest = {
+        }
+        
+        const response =  await request(app).post('/reservas').send(reservaRequest)
+
+        console.log(response.body)
+        expect(response.status).toBe(400)
+        expect(response.body.tipoError).toBe("Error de validacion")
+    })
+
+    test("Creación de una reserva sin pasar una cantidad de huespedes numerica", async () => {
+        const reservaRequest = {
+            alojamiento: 1,
+            huespedReservador: 1,
+            cantHuespedes: "hola",
+            fechaInicio: "2025-03-16",
+            fechaFin: "2025-03-20"
+        }
+        
+        const response =  await request(app).post('/reservas').send(reservaRequest)
+
+        console.log(response.body)
+        expect(response.status).toBe(400)
+        expect(response.body.tipoError).toBe("Error de validacion")
     })
 })

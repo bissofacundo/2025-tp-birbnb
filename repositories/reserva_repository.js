@@ -3,13 +3,21 @@ import { reservaModel } from "./schemas/reserva_schema.js"
 const aDB = (reserva) => {
     const reservaDB = {
         ...reserva,
+        alojamiento: reserva.alojamiento.id,
+        huespedReservador: reserva.huespedReservador.id,
+        cambiosEstadoReserva: reserva.cambiosEstadoReserva.map(aCambioEstadoReservaDB),
         fechaInicio: reserva.getFechaInicio(),
         fechaFin: reserva.getFechaFin(),
     }
     delete reservaDB.rangoFechas
-    reservaDB.alojamiento = reserva.alojamiento.id
-    reservaDB.huespedReservador = reserva.huespedReservador.id
     return reservaDB
+}
+
+const aCambioEstadoReservaDB = (cambioEstadoReserva) => {
+    return {
+        ...cambioEstadoReserva, 
+        usuario: cambioEstadoReserva.usuario.id
+    }
 }
 
 export class ReservaRepository {
@@ -19,7 +27,7 @@ export class ReservaRepository {
         this.reservaModel = reservaModel
     }
 
-    async save(reserva) {
+    async crearReserva(reserva) {
         const nuevaReserva = this.reservaModel(aDB(reserva))
         const reservaGuardada = await nuevaReserva.save()
         reserva.id = reservaGuardada.id

@@ -1,5 +1,25 @@
 import mongoose from "mongoose"
 
+const cambioEstadoReservaSchema = new mongoose.Schema({
+    fecha: {
+        type: Date,
+        required: true
+    },
+    estadoReserva: {
+        type: String,
+        required: true
+    },
+    motivo: {
+        type: String,
+        trim: true
+    },
+    usuario: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Usuario',
+        required: true
+    }
+})
+
 const reservaSchema = new mongoose.Schema({
     fechaAlta: {
         type: Date,
@@ -34,9 +54,10 @@ const reservaSchema = new mongoose.Schema({
     precioPorNoche: {
         type: mongoose.Schema.Types.Double,
         required: true
-    }
+    },
+    cambiosEstadoReserva: [cambioEstadoReservaSchema]
     }, {
         collection: 'reservas'
 })
 
-export const reservaModel = mongoose.Model('Reserva', reservaSchema)
+export const reservaModel = mongoose.model('Reserva', reservaSchema)

@@ -1,5 +1,7 @@
-export class EntidadNoEncontrada extends Error {
+import { AppException } from "./app_exception.js";
+
+export class EntidadNoEncontrada extends AppException {
     constructor(mensaje) {
-        super(`Error: ${mensaje}`)
+        super(mensaje, 404, "Entidad no encontrada")
     }
 }

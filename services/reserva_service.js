@@ -26,17 +26,21 @@ export class ReservaService {
             throw new EntidadNoEncontrada(`No se encontro el alojamiento con el identificador ${idHuespedReservador}`)
         }
 
-
-        const reservaNueva = new Reserva(huespedReservador, cantHuespedes, alojamiento, rangoFechas)
-
         if(!alojamiento.estaDisponibleEn(rangoFechas)) {
             throw new ReservaInvalida(`El rango de fechas para reservar el alojamiento ${alojamiento.nombre} no esta disponible entre las fechas ${rangoFechas.fechaInicio} y ${rangoFechas.fechaFin}`)
         }
         if(!alojamiento.puedenAlojarse(cantHuespedes)) {
             throw new ReservaInvalida(`La reserva supero la maxima cantidad de huespedes que el alojamiento ${alojamiento.nombre} permite. La maxima cantidad de huespedes que admite el alojamiento es ${alojamiento.cantHuespedesMax}`)
         }
+
+        const reservaNueva = new Reserva(huespedReservador, cantHuespedes, alojamiento, rangoFechas)
+
+        const reservaGuardada = await this.reservaRepository.crearReserva(reservaNueva)
+        alojamiento.agregarReserva(reservaGuardada)
+        this.alojamientoRepository.actualizarAlojamiento(alojamiento.id, alojamiento)
         
-        return this.reservaRepository.save(reservaNueva)
+        this.usuarioRepository.actualizarUsuario(reservaGuardada.getAnfitrion().id, reservaGuardada.getAnfitrion()) 
+        return reservaGuardada
     }
 
 }

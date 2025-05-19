@@ -1,11 +1,8 @@
-export class DatoFaltanteException extends Error {
+import { AppException } from "./app_exception.js";
+
+export class ValidacionInvalida extends AppException {
     constructor(mensaje) {
-        super(`Error: ${mensaje}`);
+        super(mensaje, 400, "Error de validacion");
     }
 }
 
-export class DatoErroneoException extends Error {
-    constructor(mensaje) {
-        super(`Error: ${mensaje}`);
-    }
-}

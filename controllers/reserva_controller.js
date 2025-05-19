@@ -1,4 +1,4 @@
-import { DatoErroneoException, DatoFaltanteException } from "../exceptions/datos_invalidos"
+import { ValidacionInvalida } from "../exceptions/datos_invalidos"
 
 const aReservaRest = (reserva) => {
     return {
@@ -27,17 +27,21 @@ export class ReservaController {
             const idHuespedReservador = req.body.huespedReservador
             const cantHuespedes = req.body.cantHuespedes
 
-            if(!idAlojamiento || !idHuespedReservador || !cantHuespedes) {
-                throw new DatoFaltanteException('Hacen falta datos para crear la reserva. Se debe indicar el alojamiento, la cantidad de huespedes y el usuario que hace la reservacion')
+            if(typeof idAlojamiento != 'number'  || typeof idHuespedReservador != 'number'  || typeof cantHuespedes != 'number' ) {
+                throw new ValidacionInvalida('Los datos del huesped reservador, la cantidad de huespedes y el codigo del alojamiento son necesarios y deben ser numericos')
             }
 
             if(isNaN(rangoDefechas.fechaInicio) || isNaN(rangoDefechas.fechaFin)) {
-                throw new DatoErroneoException('Tanto la fecha de inicio como la fecha de finalizacion de la reserva deben ser fechas deben estar en el formato aaaa-mm-dd')
+                throw new ValidacionInvalida('Tanto la fecha de inicio como la fecha de finalizacion de la reserva deben ser fechas que deben estar en el formato aaaa-mm-dd')
             }
             const reservaNueva = await this.reservaService.crearReserva(rangoDefechas, idAlojamiento, idHuespedReservador, cantHuespedes)
             res.status(201).json(aReservaRest(reservaNueva))
         } catch (error) {
-            res.status(400).json({error: error.message})
+            if(!error.status) {
+                res.status(500).json({error: "Error en el servidor"})
+            } else {
+                res.status(error.status).json({error: error.message, tipoError: error.nombreError})
+            }
         } 
     }
 }
