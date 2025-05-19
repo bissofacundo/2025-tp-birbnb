@@ -58,6 +58,10 @@
         "error": {
             "type":"string",
             "description": "Muestra un mensaje de error, especificando cual fue"
+        },
+        "tipoError": {
+          "type": "string",
+          "description": "Indica el tipo de error"
         }
       }
     },
@@ -112,7 +116,7 @@
         "content": {
           "application/json": {
             "schema": {
-              "$ref": "#/components/schemas/Product"
+              "$ref": "#/components/schemas/Reserva"
             }
           }
         }
@@ -131,17 +135,17 @@
         }
       },
       "404": {
-        "description": "Producto no encontrado",
+        "description": "No se encontró una entidad",
         "content": {
           "application/json": {
             "schema": {
-              "$ref": "#/components/schemas/NotFoundError"
+              "$ref": "#/components/schemas/Error"
             }
           }
         }
       },
       "409": {
-        "description": "Conflicto (ej. producto ya existente)",
+        "description": "Conflicto ",
         "content": {
           "application/json": {
             "schema": {
@@ -187,7 +191,12 @@
             }
           },
           "400": {
+            "description": "Tuvo un error de validacion o de creación de una reserva invalida",
             "$ref": "#/components/responses/400"
+          },
+          "404": {
+            "description": "No se encontró el alojamiento o el huesped que hace la reservación",
+            "$ref": "#/components/responses/404"
           },
           "500": {
             "$ref": "#/components/responses/500"
