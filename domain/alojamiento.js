@@ -55,8 +55,14 @@ export class Alojamiento {
         }
     }
 
-    tuPrecioEstaDentroDe(valorMinimo, valorMaximo){
-        return this.precioPorNoche > valorMinimo && this.precioPorNoche < valorMaximo
+    tuPrecioEstaDentroDe(valorMinimo, valorMaximo){   
+        if (valorMinimo != null && valorMaximo != null) {
+        return this.precioPorNoche >= valorMinimo && this.precioPorNoche <= valorMaximo;
+    } else if (valorMinimo != null) {
+        return this.precioPorNoche >= valorMinimo;
+    } else if (valorMaximo != null) {
+        return this.precioPorNoche <= valorMaximo;
+    }
     }
 
     tenesCaracteristica(caracteristica){

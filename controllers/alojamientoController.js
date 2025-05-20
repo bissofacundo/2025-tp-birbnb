@@ -12,19 +12,19 @@ export class AlojamientoController{
 
     const alojamiento1 = new Alojamiento(
     "juanperez",
+    "José",
     "Cabaña en el bosque",
-    "Cabaña en el bosque",
-    13000,
+    13000.77,
     "ARS",
     "14:00",
     "11:00",
     "Camino del Bosque 123, Bariloche",
     4,
-    "ewewewewewe",
-    "43434343434343"
+    ["cara1"],
+    "foto1"
     );
-/*
-    alojamiento2 = new Alojamiento(
+
+    const alojamiento2 = new Alojamiento(
     "mariagonzalez",
     "Departamento céntrico",
     "Depto moderno cerca de todo",
@@ -34,9 +34,11 @@ export class AlojamientoController{
     "10:00",
     "Av. Corrientes 2345, CABA",
     2,
+    ["cara2"],
+    "foto2"
     );
 
-    alojamiento3 = new Alojamiento(
+    const alojamiento3 = new Alojamiento(
     "lucasrodriguez",
     "Casa frente al mar",
     "Ideal para familias grandes, a pasos de la playa",
@@ -46,11 +48,10 @@ export class AlojamientoController{
     "12:00",
     "Costanera 456, Mar del Plata",
     6,
-    );*/
-    this.alojamientosMentira = [alojamiento1]
-    console.log("hola");
-    console.log(typeof(alojamiento1.cantHuespedesMax));
-    console.log(this.alojamientosMentira)
+    ["cara1"],
+    "foto1"
+    );
+    this.alojamientosMentira = [alojamiento1,alojamiento2,alojamiento3]
 }
      
 
@@ -58,21 +59,13 @@ export class AlojamientoController{
         try {
             const filters = { // filtros deben ser: ubicación, precio, huéspedes, características.
                 ubicacion : req.query.ubicacion ?.toLowerCase(),
-                precio    : req.query.precio ? parseFloat(req.query.precio) : null ,
+                precioMin : req.query.precioMin ? parseFloat(req.query.precioMin) : null ,
+                precioMax : req.query.precioMax ? parseFloat(req.query.precioMax) : null ,
                 huespedes : req.query.huespedes ? Number(req.query.huespedes) : null ,
-                //Falta implementar Caracteristicas, son muchas
+                caracteristicas : req.query.caracteristicas ?.toLowerCase(),
             };
-            console.log(typeof(filters.huespedes))
-            console.log(filters.huespedes)
-            console.log(this.alojamientosMentira[0].cantHuespedesMax)
-            console.log(this.alojamientosMentira[0].cantHuespedesMax >= filters.huespedes)
-            let resultados = this.alojamientosMentira.filter(aloj =>{
-                const coincideCantHuespedes = filters.huespedes ? 
-                aloj.cantHuespedesMax >= filters.huespedes
-                :true; 
-                return coincideCantHuespedes;
-            });
-            const alojamientos = await this.alojamientoService.muchosAlojamientoADTO(resultados)
+    
+            const alojamientos = await this.alojamientoService.findAll(this.alojamientosMentira,filters)
             console.log("Ejecute el FindALL")
             res.json(alojamientos);
         } catch (error) {
