@@ -1,9 +1,21 @@
 import express from "express"
-import { CambiarEstadoController } from "./controllers/cambiarEstadoController.js"
+import { configurarRutas } from "./routes/routes.js";
+
+import { AlojamientoController } from "./controllers/alojamientoController.js";
+import { AlojamientoService } from "./services/alojamientoService.js";
+
+import dotenv from "dotenv";
+dotenv.config();
+
 const puerto = 3000
 const app = express()
+app.use(express.json()) // es para que entienda/poder usar (req,res)
 
-app.put("/reservas/:id/estado", CambiarEstadoController.cambiarEstado)
+const alojamientoService = new AlojamientoService();
+const alojamientoController = new AlojamientoController(alojamientoService); 
+
+
+configurarRutas(app,{alojamientoController})
 
 app.get("/healthCheck", (req, res) => {
   res.status(200).json({ status: 'La página funciona Correctamente :D' });

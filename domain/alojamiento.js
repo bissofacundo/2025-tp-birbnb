@@ -1,7 +1,7 @@
 import {sumBy} from "lodash-es";
-import { ReservaInvalida, AlojamientoInvalido } from "../exceptions/alojamiento";
-import { Reserva } from "./reserva";
-import { FactoryNotificacion } from "./factory_notificacion";
+import { ReservaInvalida, AlojamientoInvalido } from "../exceptions/alojamiento.js";
+import { Reserva } from "./reserva.js";
+import { FactoryNotificacion } from "./factory_notificacion.js";
 
 export class Alojamiento {
     anfitrion  ;
@@ -22,7 +22,10 @@ export class Alojamiento {
         horarioCheckOut, direccion, cantHuespedesMax,
         caracteristicas, fotos)
     {
-        this.validarParametros()
+        this.validarParametros(
+        anfitrion, nombre, precioPorNoche, moneda,
+        horarioCheckIn, horarioCheckOut, direccion, cantHuespedesMax
+        );
         this.anfitrion = anfitrion
         this.nombre = nombre
         this.descripcion = descripcion
