@@ -4,7 +4,9 @@ export class Caracteristica {
     }
 
     static fromString(token) {
-        return values(Caracteristica).find(caracteristica => caracteristica.nombre.toUpperCase() === token);
+        console.log(token)
+        console.log(Object.values(Caracteristica))
+        return Object.values(Caracteristica).find(caracteristica => caracteristica.nombre.toUpperCase() === token);
     }
 }
 

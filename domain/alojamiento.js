@@ -66,7 +66,7 @@ export class Alojamiento {
     }
 
     tenesCaracteristica(caracteristica){
-        return this.caracteristicas.some(c => c === caracteristica)
+        return this.caracteristicas.some(c => c.nombre === caracteristica)
     }
 
     puedenAlojarse(cantHuespedes){

@@ -58,4 +58,14 @@ export class Direccion {
         return coordenada >= -rango && coordenada <= rango;
     }
 
+    coincideDireccion(filters){
+        const coincideCalle = filters.calle ? filters.calle  === this.calle.toLowerCase() : true;
+        const coincideAltura = filters.altura ? filters.altura === this.altura : true;
+        const coincideCiudad = filters.ciudad ? filters.ciudad === this.ciudad.nombre.toLowerCase() : true;
+        const coincidePais = filters.pais ? filters.pais === this.ciudad.pais.nombre.toLowerCase() : true;
+        const coincideLat = filters.lat ? filters.lat === this.lat : true;
+        const coincideLong = filters.long ? filters.long === this.long : true;
+        return coincideCalle && coincideAltura && coincideCiudad && coincidePais && coincideLat && coincideLong;
+    }
+
 }

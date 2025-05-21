@@ -14,21 +14,22 @@ export class AlojamientoService{
     }
 
     async aplicarFiltro(alojamientosMentira,filters){
-        //Falta hacer bien Direccion
-        return await alojamientosMentira.filter(aloj =>{
-            console.log(filters.precioMin != null || filters.precioMax != null)
+
+        return await alojamientosMentira.filter(aloj =>{ //Este Await se aplica a todo? Pregunta
+            
+            //Me llega un Array con strings
             const coincideCaracteristicas = filters.caracteristicas ?
-            aloj.tenesCaracteristica(filters.caracteristicas)
+            filters.caracteristicas.every(carac=>aloj.tenesCaracteristica(carac))
             :true
 
             const coincidePrecio = filters.precioMin != null || filters.precioMax != null ?  
             aloj.tuPrecioEstaDentroDe(filters.precioMin,filters.precioMax)
             :true
             
-            const coincideDireccion = filters.ubicacion ? //Debería estar en Alojamiento esto? mejorar | Cambiar Direccion
-            aloj.direccion.toLowerCase() == filters.ubicacion
+            const coincideDireccion = !this.esDireccionVacia(filters) ? 
+            aloj.direccion.coincideDireccion(filters)
             :true
-            
+           
             const coincideCantHuespedes =filters.huespedes ?
             aloj.puedenAlojarse(filters.huespedes)
             :true
@@ -47,12 +48,21 @@ export class AlojamientoService{
             "horarioCheckIn": alojamiento.horarioCheckIn,
             "horarioCheckOut": alojamiento.horarioCheckOut,
             "direccion": alojamiento.direccion,
-            "cantHuespedesMax": alojamiento.cantHuespedesMax
-            //Faltan 3 mas que no sé si van
+            "cantHuespedesMax": alojamiento.cantHuespedesMax,
+            "caracteristicas" : alojamiento.caracteristicas
         }
     }
     async muchosAlojamientoADTO(lista) {
     const rta = await Promise.all(lista.map(a => this.alojamientoADTO(a)));
     return rta
+    }
+
+    esDireccionVacia(filters){ // Está bien así o debería ser Async?
+        return  (filters.calle == null || filters.calle === "") &&
+                (filters.altura == null) &&
+                (filters.ciudad == null || filters.ciudad === "") &&
+                (filters.pais == null || filters.pais === "") &&
+                (filters.lat == null) &&
+                (filters.long == null);
     }
 }
