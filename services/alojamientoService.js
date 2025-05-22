@@ -1,68 +1,58 @@
 import { Alojamiento } from "../domain/alojamiento.js";
 
-export class AlojamientoService{
-    //alojamientoRepository
-    constructor(){
-        //this.alojamientoRepository = alojamientoRepository;
+export class AlojamientoService {
+    alojamientoRepository
+    constructor(alojamientoRepository) {
+        this.alojamientoRepository = alojamientoRepository;
     }
-    async findAll(alojamientosMentira,filters){
-        const alojamientosFiltrados = await this.aplicarFiltro(alojamientosMentira,filters) 
-        const respuesta = alojamientosFiltrados ? 
-        this.muchosAlojamientoADTO(alojamientosFiltrados)
-        : [] 
-        return respuesta;
+    async findAll(filters = {}) {
+        const alojamientos = await this.alojamientoRepository.findAll(filters)
+        return alojamientos?alojamientos.map(alojamiento => this.alojamientoADTO(alojamiento)):[];
+    }
+  
+    //Falta implementar bien
+    async create(alojamiento) {
+    const { nombre } = alojamiento;
+    //me debería fijar por direccion en vez de nombre?
+    if (!nombre) {
+        throw new ValidationError('El nombre de la categoría es requerido');
     }
 
-    async aplicarFiltro(alojamientosMentira,filters){
-
-        return await alojamientosMentira.filter(aloj =>{ //Este Await se aplica a todo? Pregunta
-            
-            //Me llega un Array con strings
-            const coincideCaracteristicas = filters.caracteristicas ?
-            filters.caracteristicas.every(carac=>aloj.tenesCaracteristica(carac))
-            :true
-
-            const coincidePrecio = filters.precioMin != null || filters.precioMax != null ?  
-            aloj.tuPrecioEstaDentroDe(filters.precioMin,filters.precioMax)
-            :true
-            
-            const coincideDireccion = !this.esDireccionVacia(filters) ? 
-            aloj.direccion.coincideDireccion(filters)
-            :true
-           
-            const coincideCantHuespedes =filters.huespedes ?
-            aloj.puedenAlojarse(filters.huespedes)
-            :true
-
-            return coincideDireccion & coincidePrecio & coincideCantHuespedes & coincideCaracteristicas;
-        });
+    const existente = await this.categoryRepository.findByName(nombre);
+    if (existente) {
+        throw new ConflictError(`Ya existe una categoría con el nombre ${nombre}`);
     }
+
+    const nuevo = new Alojamiento(nombre);
+    const alojamientoGuardado = await this.alojamientoRepository.save(nuevo);
+    return this.alojamientoADTO(alojamientoGuardado);
+}
 
     async alojamientoADTO(alojamiento){ //Revisar que mando
-        return {
-            "anfitrion": alojamiento.anfitrion,
-            "nombre": alojamiento.nombre,
-            "descripcion": alojamiento.descripcion,
-            "precioPorNoche": alojamiento.precioPorNoche,
-            "moneda": alojamiento.moneda,
-            "horarioCheckIn": alojamiento.horarioCheckIn,
-            "horarioCheckOut": alojamiento.horarioCheckOut,
-            "direccion": alojamiento.direccion,
-            "cantHuespedesMax": alojamiento.cantHuespedesMax,
-            "caracteristicas" : alojamiento.caracteristicas
-        }
+    return {
+        "anfitrion": alojamiento.anfitrion,
+        "nombre": alojamiento.nombre,
+        "descripcion": alojamiento.descripcion,
+        "precioPorNoche": alojamiento.precioPorNoche,
+        "moneda": alojamiento.moneda,
+        "horarioCheckIn": alojamiento.horarioCheckIn,
+        "horarioCheckOut": alojamiento.horarioCheckOut,
+        "direccion": alojamiento.direccion,
+        "cantHuespedesMax": alojamiento.cantHuespedesMax,
+        "caracteristicas": alojamiento.caracteristicas
     }
+}
     async muchosAlojamientoADTO(lista) {
     const rta = await Promise.all(lista.map(a => this.alojamientoADTO(a)));
     return rta
-    }
+}
 
-    esDireccionVacia(filters){ // Está bien así o debería ser Async?
-        return  (filters.calle == null || filters.calle === "") &&
-                (filters.altura == null) &&
-                (filters.ciudad == null || filters.ciudad === "") &&
-                (filters.pais == null || filters.pais === "") &&
-                (filters.lat == null) &&
-                (filters.long == null);
-    }
+esDireccionVacia(filters){ // Está bien así o debería ser Async?
+    return (filters.calle == null || filters.calle === "") &&
+        (filters.altura == null) &&
+        (filters.ciudad == null || filters.ciudad === "") &&
+        (filters.pais == null || filters.pais === "") &&
+        (filters.lat == null) &&
+        (filters.long == null);
+}
 }

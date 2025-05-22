@@ -1,17 +1,21 @@
+import dotenv from "dotenv";
+dotenv.config();
+
 import express from "express"
 import { configurarRutas } from "./routes/routes.js";
+import { MongoDBClient } from "./config/db_config.js";
 
 import { AlojamientoController } from "./controllers/alojamientoController.js";
 import { AlojamientoService } from "./services/alojamientoService.js";
-
-import dotenv from "dotenv";
-dotenv.config();
+import { AlojamientoRepository } from "./repositories/alojamiento_repository.js";
 
 const puerto = 3000
 const app = express()
 app.use(express.json()) // es para que entienda/poder usar (req,res)
 
-const alojamientoService = new AlojamientoService();
+MongoDBClient.connect(); 
+const alojamientoRepo = new AlojamientoRepository();
+const alojamientoService = new AlojamientoService(alojamientoRepo);
 const alojamientoController = new AlojamientoController(alojamientoService); 
 
 
