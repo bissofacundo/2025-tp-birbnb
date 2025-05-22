@@ -1,1 +1,1 @@
-export class AlojamientoRepository {}
+export const AlojamientoRepository = {}

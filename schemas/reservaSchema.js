@@ -13,7 +13,7 @@ const reservaSchema = new mongoose.Schema({
     },
     huespedReservador:{
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'Huesped',
+        ref: 'Usuario',
         required: true
     },
     cantHuespedes:{

@@ -3,7 +3,7 @@ import { NotificationController } from "./notificationController.js"
 import { NotificacionRepository } from "../repositories/notificacion_repository.js"
 import { ReservaService } from "../services/reservaService.js"
 
-export const reservaController = {
+export const ReservaController = {
 
     crearReserva(huespedReservador, cantHuespedes, alojamiento, rangoFechas) {
         mensaje = ""

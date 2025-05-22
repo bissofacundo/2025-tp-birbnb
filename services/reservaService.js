@@ -1,9 +1,9 @@
 import { Reserva } from "../domain/reserva";
-import { HuespedService } from "./huespedService";
+import { UsuarioService } from "./usuarioService";
 import { AlojamientoService } from "./alojamientoService"
 import { ReservaRepository } from "../repositories/reservaRepository";
 
-export class ReservaService {
+export const ReservaService = {
 
     async cancelar(id, motivo){
         reservaMongo = await ReservaRepository.findReservaId(id)
@@ -13,32 +13,32 @@ export class ReservaService {
         const reserva = this.crearReserva(parametrosReserva(reservaMongo))
         reserva.cancelarReserva(motivo)
         return this.guardarReserva(reserva, reservaMongo) //paso la segunda para obtener el ID
-    }
+    },
 
     async eliminarReserva(id){
         const deleted = await ReservaRepository.eliminarReserva(id)
-    }
+    },
 
     async parametrosReserva(reservaMongo){
-        huesped = reservaMongo.huesped
+        usuario = reservaMongo.huespedReservador
         alojamiento = reservaMongo.alojamiento
         return {
-            huespedReservador: HuespedService.crearHuesped(huesped), 
+            huespedReservador: UsuarioService.crearUsuario(usuario), 
             cantHuespedes: reservaMongo.cantHuespedes,
             alojamiento: AlojamientoService.crearAlojamiento(alojamiento), //TODO: creates de los otros Services
             rangoFechas: reservaMongo.reservaFechas
         }
-    }
+    },
 
     async guardarReserva(reserva, reservaMongo){
         AlojamientoService.guardarAlojamiento(reserva.alojamiento, reservaMongo.alojamiento._id)
-        HuespedService.guardarHuesped(reserva.huespedReservador, reservaMongo.huespedReservador._id)
+        UsuarioService.guardarUsuario(reserva.huespedReservador, reservaMongo.huespedReservador._id)
         return await ReservaRepository.guardarReserva(this.reservaADoc(reserva, reservaMongo)) //TODO: saves de los otros Services
-    }
+    },
 
     crearReserva(params){
         return new Reserva(params.huespedReservador, params.cantHuespedes, params.alojamiento, params.rangoFechas)
-    }
+    },
 
     reservaADoc(reserva, reservaMongo) {
         return {

@@ -1,3 +1,3 @@
-export class AlojamientoService {
+export const AlojamientoService = {
     
 }
