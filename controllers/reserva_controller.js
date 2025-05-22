@@ -1,7 +1,7 @@
-import { ReservaRepository } from "../repositories/reservaRepository.js"
+import { ReservaRepository } from "../repositories/reserva_repository.js"
 import { NotificationController } from "./notificationController.js"
 import { NotificacionRepository } from "../repositories/notificacion_repository.js"
-import { ReservaService } from "../services/reservaService.js"
+import { ReservaService } from "../services/reserva_service.js"
 
 export const ReservaController = {
 

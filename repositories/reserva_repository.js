@@ -1,6 +1,6 @@
 //agregar import de ENUMS
 
-import { ReservaModelo } from "../schemas/reservaSchema"
+import { ReservaModelo } from "../schemas/reserva_schema"
 
 export const ReservaRepository = {
 
@@ -15,7 +15,7 @@ export const ReservaRepository = {
     },
 
     async findReservaId(id){
-        return await ReservaModelo.findById(id)
+        return await ReservaModelo.findById(id).populate('huespedReservador').populate('alojamiento')
     },
 
     async eliminarReserva(id){
@@ -25,7 +25,7 @@ export const ReservaRepository = {
 
     async guardarReserva(reserva) {
         const query = reserva.id ? { _id: reserva.id } : { _id: new ReservaModelo()._id }
-        return await this.model.findOneAndUpdate(
+        return await ReservaModelo.findOneAndUpdate(
             query,
             reserva,
             { 

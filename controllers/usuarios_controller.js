@@ -1,4 +1,4 @@
-import { UsuarioRepository } from "../repositories/usuarioRepository";
+import { UsuarioRepository } from "../repositories/usuario_repository";
 
 export const UsuariosController = {
     

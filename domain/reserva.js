@@ -44,14 +44,14 @@ export class Reserva {
 
     actualizarEstadoConNotificacion(estado) {
         this.actualizarEstado(estado)
-        return FactoryNotificacion.crearSegunReserva(reserva)
+        return FactoryNotificacion.crearSegunReserva(this)
     }
 
     //Requerimiento 3
     cancelarReserva(motivo){
         notificacion = this.actualizarEstadoConNotificacion(Estado.CANCELADA)
         notificacion.aniadirMotivo(motivo)
-        this.getAnfitrion().guardarNotificacion(notificacion)
+        return notificacion
     }
 
     getNombreAlojamiento() {

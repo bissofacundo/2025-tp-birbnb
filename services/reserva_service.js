@@ -1,7 +1,7 @@
 import { Reserva } from "../domain/reserva";
 import { UsuarioService } from "./usuarioService";
-import { AlojamientoService } from "./alojamientoService"
-import { ReservaRepository } from "../repositories/reservaRepository";
+import { AlojamientoService } from "./alojamiento_service"
+import { ReservaRepository } from "../repositories/reserva_repository";
 
 export const ReservaService = {
 
@@ -11,7 +11,9 @@ export const ReservaService = {
             console.log("id no encontrado") //cambiar (tiene que tirar error)
         }
         const reserva = this.crearReserva(parametrosReserva(reservaMongo))
-        reserva.cancelarReserva(motivo)
+        notificacion = reserva.cancelarReserva(motivo) //esta notificacion no tiene el id, que es el id del anfitrion, asi que lo obtengo acá abajo
+        notificacion.usuario = reservaMongo.alojamiento.anfitrion
+        UsuarioService.guardarNotificacion(notificacion)
         return this.guardarReserva(reserva, reservaMongo) //paso la segunda para obtener el ID
     },
 
@@ -31,9 +33,9 @@ export const ReservaService = {
     },
 
     async guardarReserva(reserva, reservaMongo){
-        AlojamientoService.guardarAlojamiento(reserva.alojamiento, reservaMongo.alojamiento._id)
-        UsuarioService.guardarUsuario(reserva.huespedReservador, reservaMongo.huespedReservador._id)
-        return await ReservaRepository.guardarReserva(this.reservaADoc(reserva, reservaMongo)) //TODO: saves de los otros Services
+        AlojamientoService.guardarAlojamiento(reserva.alojamiento, reservaMongo.alojamiento) //?
+        UsuarioService.guardarUsuario(reserva.huespedReservador, reservaMongo.huespedReservador) //?
+        return await ReservaRepository.guardarReserva(this.reservaADoc(reserva, reservaMongo)) //TODO: verificar si los otros saves van, si van hacerlos y sino borrar
     },
 
     crearReserva(params){

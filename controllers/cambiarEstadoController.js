@@ -1,4 +1,4 @@
-import { ReservaRepository } from "../repositories/reservaRepository.js"
+import { ReservaRepository } from "../repositories/reserva_repository.js"
 import { NotificationController } from "./notificationController.js"
 import { NotificacionRepository } from "../repositories/notificacion_repository.js"
 import { CambioEstadoReserva } from "../domain/cambio_estado_reserva.js"

@@ -1,7 +1,7 @@
 import express from "express"
 import { CambiarEstadoController } from "./controllers/cambiarEstadoController.js"
-import { ReservaController } from "./controllers/reservaController.js"
-import { UsuariosController } from "./controllers/usuariosController.js"
+import { ReservaController } from "./controllers/reserva_controller.js"
+import { UsuariosController } from "./controllers/usuarios_controller.js"
 import { MongoDBClient } from "./config/database.js"
 const puerto = 3000 //meter en .env
 const app = express()
