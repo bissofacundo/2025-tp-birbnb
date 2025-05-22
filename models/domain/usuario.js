@@ -2,14 +2,14 @@ export class Usuario {
     nombre
     email
     tipoUsuario
-    notificaciones
+    //notificaciones
 
     constructor(nombre, email, tipoUsuario) {
         this.validarDatosIngresados(nombre,email,tipoUsuario);
         this.nombre = nombre;
         this.email = email;
         this.tipoUsuario = tipoUsuario;
-        this.notificaciones = []
+        //this.notificaciones = []
     }
 
     validarEmail(email) {
@@ -26,7 +26,7 @@ export class Usuario {
         }
     }
 
-    guardarNotificacion(notificacion) {
-        this.notificaciones.push(notificacion)
-    }
+    // guardarNotificacion(notificacion) {
+    //     this.notificaciones.push(notificacion)
+    // }
 }

@@ -1,6 +1,6 @@
-import { ReservaRepository } from "../repositories/reservaRepository.js"
+import { ReservaRepository } from "../models/repositories/reservaRepository.js"
 import { NotificationController } from "./notificationController.js"
-import { NotificacionRepository } from "../repositories/notificacion_repository.js"
+import { NotificacionRepository } from "../models/repositories/notificacionRepository.js"
 import { CambioEstadoReserva } from "../domain/cambio_estado_reserva.js"
 
 export const CambiarEstadoController = {

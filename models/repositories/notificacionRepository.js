@@ -1,0 +1,35 @@
+import { NotificacionModel } from "../schemas/notificacionSchema.js"
+
+
+export class NotificacionRepository  {
+    model
+    // notificaciones: [],
+    constructor() {
+        this.model = NotificacionModel;
+    }
+    // guardarNotificacion(notificacion){
+    //     this.notificaciones.push(notificacion)
+    // }
+
+    async encontrarNotificaciones(filtro = {}) {
+        const query = {};
+        if (filtro.usuario) {
+            query.usuario = filtro.usuarioId;
+        }
+        if (filtro.leida !== undefined) {
+            query.leida = filtro.leida;
+        }
+
+        return await this.model.find(query).populate('usuario');
+    }
+
+    async encontrarNotificacionPorId(id) {
+        return await this.model.findById(id).populate('usuario');
+    }
+
+    async actualizarNotificacion(notificacion) {
+        return await this.model.findByIdAndUpdate(notificacion.id, notificacion, { new: true });
+    }
+    
+
+}
