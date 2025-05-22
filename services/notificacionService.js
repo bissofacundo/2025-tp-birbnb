@@ -7,7 +7,7 @@ export class NotificacionService {
         this.notificacionRepository = notificacionRepository;
     }
 
-    async encontrarNotificaciones(filtros = {}) {
+    async encontrarNotificaciones(filtros) {
         const notificaciones = await this.notificacionRepository.encontrarNotificaciones(filtros);
         return notificaciones.map(notificacion => this.aNotificacionREST(notificacion));
     }

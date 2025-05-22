@@ -31,6 +31,8 @@ import express from "express";
 import { Server } from './server/server.js';
 import { MongoDBClient } from "./config/database.js";
 
+import { UsuarioRepository } from "./models/repositories/usuarioRepository.js";
+
 import { NotificacionRepository } from "./models/repositories/notificacionRepository.js";
 import { NotificacionService } from "./services/notificacionService.js";
 import { NotificacionController } from "./controllers/notificacionController.js";
@@ -43,6 +45,8 @@ const server = new Server(app, port);
 MongoDBClient.connect();
 
 // Configuración de dependencias
+
+const repositorioUsuario = new UsuarioRepository();
 
 const repositorioNotificacion = new NotificacionRepository();
 const notificacionService = new NotificacionService(repositorioNotificacion);

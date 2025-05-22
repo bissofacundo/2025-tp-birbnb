@@ -16,7 +16,7 @@ export class NotificacionController  {
     async obtenerNotificaciones(req, res) {
       try { 
         const filtros = {
-            usuario: req.params.id_usuario,
+            id_usuario: req.query.id_usuario,
             leida: req.query.leida
         }
         const notificaciones = await this.notificacionService.encontrarNotificaciones(filtros)
@@ -29,7 +29,7 @@ export class NotificacionController  {
 
     async marcarComoLeida(req, res) {
         try{
-            const notificacionLeida = await this.notificacionService.marcarNotificacionComoLeida(req.params.id)
+            const notificacionLeida = await this.notificacionService.marcarNotificacionComoLeida(req.params.id_notificacion)
             res.status(200).json(notificacionLeida)
         } catch (error) {
             console.error(error)

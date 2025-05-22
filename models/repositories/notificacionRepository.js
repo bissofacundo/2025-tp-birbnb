@@ -1,6 +1,7 @@
 import { NotificacionModel } from "../schemas/notificacionSchema.js"
 
 
+
 export class NotificacionRepository  {
     model
     // notificaciones: [],
@@ -11,10 +12,10 @@ export class NotificacionRepository  {
     //     this.notificaciones.push(notificacion)
     // }
 
-    async encontrarNotificaciones(filtro = {}) {
+    async encontrarNotificaciones(filtro) {
         const query = {};
-        if (filtro.usuario) {
-            query.usuario = filtro.usuarioId;
+        if (filtro.id_usuario) {
+            query.usuario = filtro.id_usuario;
         }
         if (filtro.leida !== undefined) {
             query.leida = filtro.leida;
