@@ -1,7 +1,8 @@
 //agregar import de ENUMS
 
+import { ReservaModelo } from "../schemas/reservaSchema"
+
 export const ReservaRepository = {
-    reservas: [],
 
     cambiarEstado(id, estado){ //TODO: checkear que el ENUM y el id existan
         reservaElegida = this.findReservaId(id)
@@ -9,11 +10,30 @@ export const ReservaRepository = {
         return reservaElegida
     },
 
-    findReservaId(id){
-        return this.reservas.find(e => e.id === id)
-    },
-    
     agregarReserva(nuevaReserva){
         this.reservas.push(nuevaReserva)
+    },
+
+    async findReservaId(id){
+        return await ReservaModelo.findById(id)
+    },
+
+    async eliminarReserva(id){
+        const resultado = await ReservaModelo.findByIdAndDelete(id)
+        return resultado !== null;
+    },
+
+    async guardarReserva(reserva) {
+        const query = reserva.id ? { _id: reserva.id } : { _id: new ReservaModelo()._id }
+        return await this.model.findOneAndUpdate(
+            query,
+            reserva,
+            { 
+                new: true, 
+                runValidators: true,
+                upsert: true
+            }
+        ).populate('huespedReservador').populate('alojamiento');
     }
+
 }
