@@ -7,7 +7,8 @@ export class AlojamientoService {
     }
     async findAll(filters = {}) {
         const alojamientos = await this.alojamientoRepository.findAll(filters)
-        return alojamientos?alojamientos.map(alojamiento => this.alojamientoADTO(alojamiento)):[];
+        const alojamientosDTO = alojamientos?await Promise.all(alojamientos.map(alojamiento => this.alojamientoADTO(alojamiento))):[];
+        return alojamientosDTO
     }
   
     //Falta implementar bien
@@ -29,7 +30,8 @@ export class AlojamientoService {
 }
 
     async alojamientoADTO(alojamiento){ //Revisar que mando
-    return {
+        console.log(alojamiento.anfitrion)
+        const alojamientoDTO = {
         "anfitrion": alojamiento.anfitrion,
         "nombre": alojamiento.nombre,
         "descripcion": alojamiento.descripcion,
@@ -37,10 +39,11 @@ export class AlojamientoService {
         "moneda": alojamiento.moneda,
         "horarioCheckIn": alojamiento.horarioCheckIn,
         "horarioCheckOut": alojamiento.horarioCheckOut,
-        "direccion": alojamiento.direccion,
+        //"direccion": alojamiento.direccion,
         "cantHuespedesMax": alojamiento.cantHuespedesMax,
-        "caracteristicas": alojamiento.caracteristicas
-    }
+        //"caracteristicas": alojamiento.caracteristicas
+    };   //console.log(alojamientoDTO)
+        return alojamientoDTO
 }
     async muchosAlojamientoADTO(lista) {
     const rta = await Promise.all(lista.map(a => this.alojamientoADTO(a)));

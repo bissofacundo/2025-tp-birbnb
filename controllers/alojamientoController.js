@@ -17,7 +17,7 @@ export class AlojamientoController {
 
     async findAll(req, res, next) {
         try {
-            const filters = this.crearFiltro(req)
+            const filters = await this.crearFiltro(req)
 
             const alojamientos = await this.alojamientoService.findAll(filters);
             res.json(alojamientos);
@@ -36,7 +36,6 @@ export class AlojamientoController {
     }
 
     async crearFiltro(req) {
-        
         return {
             calle: req.query.calle,
             altura: req.query.altura,
