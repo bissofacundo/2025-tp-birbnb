@@ -1,4 +1,4 @@
-import { AppException } from "./app_exception.js";
+import { AppException } from "./appException.js";
 
 export class MismoEstado extends AppException {
     constructor(mensaje) {

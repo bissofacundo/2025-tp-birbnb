@@ -1,7 +1,7 @@
 import { ReservaInvalida } from "../exceptions/alojamiento.js"
-import { Estado } from "./enums/estado_reserva.js"
-import { FactoryNotificacion } from "./factory_notificacion.js"
-import { RangoFechas } from "./rango_fechas.js"
+import { Estado } from "./enums/estadoReserva.js"
+import { FactoryNotificacion } from "./factoryNotificacion.js"
+import { RangoFechas } from "./rangoFechas.js"
 export class Reserva {
     fechaAlta
     huespedReservador

@@ -1,6 +1,6 @@
-import { ReservaRepository } from "../repositories/reserva_repository.js"
+import { ReservaRepository } from "../../repositories/reserva_repository.js"
 import { NotificationController } from "./notificationController.js"
-import { NotificacionRepository } from "../repositories/notificacion_repository.js"
+import { NotificacionRepository } from "../../repositories/notificacion_repository.js"
 import { ValidacionInvalida } from "../exceptions/datos_invalidos.js"
 
 export class ReservaController {
