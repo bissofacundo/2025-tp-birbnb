@@ -48,7 +48,8 @@ export class AlojamientoRepository {
         if (filters.caracteristicas && filters.caracteristicas.length > 0) {
             query.caracteristicas = { $all: filters.id_caracteristicas };
         }
-        const alojamientosFiltrados = await this.model.find(query)
+        const alojamientosFiltrados = await this.model.find(query).skip(filters.skip)
+            .limit(filters.limit);
         return alojamientosFiltrados
     }
 

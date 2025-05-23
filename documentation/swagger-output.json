@@ -1,0 +1,102 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "API BIRBNB",
+    "description": "Documentación generada automáticamente",
+    "version": "1.0.0"
+  },
+  "host": "localhost:3000",
+  "basePath": "/",
+  "schemes": [
+    "http"
+  ],
+  "paths": {
+    "/healthCheck": {
+      "get": {
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/alojamientos": {
+      "get": {
+        "tags": ["alojamientos"],
+        "summary" : "Obtener alojamientos",
+        "description": "Obtiene una lista paginada de alojamientos con filtros opcionales",
+        "parameters": [
+          {
+            "name": "page",
+            "in": "query",
+            "description": "Número de página para paginación",
+            "type": "integer"
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "Cantidad máxima de resultados por página",
+            "type": "integer"
+          },
+          {
+            "name": "calle",
+            "in": "query",
+            "description": "Nombre de la calle del alojamiento",
+            "type": "string"
+          },
+          {
+            "name": "altura",
+            "in": "query",
+            "description": "Altura de la calle del alojamiento",
+            "type": "integer"
+          },
+          {
+            "name": "ciudad",
+            "in": "query",
+            "description": "Nombre de la ciudad del alojamiento",
+            "type": "string"
+          },
+          {
+            "name": "pais",
+            "in": "query",
+            "description": "Nombre del país del alojamiento",
+            "type": "string"
+          },
+          {
+            "name": "lat",
+            "in": "query",
+            "description": "Latitud geográfica del alojamiento (no es común filtrar por esto)",
+            "type": "number"
+          },
+          {
+            "name": "long",
+            "in": "query",
+            "description": "Longitud geográfica del alojamiento (no es común filtrar por esto)",
+            "type": "number"
+          },
+          {
+            "name": "huespedes",
+            "in": "query",
+            "description": "Cantidad mínima de huéspedes que debe soportar el alojamiento",
+            "type": "integer"
+          },
+          {
+            "name": "caracteristicas",
+            "in": "query",
+            "description": "Lista de características requeridas, separadas por comas (ej: WIFI,PISCINA)",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+          "description": "Lista de alojamientos"
+        },
+        "500": {
+          "description": "Error al obtener los alojamientos"
+        }
+        }
+      }
+    }
+  }
+}

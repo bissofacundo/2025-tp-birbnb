@@ -19,7 +19,7 @@ export class AlojamientoController {
         try {
             const filters = await this.crearFiltro(req)
 
-            const alojamientos = await this.alojamientoService.findAll(filters);
+            const alojamientos = await this.alojamientoService.findAll(filters) 
             res.json(alojamientos);
         } catch (error) {
             next(error);
@@ -31,12 +31,18 @@ export class AlojamientoController {
             const nuevo = await this.alojamientoService.create(req.body);
             res.status(201).json(nuevo);
         } catch (error) {
-            next(error);
+            if(!error.status) {
+                res.status(500).json({error: "Error en el servidor"})
+            } else {
+                res.status(error.status).json({error: error.message, tipoError: error.nombreError})
+            }
         }
     }
 
     async crearFiltro(req) {
         return {
+            page: req.query.page ? parseInt(req.query.page) : 1,
+            limit: req.query.limit ? parseInt(req.query.limit) : 10,
             calle: req.query.calle,
             altura: req.query.altura,
             ciudad: req.query.ciudad,
