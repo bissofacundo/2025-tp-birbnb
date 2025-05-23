@@ -79,12 +79,6 @@ export class AlojamientoRepository {
         )
         return alojamientoActualizado
     }
-}
-
-export class AlojamientoRepository {
-    constructor() {
-        this.model = AlojamientoModel
-    }
 
     async findAll(filters = {}) {
         const query = {};
@@ -133,14 +127,8 @@ export class AlojamientoRepository {
         return alojamientosFiltrados
     }
 
-    async findById(id){
-        const alojamientosFiltrados = await this.model.findById(id)
-        return alojamientosFiltrados
-    }
-
     async findByNombre(nombre){
         const alojamientosFiltrados = await this.model.findOne({nombre})
         return alojamientosFiltrados
     }
-
 }

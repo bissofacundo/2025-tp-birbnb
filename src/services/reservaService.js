@@ -1,7 +1,7 @@
-import { RangoFechas } from "../domain/rango_fechas.js"
+import { RangoFechas } from "../domain/rangoFechas.js"
 import { ReservaInvalida } from "../exceptions/alojamiento.js"
 import { Reserva } from "../domain/reserva.js"
-import { EntidadNoEncontrada } from "../exceptions/busqueda_entidad.js"
+import { EntidadNoEncontrada } from "../exceptions/busquedaEntidad.js"
 import { Alojamiento } from "../domain/alojamiento.js"
 
 export class ReservaService {
