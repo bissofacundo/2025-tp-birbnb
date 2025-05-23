@@ -23,8 +23,8 @@ export class Reserva {
         this.estado = Estado.PENDIENTE
         this.precioPorNoche = alojamiento.precioPorNoche
         this.cambiosEstadoReserva = []
-        const notificacion =  this.actualizarEstadoConNotificacion(Estado.PENDIENTE, "Creacion Reserva")
-        this.getAnfitrion().guardarNotificacion(notificacion)
+        // const notificacion =  this.actualizarEstadoConNotificacion(Estado.PENDIENTE, "Creacion Reserva")
+        // this.getAnfitrion().guardarNotificacion(notificacion)
     }
 
     validarParametros(cantHuespedes) {

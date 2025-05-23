@@ -1,4 +1,4 @@
-import { reservaModel } from "./schemas/reserva_schema.js"
+import { reservaModel } from "./schemas/reservaSchema.js"
 
 const aDB = (reserva) => {
     const reservaDB = {
@@ -32,5 +32,24 @@ export class ReservaRepository {
         const reservaGuardada = await nuevaReserva.save()
         reserva.id = reservaGuardada.id
         return reserva
+    }
+
+    async save(reserva){
+        if(reserva.id){
+            //Aca actualizo
+            //findByIdAndUpdate
+            //findByIdAndDelete
+        } else {
+            const nuevaReserva = this.reservaModel(aDB(reserva))
+            const reservaGuardada = await nuevaReserva.save()
+            reserva.id = reservaGuardada.id
+            return reserva
+        }
+    }
+
+    async findAll() {
+        const nombre = "pepe"
+        const reservas = await this.reservaModel.findOne({nombre})
+        return reservas
     }
 }

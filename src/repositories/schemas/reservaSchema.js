@@ -1,4 +1,5 @@
 import mongoose from "mongoose"
+import { Reserva } from "../../domain/reserva.js"
 
 const cambioEstadoReservaSchema = new mongoose.Schema({
     fecha: {
@@ -60,4 +61,5 @@ const reservaSchema = new mongoose.Schema({
         collection: 'reservas'
 })
 
+reservaSchema.loadClass(Reserva)
 export const reservaModel = mongoose.model('Reserva', reservaSchema)

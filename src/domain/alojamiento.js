@@ -1,4 +1,4 @@
-import { AlojamientoInvalido } from "../exceptions/alojamiento";
+import { AlojamientoInvalido } from "../exceptions/alojamiento.js";
 
 export class Alojamiento {
     anfitrion;

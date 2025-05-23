@@ -1,20 +1,16 @@
-import dotenv from "dotenv";
-dotenv.config(); 
-
 import express from "express"
-import { MongoDBClient } from "./config/db_config.js";
+import {startServer} from "./src/app/server.js";
+import {buildAppContext} from "./src/app/context.js";
+import { MongoDBClient } from "./src/app/db.js";
+import dotenv from "dotenv";
+
+dotenv.config(); 
 
 const puerto = 3000
 const app = express()
-app.use(express.json())
 
-// eslint-disable-next-line no-undef
 MongoDBClient.connect(process.env)
 
-app.get("/healthCheck", (req, res) => {
-  res.status(200).json({ status: 'La página funciona Correctamente :D' });
-})
+const appContext = buildAppContext()
 
-app.listen(puerto, () => {
-  console.log(`Servidor escuchando en el puerto ${puerto}!`)
-})
+startServer(app, puerto, appContext)
