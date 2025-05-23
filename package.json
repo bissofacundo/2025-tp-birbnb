@@ -2,7 +2,6 @@
   "dependencies": {
     "dotenv": "^16.5.0",
     "express": "^5.1.0",
-    "jest": "^29.7.0",
     "lodash-es": "^4.17.21",
     "mongoose": "^8.15.0",
     "nodemon": "^3.1.10",
@@ -15,14 +14,14 @@
   "type": "module",
   "scripts": {
     "start": "node index.js",
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "node --watch ./index.js",
-    "dev2": "nodemon index.js"
+    "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js ./test/unit",
+    "dev": "node --watch ./index.js"
   },
   "author": "",
   "license": "ISC",
   "description": "",
   "devDependencies": {
+    "jest": "^29.7.0",
     "swagger-autogen": "^2.23.7"
   }
 }
