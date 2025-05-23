@@ -14,6 +14,8 @@ export const ReservaService = {
         notificacion = reserva.cancelarReserva(motivo) //esta notificacion no tiene el id, que es el id del anfitrion, asi que lo obtengo acá abajo
         notificacion.usuario = reservaMongo.alojamiento.anfitrion
         UsuarioService.guardarNotificacion(notificacion)
+        /*reservaMongo.cancelarReserva(motivo)
+        return await ReservaRepository.guardarReserva(this.reservaADoc(reservaMongo))*/
         return this.guardarReserva(reserva, reservaMongo) //paso la segunda para obtener el ID
     },
 
@@ -55,4 +57,18 @@ export const ReservaService = {
         }
 
     }
+
+    /*reservaADoc(reservaMongo) {
+        return {
+            id: reservaMongo._id,
+            fechaAlta: reservaMongo.fechaAlta,
+            huespedReservador: reservaMongo.huespedReservador._id,
+            cantHuespedes: reservaMongo.cantHuespedes,
+            alojamiento: reservaMongo.alojamiento._id,
+            rangoFechas: reservaMongo.rangoFechas,
+            estado: reservaMongo.estado,
+            precioPorNoche: reservaMongo.precioPorNoche
+        }
+
+    }*/
 }

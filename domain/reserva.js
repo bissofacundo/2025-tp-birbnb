@@ -52,6 +52,7 @@ export class Reserva {
         notificacion = this.actualizarEstadoConNotificacion(Estado.CANCELADA)
         notificacion.aniadirMotivo(motivo)
         return notificacion
+        /*this.getAnfitrion().guardarNotificacion(notificacion)*/
     }
 
     getNombreAlojamiento() {
