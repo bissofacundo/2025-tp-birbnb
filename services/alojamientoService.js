@@ -30,7 +30,7 @@ export class AlojamientoService {
 }
 
     async alojamientoADTO(alojamiento){ //Revisar que mando
-        console.log(alojamiento.anfitrion)
+        
         const alojamientoDTO = {
         "anfitrion": alojamiento.anfitrion,
         "nombre": alojamiento.nombre,
@@ -45,17 +45,5 @@ export class AlojamientoService {
     };   //console.log(alojamientoDTO)
         return alojamientoDTO
 }
-    async muchosAlojamientoADTO(lista) {
-    const rta = await Promise.all(lista.map(a => this.alojamientoADTO(a)));
-    return rta
-}
 
-esDireccionVacia(filters){ // Está bien así o debería ser Async?
-    return (filters.calle == null || filters.calle === "") &&
-        (filters.altura == null) &&
-        (filters.ciudad == null || filters.ciudad === "") &&
-        (filters.pais == null || filters.pais === "") &&
-        (filters.lat == null) &&
-        (filters.long == null);
-}
 }

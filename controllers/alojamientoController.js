@@ -1,13 +1,3 @@
-
-import { toLower } from "lodash-es";
-import { Alojamiento } from "../domain/alojamiento.js";
-import { Direccion } from "../domain/direccion.js";
-import { Pais } from "../domain/direccion.js";
-import { Ciudad } from "../domain/direccion.js";
-import { Caracteristica } from "../domain/enums/caracteristica.js";
-
-
-
 export class AlojamientoController {
     alojamientoService
     constructor(alojamientoService) {
