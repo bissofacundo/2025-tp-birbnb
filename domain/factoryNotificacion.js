@@ -1,4 +1,4 @@
-import { Estado } from "./enums/estado_reserva.js"
+import { Estado } from "./enums/estadoReserva.js"
 import { Notificacion } from "./notificacion.js"
 
 export const FactoryNotificacion = {

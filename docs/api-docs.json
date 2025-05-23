@@ -1,0 +1,290 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "API de Birbnb",
+    "version": "1.0.0",
+    "description": "API para gestionar productos"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:3000/api",
+      "description": "Servidor local de desarrollo"
+    }
+  ],
+  "components": {
+    "schemas": {
+      "Reserva": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "description": "ID único de la reserva",
+            "readOnly": true
+          },
+          "huespedReservador": {
+            "type": "object",
+            "description": "El usuario huesped que crea la reserva"
+          },
+          "cantHuespedes": {
+            "type": "number",
+            "format": "integer",
+            "description": "Cantidad de huespedes que se hospedarán"
+          },
+          "alojamiento": {
+            "type": "object",
+            "description": "El alojamiento relacionado a la reserva"
+          },
+          "fechaInicio": {
+            "type": "date",
+            "description": "Fecha con la que inicia la reserva"
+          },
+          "fechaFin": {
+            "type": "date",
+            "description": "Fecha con la que termina la reserva"
+          },
+          "estado": {
+            "type": "string",
+            "description": "Estado de la reserva. Puede ser pendiente, aceptada o rechazada"
+          },
+          "precioPorNoche": {
+            "type": "number",
+            "description": "El precio que sale el alojamiento por noche"
+          }
+
+        },
+        "required": ["cantHuespedes", "alojamiento", "huespedReservador", "fechaInicio", "fechaFin"]
+      },
+      "Error": {
+        "error": {
+            "type":"string",
+            "description": "Muestra un mensaje de error, especificando cual fue"
+        },
+        "tipoError": {
+          "type": "string",
+          "description": "Indica el tipo de error"
+        }
+      }
+    },
+    "parameters": {
+      "reservaId": {
+        "name": "id",
+        "in": "path",
+        "description": "ID de la reserva a manipular",
+        "required": true,
+        "schema": {
+          "type": "integer"
+        }
+      },
+      "page": {
+        "name": "page",
+        "in": "query",
+        "description": "Número de página para la paginación",
+        "schema": {
+          "type": "integer",
+          "default": 1
+        }
+      },
+      "limit": {
+        "name": "limit",
+        "in": "query",
+        "description": "Cantidad de alojamientos por página",
+        "schema": {
+          "type": "integer",
+          "default": 10
+        }
+      }
+    },
+    "requestBodies": {
+      "ReservaPayload": {
+        "description": "Datos para crear o actualizar una Reserva",
+        "required": true,
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/Reserva"
+            }
+          }
+        }
+      }
+    },
+    "responses": {
+      "200": {
+        "description": "Operación exitosa"
+      },
+      "201": {
+        "description": "Reserva creada exitosamente",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/Reserva"
+            }
+          }
+        }
+      },
+      "204": {
+        "description": "Operación exitosa sin contenido (ej. eliminación)"
+      },
+      "400": {
+        "description": "Solicitud inválida",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/Error"
+            }
+          }
+        }
+      },
+      "404": {
+        "description": "No se encontró una entidad",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/Error"
+            }
+          }
+        }
+      },
+      "409": {
+        "description": "Conflicto ",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/Error"
+            }
+          }
+        }
+      },
+      "500": {
+        "description": "Error interno del servidor",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "error": {
+                  "type": "string",
+                  "description": "Detalles del error"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "paths": {
+    "/reservas": {
+      "post": {
+        "summary": "Crear una reserva nueva",
+        "requestBody": {
+          "$ref": "#/components/requestBodies/ReservaPayload"
+        },
+        "responses": {
+          "201": {
+            "description": "Se creo una reserva nueva",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Reserva"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Tuvo un error de validacion o de creación de una reserva invalida",
+            "$ref": "#/components/responses/400"
+          },
+          "404": {
+            "description": "No se encontró el alojamiento o el huesped que hace la reservación",
+            "$ref": "#/components/responses/404"
+          },
+          "500": {
+            "$ref": "#/components/responses/500"
+          }
+        }
+      }
+    },
+    "/products/{id}": {
+      "get": {
+        "summary": "Obtener un producto por su ID",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/reservaId"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Información del producto",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Product"
+                }
+              }
+            }
+          },
+          "404": {
+            "$ref": "#/components/responses/404"
+          },
+          "500": {
+            "$ref": "#/components/responses/500"
+          }
+        }
+      },
+      "delete": {
+        "summary": "Eliminar un producto por su ID",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/reservaId"
+          }
+        ],
+        "responses": {
+          "204": {
+            "$ref": "#/components/responses/204"
+          },
+          "404": {
+            "$ref": "#/components/responses/404"
+          },
+          "500": {
+            "$ref": "#/components/responses/500"
+          }
+        }
+      },
+      "put": {
+        "summary": "Actualizar un producto por su ID",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/reservaId"
+          }
+        ],
+        "requestBody": {
+          "$ref": "#/components/requestBodies/ReservaPayload"
+        },
+        "responses": {
+          "200": {
+            "description": "Producto actualizado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Product"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/400"
+          },
+          "404": {
+            "$ref": "#/components/responses/404"
+          },
+          "409": {
+            "$ref": "#/components/responses/409"
+          },
+          "500": {
+            "$ref": "#/components/responses/500"
+          }
+        }
+      }
+    }
+  }
+}

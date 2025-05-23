@@ -1,4 +1,4 @@
-import { RangoFechasInvalido } from "../exceptions/rango_fechas.js"
+import { RangoFechasInvalido } from "../exceptions/rangoFechas.js"
 
 const CANTMILISEGUNDOSPORSEGUNDO = 1000
 const CANTSEGUNDOSPORHORA = 3600
@@ -14,7 +14,7 @@ export class RangoFechas {
     }
 
     validarFechasIngresadas(inicio, fin) {
-        if (!inicio || !fin) {
+        if (!inicio || !fin || [inicio, fin].some(fecha => !(fecha instanceof Date) )) {
             throw new RangoFechasInvalido(`El rango de fechas requiere fecha inicial y final, se recibio fechaInicio: ${inicio}, fechaFin: ${fin}`);
         }
 
@@ -34,8 +34,8 @@ export class RangoFechas {
     }
 
     cantidadDias() {
-        duracionEnMiliseg = this.fechaFin.getTime() - this.fechaInicio.getTime()
-        duracionEnDias = this.tranformarMilisegADias(duracionEnMiliseg)
+        const duracionEnMiliseg = this.fechaFin.getTime() - this.fechaInicio.getTime()
+        const duracionEnDias = this.tranformarMilisegADias(duracionEnMiliseg)
         return Math.round(duracionEnDias)
     }
 

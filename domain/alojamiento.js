@@ -1,7 +1,4 @@
-import {sumBy} from "lodash-es";
-import { ReservaInvalida, AlojamientoInvalido } from "../exceptions/alojamiento";
-import { Reserva } from "./reserva";
-import { FactoryNotificacion } from "./factory_notificacion";
+import { AlojamientoInvalido } from "../exceptions/alojamiento.js";
 
 export class Alojamiento {
     anfitrion;
@@ -22,7 +19,9 @@ export class Alojamiento {
         horarioCheckOut, direccion, cantHuespedesMax,
         caracteristicas, fotos)
     {
-        this.validarParametros()
+        this.validarParametros(anfitrion, nombre,
+        precioPorNoche, moneda, horarioCheckIn,
+        horarioCheckOut, direccion, cantHuespedesMax)
         this.anfitrion = anfitrion
         this.nombre = nombre
         this.descripcion = descripcion
@@ -39,8 +38,7 @@ export class Alojamiento {
 
     validarParametros(anfitrion, nombre,
         precioPorNoche, moneda, horarioCheckIn,
-        horarioCheckOut, direccion, cantHuespedesMax
-        ) {
+        horarioCheckOut, direccion, cantHuespedesMax) {
         if ([anfitrion, nombre,
             precioPorNoche, moneda, horarioCheckIn,
             horarioCheckOut, direccion, cantHuespedesMax].some(v => !v)) {
@@ -52,6 +50,12 @@ export class Alojamiento {
         }
     }
 
+    static build(){
+        return new Alojamiento("Hola", "El pinzon", "Una linda casa para veranear",
+                150000, "Hola", "horarioCheckIn",
+                "horarioCheckOut", "direccion", 15)
+    }
+
     tuPrecioEstaDentroDe(valorMinimo, valorMaximo){
         return this.precioPorNoche > valorMinimo && this.precioPorNoche < valorMaximo
     }
@@ -61,10 +65,10 @@ export class Alojamiento {
     }
 
     puedenAlojarse(cantHuespedes){
-        return (this.cantHuespedesMax - sumBy(this.reservas, r => r.cantHuespedes)) >= cantHuespedes
+        return this.cantHuespedesMax >= cantHuespedes
     }
 
-    estasDisponibleEn(rangoDeFechas){
+    estaDisponibleEn(rangoDeFechas){
         return !this.reservas.some(r => r.teSuperponesCon(rangoDeFechas))
     }
 

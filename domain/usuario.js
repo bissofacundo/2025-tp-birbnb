@@ -1,3 +1,5 @@
+import { UsuarioInvalido } from "../exceptions/usuario.js"
+
 export class Usuario {
     nombre
     email

@@ -1,3 +1,5 @@
+import { values } from "lodash-es";
+
 export class Moneda  {
     nombre;
 
@@ -7,7 +9,11 @@ export class Moneda  {
 
     static fromString(token){
         return values(Moneda).find(mon => mon.nombre.toUpperCase() === token)
-      }
+    }
+
+    toString() {
+        return this.nombre.toUpperCase()
+    }
 }
 
 Moneda.DOLAR_USA = new Moneda("DOLAR_USA")

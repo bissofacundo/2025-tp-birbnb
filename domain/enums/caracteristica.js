@@ -1,3 +1,5 @@
+import { values } from "lodash-es";
+
 export class Caracteristica {
     constructor(nombre) {
         this.nombre = nombre;
@@ -5,6 +7,10 @@ export class Caracteristica {
 
     static fromString(token) {
         return values(Caracteristica).find(caracteristica => caracteristica.nombre.toUpperCase() === token);
+    }
+
+    toString() {
+        return this.nombre.toUpperCase()
     }
 }
 
