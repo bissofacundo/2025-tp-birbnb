@@ -1,11 +1,15 @@
 import { Reserva } from "../domain/reserva.js";
-import { UsuarioService } from "./usuario_service.js";
-import { AlojamientoService } from "./alojamiento_service.js"
 import { ReservaRepository } from "../repositories/reserva_repository.js";
 import { EntidadNoEncontrada } from "../exceptions/busqueda_entidad.js";
 import { MismoEstado } from "../exceptions/mismo_estado.js";
 
-export const ReservaService = {
+export class ReservaService {
+    reservaReposistory
+    usuarioService
+    constructor(reservaReposistory, usuarioService){
+        this.reservaReposistory = reservaReposistory
+        this.usuarioService = usuarioService
+    }
 
     async cancelar(id, motivo){
         reservaMongo = await ReservaRepository.findReservaId(id)
@@ -19,18 +23,18 @@ export const ReservaService = {
         idAnfitrion = reservaMongo.getAnfitrion().id
         notificacion = reservaMongo.cancelarReserva(motivo) //esta notificacion no tiene el id, que es el id del anfitrion, asi que lo obtengo acá abajo
         //notificacion.usuario = reservaMongo.alojamiento.anfitrion
-        UsuarioService.guardarNotificacion(idAnfitrion, notificacion)
+        this.usuarioService.guardarNotificacion(idAnfitrion, notificacion).bind(this)
         /*reservaMongo.cancelarReserva(motivo)
         return await ReservaRepository.guardarReserva(this.reservaADoc(reservaMongo))*/
         //return this.guardarReserva(reserva, reservaMongo) //paso la segunda para obtener el ID
         return this.guardarReserva(reservaMongo)
-    },
+    }
 
     async eliminarReserva(id){
         const deleted = await ReservaRepository.eliminarReserva(id)
-    },
+    }
 
-    async parametrosReserva(reservaMongo){
+    /*async parametrosReserva(reservaMongo){
         usuario = reservaMongo.huespedReservador
         alojamiento = reservaMongo.alojamiento
         return {
@@ -39,17 +43,17 @@ export const ReservaService = {
             alojamiento: AlojamientoService.crearAlojamiento(alojamiento), //TODO: creates de los otros Services
             rangoFechas: reservaMongo.reservaFechas
         }
-    },
+    }*/
 
     async guardarReserva(reservaMongo){
-        AlojamientoService.guardarAlojamiento(reservaMongo.alojamiento) //?
-        UsuarioService.guardarUsuario(reservaMongo.huespedReservador) //?
+        //AlojamientoService.guardarAlojamiento(reservaMongo.alojamiento) //?
+        //UsuarioService.guardarUsuario(reservaMongo.huespedReservador) //?
         return await ReservaRepository.guardarReserva(this.reservaADoc(reservaMongo)) //TODO: verificar si los otros saves van, si van hacerlos y sino borrar
-    },
+    }
 
     crearReserva(params){
         return new Reserva(params.huespedReservador, params.cantHuespedes, params.alojamiento, params.rangoFechas)
-    },
+    }
 
     /*reservaADoc(reserva, reservaMongo) {
         return {

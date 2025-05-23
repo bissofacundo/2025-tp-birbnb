@@ -3,4 +3,4 @@ export const AlojamientoService = {
         UsuarioService.guardarUsuario(alojamiento.anfitrion, alojamientoMongo.anfitrion)
         return await ReservaRepository.guardarReserva(this.reservaADoc(reserva, reservaMongo))
     }
-}
+} //borrar

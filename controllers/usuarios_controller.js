@@ -1,7 +1,10 @@
 import { ValidacionInvalida } from "../exceptions/datos_invalidos.js";
-import { UsuarioRepository } from "../repositories/usuario_repository.js";
 
-export const UsuariosController = {
+export class UsuariosController{
+    usuarioRepository
+    constructor(usuarioRepository) {
+        this.usuarioRepository = usuarioRepository
+    }
     
     async obtenerReservas(req, res){
         try {
@@ -11,7 +14,7 @@ export const UsuariosController = {
                 throw new ValidacionInvalida('el id debe ser un numero')
             }
 
-            reservas = await UsuarioRepository.obtenerReservas(id)
+            reservas = await this.usuarioRepository.obtenerReservas(id).bind(this)
 
             if(!reservas){
                 throw new ColeccionVacia('No hay ninguna reserva en la coleccion')
@@ -24,7 +27,7 @@ export const UsuariosController = {
                 res.status(error.status).json({error: error.message, tipoError: error.nombreError})
             }
         }
-    },
+    }
 
     toDTO(reserva) {
 

@@ -1,10 +1,13 @@
 import { ReservaRepository } from "../repositories/reserva_repository.js"
 import { NotificationController } from "./notificationController.js"
 import { NotificacionRepository } from "../repositories/notificacion_repository.js"
-import { ReservaService } from "../services/reserva_service.js"
 import { ValidacionInvalida } from "../exceptions/datos_invalidos.js"
 
-export const ReservaController = {
+export class ReservaController {
+    reservaService
+    constructor(reservaService) {
+        this.reservaService = reservaService
+    }
 
     crearReserva(huespedReservador, cantHuespedes, alojamiento, rangoFechas) {
         mensaje = ""
@@ -13,7 +16,7 @@ export const ReservaController = {
         NotificacionRepository.guardarNotificacion(notificacion)
         ReservaRepository.agregarReserva(nuevaReserva)
         return nuevaReserva
-    },
+    }
 
     async cancelarReserva(req, res){
         try {
@@ -25,7 +28,7 @@ export const ReservaController = {
             if(typeof id !== 'number'){
                 throw new ValidacionInvalida('el id debe ser un numero')
             }
-            reservaCancelada = await ReservaService.cancelar(id, motivo)
+            reservaCancelada = await this.reservaService.cancelar(id, motivo).bind(this)
             res.json(reservaCancelada);
         } catch (error) {
             if(!error.status) {
