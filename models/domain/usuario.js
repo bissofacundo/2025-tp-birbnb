@@ -1,3 +1,6 @@
+import {UsuarioInvalido} from '../../exceptions/usuario.js';
+
+
 export class Usuario {
     nombre
     email
@@ -19,7 +22,8 @@ export class Usuario {
 
     validarDatosIngresados(nombre,email,tipo) {
         if(!nombre || !email || !tipo) {
-            throw new UsuarioInvalido(`El nombre, el email y el tipo de usuario son obligatorios, se recibio nombre: ${nombre}, email: ${email} y tipo: ${tipo}`);
+            const tipoUsuario = tipo ? tipo.tipoUsuario : null;
+            throw new UsuarioInvalido(`El nombre, el email y el tipo de usuario son obligatorios, se recibio nombre: ${nombre}, email: ${email} y tipo: ${tipoUsuario}`);
         }
         if(!this.validarEmail(email)) {
             throw new UsuarioInvalido(`El email ingresado tiene un formato invalido, se recibio: ${email}`);
