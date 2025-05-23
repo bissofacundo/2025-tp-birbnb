@@ -1,4 +1,4 @@
-import { NotificacionRepository } from "../repositories/notificacion_repository"
+import { NotificacionRepository } from "../repositories/notificacion_repository.js"
 
 export const NotificacionService = {
     async crearNotificacion(notificacion){

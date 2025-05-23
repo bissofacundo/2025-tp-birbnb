@@ -1,5 +1,5 @@
-import { UsuarioModelo } from "../schemas/usuario_schema";
-import { ReservaModelo } from "../schemas/reserva_schema";
+import { UsuarioModelo } from "../schemas/usuario_schema.js";
+import { ReservaModelo } from "../schemas/reserva_schema.js";
 
 export const UsuarioRepository = {
 

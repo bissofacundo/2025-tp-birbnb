@@ -1,5 +1,5 @@
 import mongoose from "mongoose"
-import { Reserva } from "../domain/reserva"
+import { Reserva } from "../domain/reserva.js"
 
 const rangoFechasSchema = new mongoose.Schema({
     fechaInicio: Date,

@@ -19,7 +19,7 @@ app.listen(puerto, () => {
   console.log(`Servidor escuchando en el puerto ${puerto}!`)
 })
 
-app.patch("/reservas/:id", (req, res) => {
+app.patch("/reservas/:id", (req, res) => { //delete?
   ReservaController.cancelarReserva(req, res)
 })
 

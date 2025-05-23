@@ -1,4 +1,4 @@
-import { NotificacionModelo } from "../schemas/notificacion_schema";
+import { NotificacionModelo } from "../schemas/notificacion_schema.js";
 
 export const NotificacionRepository = {
 

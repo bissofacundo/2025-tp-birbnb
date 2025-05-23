@@ -1,5 +1,5 @@
 import mongoose from "mongoose"
-import { Usuario } from "../domain/usuario"
+import { Usuario } from "../domain/usuario.js"
 
 const usuarioSchema = new mongoose.Schema({
     nombre:{

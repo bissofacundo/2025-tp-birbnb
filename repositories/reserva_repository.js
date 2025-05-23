@@ -1,6 +1,6 @@
 //agregar import de ENUMS
 
-import { ReservaModelo } from "../schemas/reserva_schema"
+import { ReservaModelo } from "../schemas/reserva_schema.js"
 
 export const ReservaRepository = {
 
