@@ -5,10 +5,10 @@ import { MismoEstado } from "../exceptions/mismo_estado.js";
 
 export class ReservaService {
     reservaReposistory
-    usuarioService
-    constructor(reservaReposistory, usuarioService){
+    usuariosService
+    constructor(reservaReposistory, usuariosService){
         this.reservaReposistory = reservaReposistory
-        this.usuarioService = usuarioService
+        this.usuariosService = usuariosService
     }
 
     async cancelar(id, motivo){
@@ -23,7 +23,7 @@ export class ReservaService {
         idAnfitrion = reservaMongo.getAnfitrion().id
         notificacion = reservaMongo.cancelarReserva(motivo) //esta notificacion no tiene el id, que es el id del anfitrion, asi que lo obtengo acá abajo
         //notificacion.usuario = reservaMongo.alojamiento.anfitrion
-        this.usuarioService.guardarNotificacion(idAnfitrion, notificacion).bind(this)
+        this.usuariosService.guardarNotificacion(idAnfitrion, notificacion).bind(this)
         /*reservaMongo.cancelarReserva(motivo)
         return await ReservaRepository.guardarReserva(this.reservaADoc(reservaMongo))*/
         //return this.guardarReserva(reserva, reservaMongo) //paso la segunda para obtener el ID

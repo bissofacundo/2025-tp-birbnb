@@ -1,14 +1,14 @@
 
-export class UsuarioService {
-    usuarioRepository
+export class UsuariosService {
+    usuariosRepository
     notificacionService
-    constructor(usuarioRepository, notificacionService){
-        this.usuarioRepository = usuarioRepository
+    constructor(usuariosRepository, notificacionService){
+        this.usuariosRepository = usuariosRepository
         this.notificacionService = notificacionService
     }
 
     async guardarNotificacion(id, notificacion){
         notificacionMongo = await NotificacionService.crearNotificacion(notificacion)
-        return this.usuarioRepository.agregarNotificacion(id, notificacionMongo.id).bind(this)
+        return this.usuariosRepository.agregarNotificacion(id, notificacionMongo.id).bind(this)
     }
 }

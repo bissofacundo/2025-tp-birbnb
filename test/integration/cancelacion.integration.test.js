@@ -9,6 +9,9 @@ import { Notificacion } from "../../domain/notificacion.js"
 import { ReservaController } from "../../controllers/reserva_controller.js"
 import { UsuariosController } from "../../controllers/usuarios_controller.js"
 import { Reserva } from "../../domain/reserva.js"
+import { ReservaService } from "../../services/reserva_service.js"
+import { UsuariosService } from "../../services/usuario_service.js"
+import { NotificacionService } from "../../services/notificacion_service.js"
 
 const app = express()
 
@@ -53,14 +56,19 @@ const reservaRepository = {
     })
 }
 
+const notificacionService = new NotificacionService(notificacionRepository)
+const usuariosService = new UsuariosService(usuarioRepository, notificacionService)
+const reservaService = new ReservaService(reservaRepository, usuariosService)
 
+const usuariosController = new UsuariosController(usuarioRepository)
+const reservaController = new ReservaController(reservaService)
 
 app.use(express.json())
 app.patch("/reservas/:id", (req, res) => {
-  ReservaController.cancelarReserva(req, res)
+  reservaController.cancelarReserva(req, res)
 })
 app.get("/usuarios/:id/reservas", (req, res) => {
-  UsuariosController.obtenerReservas(req, res)
+  usuariosController.obtenerReservas(req, res)
 })
 
 describe("PATCH /reservas/:id", () => {

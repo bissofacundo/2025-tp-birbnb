@@ -1,7 +1,7 @@
 import { UsuarioModelo } from "../schemas/usuario_schema.js";
 import { ReservaModelo } from "../schemas/reserva_schema.js";
 
-export const UsuarioRepository = {
+export const UsuariosRepository = {
 
     async agaregarNotificacion(usuarioId, notificacionId){
         return await UsuarioModelo.findByIdAndUpdate(usuarioId,

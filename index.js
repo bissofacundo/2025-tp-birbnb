@@ -3,9 +3,9 @@ import { CambiarEstadoController } from "./controllers/cambiarEstadoController.j
 import { ReservaController } from "./controllers/reserva_controller.js"
 import { UsuariosController } from "./controllers/usuarios_controller.js"
 import { MongoDBClient } from "./config/database.js"
-import { UsuarioRepository } from "./repositories/usuario_repository.js"
+import { UsuariosRepository } from "./repositories/usuario_repository.js"
 import { ReservaService } from "./services/reserva_service.js"
-import { UsuarioService } from "./services/usuario_service.js"
+import { UsuariosService } from "./services/usuario_service.js"
 import { NotificacionService } from "./services/notificacion_service.js"
 import { NotificacionRepository } from "./repositories/notificacion_repository.js"
 import { ReservaRepository } from "./repositories/reserva_repository.js"
@@ -16,10 +16,10 @@ app.use(express.json())
 MongoDBClient.connect()
 
 const notificacionService = new NotificacionService(NotificacionRepository)
-const usuarioService = new UsuarioService(UsuarioRepository, notificacionService)
-const reservaService = new ReservaService(ReservaRepository, usuarioService)
+const usuariosService = new UsuariosService(UsuariosRepository, notificacionService)
+const reservaService = new ReservaService(ReservaRepository, usuariosService)
 
-const usuariosController = new UsuariosController(UsuarioRepository)
+const usuariosController = new UsuariosController(UsuariosRepository)
 const reservaController = new ReservaController(reservaService)
 
 app.put("/reservas/:id/estado", CambiarEstadoController.cambiarEstado)
