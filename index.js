@@ -49,7 +49,7 @@ MongoDBClient.connect();
 const repositorioUsuario = new UsuarioRepository();
 
 const repositorioNotificacion = new NotificacionRepository();
-const notificacionService = new NotificacionService(repositorioNotificacion);
+const notificacionService = new NotificacionService(repositorioNotificacion, repositorioUsuario);
 const notificacionController = new NotificacionController(notificacionService);
 
 // Registro de controladores en el servidor

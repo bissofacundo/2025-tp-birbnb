@@ -28,6 +28,13 @@ export class NotificacionRepository  {
         return await this.model.findById(id).populate('usuario');
     }
 
+    async guardarNotificacion(notificacion) {
+        const nuevaNotificacion = new this.model(notificacion);
+        const notificacionGuardada = await nuevaNotificacion.save();
+
+        return notificacionGuardada;
+    }
+
     async actualizarNotificacion(notificacion) {
         return await this.model.findByIdAndUpdate(notificacion.id, notificacion, { new: true });
     }
