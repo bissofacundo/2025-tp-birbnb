@@ -9,7 +9,7 @@ export class Usuario {
         this.nombre = nombre;
         this.email = email;
         this.tipoUsuario = tipoUsuario;
-        this.notificaciones = []
+        //this.notificaciones = []
     }
 
     validarEmail(email) {
