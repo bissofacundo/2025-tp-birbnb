@@ -18,12 +18,13 @@ const app = express()
 const anfitrionPrueba = new Usuario("Perez", "perez@hotmail.com", TipoUsuario.ANFITRION)
 const huespedPrueba = new Usuario("Juan", "juan2000@gmail.com", TipoUsuario.HUESPED)
 
-const reservaPrueba = new Reserva(huespedPrueba, 2, alojamientoPrueba, {fechaInicio: "2025-02-14", fechaFin: "2025-03-15"})
 
 const alojamientoPrueba = new Alojamiento(anfitrionPrueba, "El pinzon", "Una linda casa para veranear",
     150000, Moneda.PESO_ARG, "horarioCheckIn",
     "horarioCheckOut", "direccion", 15
 )
+
+const reservaPrueba = new Reserva(huespedPrueba, 2, alojamientoPrueba, {fechaInicio: "2025-02-14", fechaFin: "2025-03-15"})
 
 const notificacionPrueba = new Notificacion(anfitrionPrueba, "prueba")
 
@@ -35,10 +36,10 @@ const notificacionRepository = {
 }
 
 const usuarioRepository = {
-    agaregarNotificacion: jest.fn((usuarioId, notificacionId) => 
-        huespedPrueba.id = usuarioId,
+    agaregarNotificacion: jest.fn((usuarioId, notificacionId) => {
+        huespedPrueba.id = usuarioId
         huespedPrueba.notificaciones.push(notificacionId)
-    ),
+    }),
     obtenerReservas: jest.fn().mockResolvedValue(
         [reservaPrueba]
     )
