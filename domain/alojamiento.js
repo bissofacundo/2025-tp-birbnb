@@ -1,4 +1,4 @@
-import { AlojamientoInvalido } from "../exceptions/alojamiento";
+import { AlojamientoInvalido } from "../exceptions/alojamiento.js";
 
 export class Alojamiento {
     anfitrion;
@@ -48,6 +48,12 @@ export class Alojamiento {
             moneda: ${moneda}, horarioCheckIn: ${horarioCheckIn}, horarioCheckOut: ${horarioCheckOut},
             direccion: ${direccion}, cantHuespedesMax: ${cantHuespedesMax}` );
         }
+    }
+
+    static build(){
+        return new Alojamiento("Hola", "El pinzon", "Una linda casa para veranear",
+                150000, "Hola", "horarioCheckIn",
+                "horarioCheckOut", "direccion", 15)
     }
 
     tuPrecioEstaDentroDe(valorMinimo, valorMaximo){

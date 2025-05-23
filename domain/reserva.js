@@ -1,7 +1,6 @@
 import { ReservaInvalida } from "../exceptions/alojamiento.js"
-import { Estado } from "./enums/estado_reserva.js"
-import { FactoryNotificacion } from "./factory_notificacion.js"
-import { CambioEstadoReserva } from "./cambio_estado_reserva.js"
+import { Estado } from "./enums/estadoReserva.js"
+import { CambioEstadoReserva } from "./cambioEstadoReserva.js"
 export class Reserva {
     fechaAlta
     huespedReservador
@@ -20,15 +19,16 @@ export class Reserva {
         this.alojamiento = alojamiento
         this.cantHuespedes = cantHuespedes
         this.rangoFechas = rangoFechas
-        this.estado = Estado.PENDIENTE
         this.precioPorNoche = alojamiento.precioPorNoche
         this.cambiosEstadoReserva = []
-        const notificacion =  this.actualizarEstadoConNotificacion(Estado.PENDIENTE, "Creacion Reserva")
-        this.getAnfitrion().guardarNotificacion(notificacion)
+        this.actualizarEstadoConNotificacion(Estado.PENDIENTE, "Creacion Reserva")
     }
 
+    static build() {
+        return new Reserva(" ", 1, " ", " ")
+    }
     validarParametros(cantHuespedes) {
-        if(!cantHuespedes || isNaN(cantHuespedes) || cantHuespedes <= 1 ) {
+        if(!cantHuespedes || isNaN(cantHuespedes) || cantHuespedes < 1 ) {
             throw new ReservaInvalida(`La cantidad de huespedes debe ser mayor a cero, se recibió: ${cantHuespedes}`)
         }
             
@@ -40,22 +40,18 @@ export class Reserva {
 
     //Requerimiento 2
     aceptarReserva() {
-        const notificacion = this.actualizarEstadoConNotificacion(Estado.CONFIRMADA, "Se acepto la reserva")
-        this.huespedReservador.guardarNotificacion(notificacion)
+        this.actualizarEstadoConNotificacion(Estado.CONFIRMADA, "Se acepto la reserva")
     }
 
     actualizarEstadoConNotificacion(estado, motivo) {
         this.actualizarEstado(estado)
         const cambioRegistrado =  new CambioEstadoReserva(new Date(), this.estado, motivo, this.huespedReservador)
         this.cambiosEstadoReserva.push(cambioRegistrado)
-        return FactoryNotificacion.crearSegunReserva(this)
     }
 
     //Requerimiento 3
     cancelarReserva(motivo){
-        const notificacion = this.actualizarEstadoConNotificacion(Estado.CANCELADA, "El huesped ha cancelado la reserva por " + motivo)
-        notificacion.aniadirMotivo(motivo)
-        this.getAnfitrion().guardarNotificacion(notificacion)
+        this.actualizarEstadoConNotificacion(Estado.CANCELADA, "El huesped ha cancelado la reserva por " + motivo)
     }
 
     getNombreAlojamiento() {

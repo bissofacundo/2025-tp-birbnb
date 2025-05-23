@@ -1,3 +1,5 @@
+import {FotoInvalida} from "../exceptions/foto.js"
+
 export class Foto {
     descripcion;
     path;

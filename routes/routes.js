@@ -1,5 +1,5 @@
-import { configurarRutasReserva } from "./reserva_routes.js"
-import { configurarRutasSwagger } from "./swagger_routes.js"
+import { configurarRutasReserva } from "./reservaRoutes.js"
+import { configurarRutasSwagger } from "./swaggerRoutes.js"
 
 export const configurarRutas =  (app, {reservaController}) => {
     configurarRutasReserva(app, reservaController)

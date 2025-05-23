@@ -3,7 +3,9 @@ import { NotificacionInvalida } from "../exceptions/notificacion.js";
 export class Notificacion {
     usuario
     mensaje
-    
+    fechaAlta
+    leida
+    fechaLeida
 
     constructor(usuario, mensaje) {
         if(!usuario || !mensaje) {

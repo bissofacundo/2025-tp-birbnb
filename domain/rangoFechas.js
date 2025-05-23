@@ -1,4 +1,4 @@
-import { RangoFechasInvalido } from "../exceptions/rango_fechas.js"
+import { RangoFechasInvalido } from "../exceptions/rangoFechas.js"
 
 const CANTMILISEGUNDOSPORSEGUNDO = 1000
 const CANTSEGUNDOSPORHORA = 3600

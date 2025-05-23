@@ -1,4 +1,7 @@
 import mongoose from "mongoose"
+import { Reserva } from "../../domain/reserva.js"
+import { RangoFechas } from "../../domain/rangoFechas.js"
+import { CambioEstadoReserva } from "../../domain/cambioEstadoReserva.js"
 
 const cambioEstadoReservaSchema = new mongoose.Schema({
     fecha: {
@@ -18,13 +21,11 @@ const cambioEstadoReservaSchema = new mongoose.Schema({
         ref: 'Usuario',
         required: true
     }
+}, {
+    _id: false
 })
 
-const reservaSchema = new mongoose.Schema({
-    fechaAlta: {
-        type: Date,
-        required: true
-    },
+const rangoFechasSchema = new mongoose.Schema({
     fechaInicio: {
         type: Date,
         required: true
@@ -32,12 +33,25 @@ const reservaSchema = new mongoose.Schema({
     fechaFin: {
         type: Date,
         required: true
+    }
+}, {
+    _id: false
+})
+
+const reservaSchema = new mongoose.Schema({
+    fechaAlta: {
+        type: Date,
+        required: true
     },
-    huespedReservador:  {
+    rangoFechas: {
+        type: rangoFechasSchema,
+        required: true
+    },
+    huespedReservador: {
         type: mongoose.Schema.Types.ObjectId,
         required: true,
         ref: 'Usuario'
-    }, 
+    },
     cantHuespedes: {
         type: mongoose.Schema.Types.Int32,
         required: true
@@ -45,7 +59,7 @@ const reservaSchema = new mongoose.Schema({
     alojamiento: {
         type: mongoose.Schema.Types.ObjectId,
         required: true,
-        ref: 'Alojamiento' 
+        ref: 'Alojamiento'
     },
     estado: {
         type: String,
@@ -56,8 +70,11 @@ const reservaSchema = new mongoose.Schema({
         required: true
     },
     cambiosEstadoReserva: [cambioEstadoReservaSchema]
-    }, {
-        collection: 'reservas'
+}, {
+    collection: 'reservas'
 })
+rangoFechasSchema.loadClass(RangoFechas)
+cambioEstadoReservaSchema.loadClass(CambioEstadoReserva)
+reservaSchema.loadClass(Reserva)
 
 export const reservaModel = mongoose.model('Reserva', reservaSchema)

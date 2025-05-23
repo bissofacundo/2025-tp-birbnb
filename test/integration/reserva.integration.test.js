@@ -1,12 +1,12 @@
 import { describe, expect, jest, test }  from "@jest/globals"
 import  request   from "supertest"
-import { TipoUsuario } from "../../domain/enums/tipo_usuario.js"
+import { TipoUsuario } from "../../domain/enums/tipoUsuario.js"
 import { Usuario } from "../../domain/usuario.js"
 import { Alojamiento } from "../../domain/alojamiento.js"
 import { Moneda } from "../../domain/enums/moneda.js"
 import express from "express" 
-import { ReservaService } from "../../services/reserva_service.js" 
-import { ReservaController } from "../../controllers/reserva_controller.js"
+import { ReservaService } from "../../services/reservaService.js" 
+import { ReservaController } from "../../controllers/reservaController.js"
 
 import { Reserva } from "../../domain/reserva.js"
 import { configurarServerPrueba } from "./utils/config_server.js"
@@ -46,9 +46,13 @@ const reservaRepository = {
     })
 }
 
+const notificacionRepository = {
+    guardarNotificacion: jest.fn()
+}
 
 
-const reservaService = new ReservaService(reservaRepository, alojamientoRepository, usuarioRepository)
+
+const reservaService = new ReservaService(reservaRepository, alojamientoRepository, usuarioRepository, notificacionRepository)
 const reservaController = new ReservaController(reservaService)
 configurarServerPrueba(app, reservaController)
 
@@ -67,7 +71,6 @@ describe("POST /reservas", () => {
         console.log(response.body)
         expect(response.status).toBe(201)
         expect(reservaRepository.crearReserva).toHaveBeenCalledWith(expect.any(Reserva))
-        expect(usuarioRepository.actualizarUsuario).toHaveBeenCalled()
         expect(alojamientoRepository.actualizarAlojamiento).toHaveBeenCalled()
     })
 

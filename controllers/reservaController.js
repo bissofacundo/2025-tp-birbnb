@@ -1,4 +1,4 @@
-import { ValidacionInvalida } from "../exceptions/datos_invalidos"
+import { ValidacionInvalida } from "../exceptions/datosInvalidos.js"
 
 const aReservaRest = (reserva) => {
     return {
@@ -26,8 +26,8 @@ export class ReservaController {
                                   fechaFin: new Date(req.body.fechaFin)} 
             const idHuespedReservador = req.body.huespedReservador
             const cantHuespedes = req.body.cantHuespedes
-
-            if(typeof idAlojamiento != 'number'  || typeof idHuespedReservador != 'number'  || typeof cantHuespedes != 'number' ) {
+            
+            if(typeof cantHuespedes != 'number' || !idHuespedReservador || !idAlojamiento) {
                 throw new ValidacionInvalida('Los datos del huesped reservador, la cantidad de huespedes y el codigo del alojamiento son necesarios y deben ser numericos')
             }
 
@@ -39,6 +39,7 @@ export class ReservaController {
         } catch (error) {
             if(!error.status) {
                 res.status(500).json({error: "Error en el servidor"})
+                console.log(error)
             } else {
                 res.status(error.status).json({error: error.message, tipoError: error.nombreError})
             }

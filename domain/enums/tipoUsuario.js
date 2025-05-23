@@ -1,3 +1,5 @@
+import { values } from "lodash-es";
+
 export class TipoUsuario  {
     tipoUsuario;
 
@@ -9,6 +11,9 @@ export class TipoUsuario  {
         this.tipoUsuario = tipo
     }
 
+    toString() {
+        return this.tipoUsuario.toUpperCase()
+    }
 }
 
 TipoUsuario.HUESPED = new TipoUsuario("Huesped")
