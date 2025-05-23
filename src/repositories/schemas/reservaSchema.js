@@ -77,4 +77,5 @@ rangoFechasSchema.loadClass(RangoFechas)
 cambioEstadoReservaSchema.loadClass(CambioEstadoReserva)
 reservaSchema.loadClass(Reserva)
 
+reservaSchema.loadClass(Reserva)
 export const reservaModel = mongoose.model('Reserva', reservaSchema)
