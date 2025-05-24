@@ -173,6 +173,36 @@
           }
         }
       }
+    },
+    "/reservas/{id_reserva}": {
+      "put": {
+        "tags": ["Reservas"],
+        "description": "Permite modificar una reserva",
+        "summary": "Modificar una reserva",
+        "parameters": [
+        {
+          "name": "id_reserva",
+          "in": "path",
+          "description": "ID de la reserva",
+          "required": true,
+          "type": "string"
+        }
+      ],
+        "responses": {
+          "200": {
+            "description": "Se modifico una reserva"
+          },
+          "400": {
+            "description": "Tuvo un error de validacion o de creación de una reserva invalida"
+          },
+          "404": {
+            "description": "No se encontró el alojamiento o el huesped que hace la reservación"
+          },
+          "500": {
+            "description": "Error del servidor"
+          }
+        }
+      }
     }
   }
 }
