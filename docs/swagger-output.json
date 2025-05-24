@@ -152,6 +152,26 @@
         }
         }
       }
+    },
+    "/reservas": {
+      "post": {
+        "description": "Permite hacer una reserva",
+        "summary": "Crear una reserva nueva",
+        "responses": {
+          "201": {
+            "description": "Se creo una reserva nueva"
+          },
+          "400": {
+            "description": "Tuvo un error de validacion o de creación de una reserva invalida"
+          },
+          "404": {
+            "description": "No se encontró el alojamiento o el huesped que hace la reservación"
+          },
+          "500": {
+            "description": "Error del servidor"
+          }
+        }
+      }
     }
   }
 }
