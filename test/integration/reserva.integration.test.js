@@ -1,15 +1,15 @@
 import { describe, expect, jest, test }  from "@jest/globals"
 import  request   from "supertest"
-import { TipoUsuario } from "../../domain/enums/tipoUsuario.js"
-import { Usuario } from "../../domain/usuario.js"
-import { Alojamiento } from "../../domain/alojamiento.js"
-import { Moneda } from "../../domain/enums/moneda.js"
+import { TipoUsuario } from "../../src/domain/enums/tipoUsuario.js"
+import { Usuario } from "../../src/domain/usuario.js"
+import { Alojamiento } from "../../src/domain/alojamiento.js"
+import { Moneda } from "../../src/domain/enums/moneda.js"
 import express from "express" 
-import { ReservaService } from "../../services/reservaService.js" 
-import { ReservaController } from "../../controllers/reservaController.js"
+import { ReservaService } from "../../src/services/reservaService.js" 
+import { ReservaController } from "../../src/controllers/reservaController.js"
 
-import { Reserva } from "../../domain/reserva.js"
-import { configurarServerPrueba } from "./utils/config_server.js"
+import { Reserva } from "../../src/domain/reserva.js"
+import { configurarServerPrueba } from "./utils/configServer.js"
 
 const app = express()
 

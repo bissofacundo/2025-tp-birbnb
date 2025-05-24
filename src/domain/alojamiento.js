@@ -1,7 +1,6 @@
 import {sumBy} from "lodash-es";
 import { ReservaInvalida, AlojamientoInvalido } from "../exceptions/alojamiento.js";
 import { Reserva } from "./reserva.js";
-import { FactoryNotificacion } from "./factory_notificacion.js";
 
 export class Alojamiento {
     anfitrion  ;

@@ -5,7 +5,7 @@ const swaggerDocument = JSON.parse(
     await readFile(new URL("../../docs/api-docs.json", import.meta.url)),
   )
 
-export const configureRoutes = (app, {reservaController, usuarioController}) => {
+export const configureRoutes = (app, {reservaController, usuarioController, alojamientoController}) => {
     app.put("/reservas/:id", reservaController.modificarReserva.bind(reservaController))
     app.post('/reservas', reservaController.crearReserva.bind(reservaController))
     app.get('/usuarios', usuarioController.getUsuarios.bind(usuarioController))
@@ -14,4 +14,5 @@ export const configureRoutes = (app, {reservaController, usuarioController}) => 
     app.get("/api-docs", swaggerUiExpress.setup(swaggerDocument))
     app.patch("/reservas/:id", reservaController.cancelarReserva.bind(reservaController))    
     app.get("/usuarios/:id/reservas", usuarioController.obtenerReservas.bind(usuarioController))
+    app.get("/alojamientos", alojamientoController.findAll.bind(alojamientoController))
 }

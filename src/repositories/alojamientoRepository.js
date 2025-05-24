@@ -62,8 +62,8 @@ export class AlojamientoRepository {
                     calle: alojamiento.direccion.calle,
                     altura: alojamiento.direccion.altura,
                     ciudad: alojamiento.direccion.ciudad.nombre,
-                    lat: alojamiento.direccion.altura,
-                    long: alojamiento.direccion.altura,
+                    lat: alojamiento.direccion.lat,
+                    long: alojamiento.direccion.long,
                     pais: alojamiento.direccion.ciudad.pais.nombre
             },
             cantHuespedesMax: alojamiento.cantHuespedesMax,
