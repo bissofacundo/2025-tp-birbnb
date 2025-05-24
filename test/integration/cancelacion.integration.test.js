@@ -1,17 +1,16 @@
 import { describe, expect, jest, test }  from "@jest/globals"
 import request from "supertest"
 import express from "express" 
-import { TipoUsuario } from "../../domain/enums/tipo_usuario.js"
-import { Usuario } from "../../domain/usuario.js"
-import { Alojamiento } from "../../domain/alojamiento.js"
-import { Moneda } from "../../domain/enums/moneda.js"
-import { Notificacion } from "../../domain/notificacion.js"
-import { ReservaController } from "../../controllers/reserva_controller.js"
-import { UsuariosController } from "../../controllers/usuarios_controller.js"
-import { Reserva } from "../../domain/reserva.js"
-import { ReservaService } from "../../services/reserva_service.js"
-import { UsuariosService } from "../../services/usuario_service.js"
-import { NotificacionService } from "../../services/notificacion_service.js"
+import { TipoUsuario } from "../../src/domain/enums/tipoUsuario.js"
+import { Usuario } from "../../src/domain/usuario.js"
+import { Alojamiento } from "../../src/domain/alojamiento.js"
+import { Moneda } from "../../src/domain/enums/moneda.js"
+import { Notificacion } from "../../src/domain/notificacion.js"
+import { ReservaController } from "../../src/controllers/reservaController.js"
+import { Reserva } from "../../src/domain/reserva.js"
+import { ReservaService } from "../../src/services/reservaService.js"
+import { UsuariosService } from "../../src/services/usuarioService.js"
+import { NotificacionService } from "../../src/services/notificacionService.js"
 
 const app = express()
 
@@ -39,10 +38,15 @@ const usuarioRepository = {
     agaregarNotificacion: jest.fn((usuarioId, notificacionId) => {
         huespedPrueba.id = usuarioId
         huespedPrueba.notificaciones.push(notificacionId)
-    }),
-    obtenerReservas: jest.fn().mockResolvedValue(
-        [reservaPrueba]
-    )
+    })
+}
+
+const alojamientoRepository = {
+    findById: jest.fn().mockResolvedValue(
+        alojamientoPrueba
+    ),
+
+    actualizarAlojamiento: jest.fn()
 }
 
 
@@ -59,17 +63,13 @@ const reservaRepository = {
 
 const notificacionService = new NotificacionService(notificacionRepository)
 const usuariosService = new UsuariosService(usuarioRepository, notificacionService)
-const reservaService = new ReservaService(reservaRepository, usuariosService)
+const reservaService = new ReservaService(reservaRepository, alojamientoRepository, usuariosService, notificacionRepository)
 
-const usuariosController = new UsuariosController(usuarioRepository)
 const reservaController = new ReservaController(reservaService)
 
 app.use(express.json())
 app.patch("/reservas/:id", (req, res) => {
   reservaController.cancelarReserva(req, res)
-})
-app.get("/usuarios/:id/reservas", (req, res) => {
-  usuariosController.obtenerReservas(req, res)
 })
 
 describe("PATCH /reservas/:id", () => {
