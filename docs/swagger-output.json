@@ -11,6 +11,61 @@
     "http"
   ],
   "paths": {
+    "/notificaciones": {
+    "get": {
+      "tags": ["Notificaciones"],
+      "summary": "Obtener notificaciones",
+      "description": "Retorna todas las notificaciones; se puede filtrar por id_usuario y estado de lectura.",
+      "parameters": [
+        {
+          "name": "id_usuario",
+          "in": "query",
+          "description": "ID del usuario para filtrar las notificaciones",
+          "required": false,
+          "type": "string"
+        },
+        {
+          "name": "leida",
+          "in": "query",
+          "description": "Filtrar por estado de lectura",
+          "required": false,
+          "type": "boolean"
+        }
+      ],
+      "responses": {
+        "200": {
+          "description": "Lista de notificaciones"
+        },
+        "500": {
+          "description": "Error al obtener las notificaciones"
+        }
+      }
+    }
+  },
+  "/notificaciones/{id_notificacion}": {
+    "patch": {
+      "tags": ["Notificaciones"],
+      "summary": "Marcar notificación como leída",
+      "description": "Actualiza la notificación indicada, marcándola como leída y seteando la fecha de lectura.",
+      "parameters": [
+        {
+          "name": "id_notificacion",
+          "in": "path",
+          "description": "ID de la notificación",
+          "required": true,
+          "type": "string"
+        }
+      ],
+      "responses": {
+        "200": {
+          "description": "Notificación actualizada"
+        },
+        "400": {
+          "description": "Error al marcar como leída"
+        }
+      }
+    }
+  },
     "/healthCheck": {
       "get": {
         "description": "",

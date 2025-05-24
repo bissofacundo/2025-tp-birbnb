@@ -6,6 +6,25 @@ export class NotificacionRepository {
     constructor() {
         this.model = NotificacionModel;
     }
+    // guardarNotificacion(notificacion){
+    //     this.notificaciones.push(notificacion)
+    // }
+
+    async encontrarNotificaciones(filtro) {
+        const query = {};
+        if (filtro.id_usuario) {
+            query.usuario = filtro.id_usuario;
+        }
+        if (filtro.leida !== undefined) {
+            query.leida = filtro.leida;
+        }
+
+        return await this.model.find(query).populate('usuario');
+    }
+
+    async encontrarNotificacionPorId(id) {
+        return await this.model.findById(id).populate('usuario');
+    }
 
     async guardarNotificacion(notificacion) {
         const nuevaNotificacion = new this.model(notificacion);
@@ -13,21 +32,10 @@ export class NotificacionRepository {
 
         return notificacionGuardada;
     }
+
+    async actualizarNotificacion(notificacion) {
+        return await this.model.findByIdAndUpdate(notificacion.id, notificacion, { new: true });
+    }
+    
+
 }
-// import { NotificacionModelo } from "../schemas/notificacion_schema.js";
-
-// export const NotificacionRepository = {
-
-//     async guardarNotificacion(notificacion){
-//         const query = notificacion.id ? { _id: reserva.id } : { _id: new NotificacionModelo()._id }
-//         return await NotificacionModelo.findOneAndUpdate(
-//             query,
-//             notificacion,
-//             { 
-//                 new: true, 
-//                 runValidators: true,
-//                 upsert: true
-//             }
-//         ).populate('huespedReservador').populate('alojamiento');
-//     }
-// }

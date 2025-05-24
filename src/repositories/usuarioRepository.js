@@ -30,6 +30,9 @@ export class UsuarioRepository {
     async findAll(){
         return this.model.find();
     }
+    async obtenerUsuarioPorId(id) {
+        return await this.model.findById(id);
+    }
 
     async obtenerUsuarios() {
         return await this.model.find();

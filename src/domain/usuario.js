@@ -4,7 +4,7 @@ export class Usuario {
     nombre
     email
     tipoUsuario
-    notificaciones
+    //notificaciones
 
     constructor(nombre, email, tipoUsuario) {
         this.validarDatosIngresados(nombre,email,tipoUsuario);
@@ -21,14 +21,15 @@ export class Usuario {
 
     validarDatosIngresados(nombre,email,tipo) {
         if(!nombre || !email || !tipo) {
-            throw new UsuarioInvalido(`El nombre, el email y el tipo de usuario son obligatorios, se recibio nombre: ${nombre}, email: ${email} y tipo: ${tipo}`);
+            const tipoUsuario = tipo ? tipo.tipoUsuario : null;
+            throw new UsuarioInvalido(`El nombre, el email y el tipo de usuario son obligatorios, se recibio nombre: ${nombre}, email: ${email} y tipo: ${tipoUsuario}`);
         }
         if(!this.validarEmail(email)) {
             throw new UsuarioInvalido(`El email ingresado tiene un formato invalido, se recibio: ${email}`);
         }
     }
 
-    guardarNotificacion(notificacion) {
-        this.notificaciones.push(notificacion)
-    }
+    // guardarNotificacion(notificacion) {
+    //     this.notificaciones.push(notificacion)
+    // }
 }
