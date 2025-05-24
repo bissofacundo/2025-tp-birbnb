@@ -78,7 +78,7 @@
     },
     "/alojamientos": {
       "get": {
-        "tags": ["alojamientos"],
+        "tags": ["Alojamientos"],
         "summary" : "Obtener alojamientos",
         "description": "Obtiene una lista paginada de alojamientos con filtros opcionales",
         "parameters": [
@@ -155,6 +155,7 @@
     },
     "/reservas": {
       "post": {
+        "tags": ["Reservas"],
         "description": "Permite hacer una reserva",
         "summary": "Crear una reserva nueva",
         "responses": {
