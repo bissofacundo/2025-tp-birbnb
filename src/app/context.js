@@ -4,13 +4,17 @@ import { ReservaService } from "../services/reservaService.js";
 import { AlojamientoRepository } from "../repositories/alojamientoRepository.js";
 import { UsuarioRepository } from "../repositories/usuarioRepository.js";
 import { UsuarioController } from "../controllers/usuarioController.js";
+import { NotificacionRepository } from "../repositories/notificacionRepository.js";
 
 
 export const buildAppContext = () => {
-    const reservaRepository = new ReservaRepository()
-    const alojamientoRepository = new AlojamientoRepository()
     const usuarioRepository = new UsuarioRepository()
-    const reservaService = new ReservaService(reservaRepository, alojamientoRepository, usuarioRepository)
+    const notificacionRepository = new NotificacionRepository()
+    const reservaRepository = new ReservaRepository(usuarioRepository)
+    const alojamientoRepository = new AlojamientoRepository(usuarioRepository)
+    alojamientoRepository.reservaRepository=reservaRepository
+    reservaRepository.alojamientoRepository=alojamientoRepository
+    const reservaService = new ReservaService(reservaRepository, alojamientoRepository, usuarioRepository, notificacionRepository)
     const reservaController = new ReservaController(reservaService, reservaRepository)
     const usuarioController = new UsuarioController(usuarioRepository)
     return {

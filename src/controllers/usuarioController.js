@@ -3,23 +3,23 @@ export class UsuarioController {
     constructor(usuarioRepository) {
         this.usuarioRepository = usuarioRepository
     }
-    // async crearReserva(req, res) {
-    //     // this.reservaRepository.findAll()
-    //     // console.log(this.reservaRepository.findAll())
-    //     res.status(201).json(this.reservaRepository.findAll())
-    // }
+
     async getUsuarios(req, res){
         const usuarios = await this.usuarioRepository.findAll()
         const usuariosMap = usuarios.map(u => this.toDTO(u))
         res.status(200).json(usuariosMap)
-        // res.status(200).json({"nombre":"pepe"})
+    }
+    async getUsuario(req, res){
+        const usuario = await this.usuarioRepository.findById(req.params.id)
+        const usuarioDTO = this.toDTO(usuario)
+        res.status(200).json(usuarioDTO)
     }
     toDTO(usuario) {
         return {
             id: usuario.id,
             nombre: usuario.nombre,
             email: usuario.email,
-            tipo: usuario.tipo
+            tipoUsuario: usuario.tipoUsuario
         };
     }
 }

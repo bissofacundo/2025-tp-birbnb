@@ -24,7 +24,11 @@ export class UsuarioRepository {
     }
 
     async findById(id) {
-        return await this.model.findById(id);
+        return this.model.findById(id);
+    }
+
+    async findAll(){
+        return this.model.find();
     }
 
     async obtenerUsuarios() {

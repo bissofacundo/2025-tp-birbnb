@@ -71,7 +71,7 @@ export class ReservaRepository {
         return this.deReservaDB(reservaEncontrada, alojamiento)
     }
     async crearReserva(reserva) {
-        const nuevaReserva = this.reservaModel(aDB(reserva))
+        const nuevaReserva = this.reservaModel(this.aReservaDB(reserva))
         const reservaGuardada = await nuevaReserva.save()
         reserva.id = reservaGuardada.id
         return reserva

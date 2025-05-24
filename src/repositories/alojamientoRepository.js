@@ -14,6 +14,7 @@ export class AlojamientoRepository {
         this.usuarioRepository = usuarioRepository
     }
 
+
     async deAlojamientoDB(alojamientoDB) {
         const alojamiento = Alojamiento.build();
         const pais = new Pais(alojamientoDB.direccion.pais)
@@ -41,6 +42,9 @@ export class AlojamientoRepository {
 
     async findById(id) {
         const alojamientoDB = await this.model.findById(id);
+        if(!alojamientoDB){
+            return null
+        }
         return this.deAlojamientoDB(alojamientoDB)
     }
 

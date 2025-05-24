@@ -3,17 +3,19 @@ import { ReservaInvalida } from "../exceptions/alojamiento.js"
 import { Reserva } from "../domain/reserva.js"
 import { EntidadNoEncontrada } from "../exceptions/busquedaEntidad.js"
 import { Alojamiento } from "../domain/alojamiento.js"
+import {FactoryNotificacion} from "../domain/factoryNotificacion.js"
 
 export class ReservaService {
     reservaRepository
     alojamientoRepository
     usuarioRepository
+    notificacionRepository
 
-    //constructor(reservaRepository, alojamientoRepository, usuarioRepository) {
-    constructor(reservaRepository, alojamientoRepository, usuarioRepository) {
+    constructor(reservaRepository, alojamientoRepository, usuarioRepository, notificacionRepository) {
         this.reservaRepository = reservaRepository
         this.alojamientoRepository = alojamientoRepository
-       this.usuarioRepository = usuarioRepository
+        this.usuarioRepository = usuarioRepository
+        this.notificacionRepository = notificacionRepository
     }
 
     async crearReserva(rangoDefechas, idAlojamiento, idHuespedReservador, cantHuespedes) {
@@ -37,13 +39,13 @@ export class ReservaService {
         const reservaNueva = new Reserva(huespedReservador, cantHuespedes, alojamiento, rangoFechas)
 
         const reservaGuardada = await this.reservaRepository.crearReserva(reservaNueva)
-        // const nuevoAlojamiento = new Alojamiento({"nombre":"pepe"}, "asd0", "asd", 40, 1, "1", "2", "asd", 3, [], [])
 
-        alojamiento.agregarReserva({"hola":"mundo"})
-        // this.alojamientoRepository.actualizarAlojamiento(alojamiento.id, alojamiento)
+        alojamiento.agregarReserva(reservaGuardada)
+        this.alojamientoRepository.actualizarAlojamiento(alojamiento)
         
-        // //this.usuarioRepository.actualizarUsuario(reservaGuardada.getAnfitrion().id, reservaGuardada.getAnfitrion()) 
-        return alojamiento
+        const notificacion = FactoryNotificacion.crearSegunReserva(reservaNueva)
+        this.notificacionRepository.guardarNotificacion(notificacion);
+        return reservaGuardada
     }
 
 

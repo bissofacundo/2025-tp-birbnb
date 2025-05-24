@@ -1,4 +1,5 @@
 import { ValidacionInvalida } from "../exceptions/datosInvalidos.js"
+import mongoose, { isValidObjectId } from "mongoose"
 
 const aReservaRest = (reserva) => {
     return {
@@ -26,20 +27,20 @@ export class ReservaController {
                                   fechaFin: new Date(req.body.fechaFin)} 
             const idHuespedReservador = req.body.huespedReservador
             const cantHuespedes = req.body.cantHuespedes
-            
-            if(typeof cantHuespedes != 'number' || !idHuespedReservador || !idAlojamiento) {
-                throw new ValidacionInvalida('Los datos del huesped reservador, la cantidad de huespedes y el codigo del alojamiento son necesarios y deben ser numericos')
+
+            if(typeof cantHuespedes != 'number' || !isValidObjectId(idHuespedReservador) || !isValidObjectId(idAlojamiento)) {
+                throw new ValidacionInvalida('Los datos del huesped reservador, la cantidad de huespedes y el codigo del alojamiento son necesarios')
             }
 
             if(isNaN(rangoDefechas.fechaInicio) || isNaN(rangoDefechas.fechaFin)) {
                 throw new ValidacionInvalida('Tanto la fecha de inicio como la fecha de finalizacion de la reserva deben ser fechas que deben estar en el formato aaaa-mm-dd')
             }
             const reservaNueva = await this.reservaService.crearReserva(rangoDefechas, idAlojamiento, idHuespedReservador, cantHuespedes)
-            // res.status(201).json(aReservaRest(reservaNueva))
-            res.status(201).json(reservaNueva)
+            res.status(201).json(aReservaRest(reservaNueva))
             
         } catch (error) {
             if(!error.status) {
+                console.log(error)
                 res.status(500).json({error: "Error en el servidor"})
             } else {
                 res.status(error.status).json({error: error.message, tipoError: error.nombreError})
