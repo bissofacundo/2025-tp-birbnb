@@ -4,6 +4,8 @@ import { Reserva } from "../domain/reserva.js"
 import { EntidadNoEncontrada } from "../exceptions/busquedaEntidad.js"
 import { Alojamiento } from "../domain/alojamiento.js"
 import {FactoryNotificacion} from "../domain/factoryNotificacion.js"
+import {MismoEstado} from "../exceptions/mismoEstado.js"
+import { Estado } from "../domain/enums/estadoReserva.js"
 
 export class ReservaService {
     reservaRepository
@@ -18,22 +20,26 @@ export class ReservaService {
         this.notificacionRepository = notificacionRepository
     }
     async cancelar(id, motivo){
-        reservaMongo = await ReservaRepository.findReservaId(id)
+        const reservaMongo = await this.reservaRepository.findReservaId(id)
         if (!reservaMongo) {
             throw new EntidadNoEncontrada(`No se encontro la reserva con el identificador ${id}`)
         }
-        if(reservaMongo.estado.toUpperCase() === 'CANCELADA'){
+        if(reservaMongo.estado === Estado.CANCELADA){
             throw new MismoEstado('la reserva ya se encuentra cancelada')
         }
-        //const reserva = this.crearReserva(parametrosReserva(reservaMongo))
-        idAnfitrion = reservaMongo.getAnfitrion().id
-        notificacion = reservaMongo.cancelarReserva(motivo) //esta notificacion no tiene el id, que es el id del anfitrion, asi que lo obtengo acá abajo
-        //notificacion.usuario = reservaMongo.alojamiento.anfitrion
-        this.usuariosService.guardarNotificacion(idAnfitrion, notificacion).bind(this)
-        /*reservaMongo.cancelarReserva(motivo)
-        return await ReservaRepository.guardarReserva(this.reservaADoc(reservaMongo))*/
-        //return this.guardarReserva(reserva, reservaMongo) //paso la segunda para obtener el ID
-        return this.guardarReserva(reservaMongo)
+        // //const reserva = this.crearReserva(parametrosReserva(reservaMongo))
+        // idAnfitrion = reservaMongo.getAnfitrion().id
+        // notificacion = reservaMongo.cancelarReserva(motivo) //esta notificacion no tiene el id, que es el id del anfitrion, asi que lo obtengo acá abajo
+        // //notificacion.usuario = reservaMongo.alojamiento.anfitrion
+        // this.usuariosService.guardarNotificacion(idAnfitrion, notificacion).bind(this)
+        reservaMongo.cancelarReserva(motivo)
+        // return await ReservaRepository.guardarReserva(this.reservaADoc(reservaMongo))*/
+        // //return this.guardarReserva(reserva, reservaMongo) //paso la segunda para obtener el ID
+        const notificacion = FactoryNotificacion.crearSegunReserva(reservaMongo)
+        notificacion.aniadirMotivo(motivo)
+        this.notificacionRepository.guardarNotificacion(notificacion);
+        return this.reservaRepository.save(reservaMongo)
+        // return reservaMongo
     }
 
     async eliminarReserva(id){

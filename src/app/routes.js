@@ -12,4 +12,6 @@ export const configureRoutes = (app, {reservaController, usuarioController}) => 
     app.get('/usuarios/:id', usuarioController.getUsuario.bind(usuarioController))
     app.use("/api-docs", swaggerUiExpress.serve)
     app.get("/api-docs", swaggerUiExpress.setup(swaggerDocument))
+    app.patch("/reservas/:id", reservaController.cancelarReserva.bind(reservaController))    
+    app.get("/usuarios/:id/reservas", usuarioController.obtenerReservas.bind(usuarioController))
 }

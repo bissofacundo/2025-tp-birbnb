@@ -1,7 +1,7 @@
 import { ValidacionInvalida } from "../exceptions/datosInvalidos.js"
 import mongoose, { isValidObjectId } from "mongoose"
 
-const aReservaRest = (reserva) => {
+export const aReservaRest = (reserva) => {
     return {
         id: reserva.id,
         huespedReservador: reserva.getNombreHuespedReservador(),
@@ -76,22 +76,35 @@ export class ReservaController {
             }
             const reservaModificada = await this.reservaService.modificarReserva(rangoDefechas, idAlojamiento, idHuespedReservador, cantHuespedes)
             res.status(200).json(aReservaRest(reservaModificada))
+        }catch (error) {
+            if(!error.status) {
+                console.log(error)
+                res.status(500).json({error: "Error en el servidor"})
+            } else {
+                res.status(error.status).json({error: error.message, tipoError: error.nombreError})
+            }
+            // if( error instanceof EntidadNoEncontrada){
+                // res.status(400).json({
+                //     error: error.message,
+                //   })
+            // }
         }
     }
     async cancelarReserva(req, res){
         try {
-            id = req.params.id
-            motivo = req.body.motivo
-            if(!motivo || motivo === ""){
-                throw new ValidacionInvalida('Se debe elaborar un motivo de cancelacion')
+            const id = req.params.id
+            const motivo = req.body.motivo
+            if(!motivo){
+                motivo = ""
             }
-            if(typeof id !== 'number'){
-                throw new ValidacionInvalida('el id debe ser un numero')
+            if(!isValidObjectId(id)){
+                throw new ValidacionInvalida('el id no es valido')
             }
-            reservaCancelada = await this.reservaService.cancelar(id, motivo).bind(this)
-            res.json(reservaCancelada);
+            const reservaCancelada = await this.reservaService.cancelar(id, motivo)
+            res.json(aReservaRest(reservaCancelada));
         } catch (error) {
             if(!error.status) {
+                console.log(error)
                 res.status(500).json({error: "Error en el servidor"})
             } else {
                 res.status(error.status).json({error: error.message, tipoError: error.nombreError})

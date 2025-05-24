@@ -16,7 +16,7 @@ export const buildAppContext = () => {
     reservaRepository.alojamientoRepository=alojamientoRepository
     const reservaService = new ReservaService(reservaRepository, alojamientoRepository, usuarioRepository, notificacionRepository)
     const reservaController = new ReservaController(reservaService, reservaRepository)
-    const usuarioController = new UsuarioController(usuarioRepository)
+    const usuarioController = new UsuarioController(usuarioRepository, reservaRepository)
     return {
         reservaRepository,
         alojamientoRepository,

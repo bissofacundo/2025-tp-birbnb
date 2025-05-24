@@ -18,6 +18,7 @@ export const FactoryNotificacion = {
             usuario = unaReserva.getAnfitrion()
             mensaje = "No se fue dado un motivo"
         }
+        
         return new Notificacion(usuario, mensaje)
     }
 

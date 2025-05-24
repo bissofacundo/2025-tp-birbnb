@@ -52,9 +52,9 @@ export class Reserva {
     //Requerimiento 3
     cancelarReserva(motivo){
         this.actualizarEstadoConNotificacion(Estado.CANCELADA, "El huesped ha cancelado la reserva por " + motivo)
-        notificacion = this.actualizarEstadoConNotificacion(Estado.CANCELADA)
-        notificacion.aniadirMotivo(motivo)
-        return notificacion
+        // notificacion = this.actualizarEstadoConNotificacion(Estado.CANCELADA)
+        // notificacion.aniadirMotivo(motivo)
+        // return notificacion
         /*this.getAnfitrion().guardarNotificacion(notificacion)*/
     }
 
