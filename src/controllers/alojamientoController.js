@@ -42,7 +42,7 @@ export class AlojamientoController {
 
     async crearFiltro(req) {
         return {
-            page: req.query.page ? parseInt(req.query.page) : 1,
+            page: req.query.page ? (parseInt(req.query.page)-1) : 1,
             limit: req.query.limit ? parseInt(req.query.limit) : 10,
             calle: req.query.calle,
             altura: req.query.altura,
