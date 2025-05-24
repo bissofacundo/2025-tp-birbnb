@@ -1,6 +1,6 @@
 import { ReservaRepository } from "../repositories/reservaRepository.js"
 import { NotificationController } from "./notificationController.js"
-import { NotificacionRepository } from "../repositories/notificacion_repository.js"
+import { NotificacionRepository } from "../repositories/notificacionRepository.js"
 
 export const reservaController = {
     crearReserva(huespedReservador, cantHuespedes, alojamiento, rangoFechas) {

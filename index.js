@@ -3,20 +3,20 @@ dotenv.config();
 
 import express from "express"
 import { configurarRutas } from "./routes/routes.js";
-import { MongoDBClient } from "./config/db_config.js";
+import { MongoDBClient } from "./src/app/db.js";
 import swaggerUi from 'swagger-ui-express';
 import fs from 'fs';
 
 
-import { AlojamientoController } from "./controllers/alojamientoController.js";
-import { AlojamientoService } from "./services/alojamientoService.js";
-import { AlojamientoRepository } from "./repositories/alojamiento_repository.js";
+import { AlojamientoController } from "./src/controllers/alojamientoController.js";
+import { AlojamientoService } from "./src/services/alojamientoService.js";
+import { AlojamientoRepository } from "./src/repositories/alojamientoRepository.js";
 
 const puerto = 3000
 const app = express()
 app.use(express.json()) // es para que entienda/poder usar (req,res)
 
-const swaggerFile = JSON.parse(fs.readFileSync('./documentation/swagger-output.json', 'utf-8'));
+const swaggerFile = JSON.parse(fs.readFileSync('./docs/swagger-output.json', 'utf-8'));
   app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerFile));
 
 

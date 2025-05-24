@@ -14,7 +14,7 @@ export class AlojamientoRepository {
         }
 
         if (filters.altura) {
-            query["direccion.altura"] = Number(filters.altura); // Convertís igual, aunque esté como string
+            query["direccion.altura"] = Number(filters.altura); 
         }
 
         if (filters.ciudad) {

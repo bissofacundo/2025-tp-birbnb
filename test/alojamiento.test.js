@@ -1,4 +1,4 @@
-import { crearFiltro } from "../domain/filtro";
+import { crearFiltro } from "../src/domain/filtro";
 
 describe('construirFiltro', () => {
   test('Crear un filtro completo con todos sus parametros', () => {

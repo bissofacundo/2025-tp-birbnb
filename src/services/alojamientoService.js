@@ -39,10 +39,10 @@ export class AlojamientoService {
         "moneda": alojamiento.moneda,
         "horarioCheckIn": alojamiento.horarioCheckIn,
         "horarioCheckOut": alojamiento.horarioCheckOut,
-        //"direccion": alojamiento.direccion,
+        "direccion": alojamiento.direccion,
         "cantHuespedesMax": alojamiento.cantHuespedesMax,
-        //"caracteristicas": alojamiento.caracteristicas
-    };   //console.log(alojamientoDTO)
+        "caracteristicas": alojamiento.caracteristicas
+    };   
         return alojamientoDTO
 }
 
