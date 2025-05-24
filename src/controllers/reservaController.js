@@ -54,23 +54,20 @@ export class ReservaController {
     }
     async modificarReserva(req, res){
         try {
-            const idReserva = req.body.reserva
-            const idAlojamiento = req.body.alojamiento
-            const idHuespedReservador = req.body.huespedReservador
+            const idReserva = req.params.id
             const cantHuespedes = req.body.cantHuespedes
 
-            if( !isValidObjectId(idReserva) ||
-            !isValidObjectId(idAlojamiento)  || 
-            !isValidObjectId(idHuespedReservador)  || 
-                typeof cantHuespedes != 'number' ) {
-                throw new ValidacionInvalida('Los ID de reserva, alojamiento y reservador y la cantidad de huespedes son obligatorios y deben ser enteros')
+            if( !isValidObjectId(idReserva)) {
+                throw new ValidacionInvalida('El ID de reserva no es valido')
             }
-
+            if( cantHuespedes && typeof cantHuespedes != 'number' ) {
+                throw new ValidacionInvalida('La cantidad de Huespedes debe ser un entero')
+            }
             const rangoDefechas = { fechaInicio: new Date(req.body.fechaInicio), fechaFin: new Date(req.body.fechaFin) }
             if(isNaN(rangoDefechas.fechaInicio) || isNaN(rangoDefechas.fechaFin)) {
                 throw new ValidacionInvalida('Tanto la fecha de inicio como la fecha de finalizacion de la reserva deben ser fechas que deben estar en el formato aaaa-mm-dd')
             }
-            const reservaModificada = await this.reservaService.modificarReserva(rangoDefechas, idAlojamiento, idHuespedReservador, cantHuespedes)
+            const reservaModificada = await this.reservaService.modificarReserva(idReserva, rangoDefechas, cantHuespedes)
             res.status(200).json(aReservaRest(reservaModificada))
         }catch (error) {
             if(!error.status) {

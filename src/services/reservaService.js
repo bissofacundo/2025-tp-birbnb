@@ -75,6 +75,22 @@ export class ReservaService {
         this.notificacionRepository.guardarNotificacion(notificacion);
         return reservaGuardada
     }
-
+    async modificarReserva(idReserva, rangoDefechas, cantHuespedes) {
+        const rangoFechas = new RangoFechas(rangoDefechas.fechaInicio, rangoDefechas.fechaFin)
+        
+        const reserva = await this.reservaRepository.findReservaId(idReserva)
+        if(!reserva){
+            throw new EntidadNoEncontrada(`No se encontro la reserva con el identificador ${idReserva}`)
+        }
+        if(!reserva.alojamiento.estaDisponibleEn(rangoFechas)) {
+            throw new ReservaInvalida(`El rango de fechas para reservar el alojamiento ${reserva.alojamiento.nombre} no esta disponible entre las fechas ${rangoFechas.fechaInicio} y ${rangoFechas.fechaFin}`)
+        }
+        if(!reserva.alojamiento.puedenAlojarse(cantHuespedes)) {
+            throw new ReservaInvalida(`La reserva supero la maxima cantidad de huespedes que el alojamiento ${reserva.alojamiento.nombre} permite. La maxima cantidad de huespedes que admite el alojamiento es ${reserva.alojamiento.cantHuespedesMax}`)
+        }
+        reserva.rangoFechas = rangoFechas
+        reserva.cantHuespedes = cantHuespedes
+        return this.reservaRepository.save(reserva)
+    }
 
 }
