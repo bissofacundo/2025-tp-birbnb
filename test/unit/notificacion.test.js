@@ -1,6 +1,6 @@
-import {Notificacion} from '../../models/domain/notificacion.js';
-import {Usuario} from '../../models/domain/usuario.js';
-import {TipoUsuario} from '../../models/domain/enums/tipo_usuario.js';
+import {Notificacion} from '../../src/domain/notificacion.js'
+import {Usuario} from '../../src/domain/usuario.js'
+import {TipoUsuario} from '../../src/domain/enums/tipoUsuario.js'
 
 describe('Notificacion', () => {
     const juanPerez = new Usuario('Juan Perez', 'juan_perez@test.com',TipoUsuario.HUESPED);   

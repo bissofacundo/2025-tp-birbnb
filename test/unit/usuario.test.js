@@ -1,5 +1,5 @@
-import {Usuario} from '../../models/domain/usuario.js';
-import {TipoUsuario} from '../../models/domain/enums/tipo_usuario.js';
+import {Usuario} from '../../src/domain/usuario.js'
+import {TipoUsuario} from '../../src/domain/enums/tipoUsuario.js';
 
 describe('Usuario', () => {
     test('usuario creado correctamente', () => {
