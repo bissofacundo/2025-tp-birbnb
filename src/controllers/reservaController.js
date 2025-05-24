@@ -59,17 +59,13 @@ export class ReservaController {
             const idHuespedReservador = req.body.huespedReservador
             const cantHuespedes = req.body.cantHuespedes
 
-            if( typeof idReserva != 'number' ||
-                typeof idAlojamiento != 'number'  || 
-                typeof idHuespedReservador != 'number'  || 
+            if( !isValidObjectId(idReserva) ||
+            !isValidObjectId(idAlojamiento)  || 
+            !isValidObjectId(idHuespedReservador)  || 
                 typeof cantHuespedes != 'number' ) {
                 throw new ValidacionInvalida('Los ID de reserva, alojamiento y reservador y la cantidad de huespedes son obligatorios y deben ser enteros')
             }
 
-            // Primero valido que me hayan pasado algo, porque si no el new Date explota
-            if( !req.body.fechaInicio || !req.body.fechaFin){
-                throw new ValidacionInvalida('Los campos fechaInicio y fechaFin son obligatorios')
-            }
             const rangoDefechas = { fechaInicio: new Date(req.body.fechaInicio), fechaFin: new Date(req.body.fechaFin) }
             if(isNaN(rangoDefechas.fechaInicio) || isNaN(rangoDefechas.fechaFin)) {
                 throw new ValidacionInvalida('Tanto la fecha de inicio como la fecha de finalizacion de la reserva deben ser fechas que deben estar en el formato aaaa-mm-dd')
