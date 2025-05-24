@@ -9,10 +9,21 @@ export class AlojamientoController {
         try {
             const filters = await this.crearFiltro(req)
 
-            const alojamientos = await this.alojamientoService.findAll(filters) 
-            res.json(alojamientos);
+            const alojamientos = await this.alojamientoService.findAll(filters)
+            if (alojamientos.length === 0) {
+                return res.status(204).json({ message: 'No se encontraron alojamientos con esos filtros' }); // No Content
+            }
+            res.status(200).json({
+                pagina: filters.page,
+                limite: filters.limit,
+                total: alojamientos.length,
+                resultados: alojamientos});
         } catch (error) {
-            next(error);
+            console.error('Error al buscar alojamientos:', error);
+            res.status(500).json({
+                error: 'Error interno del servidor',
+                detalle: error.message
+            });
         }
     }
     //Falta implementar bien
@@ -21,10 +32,10 @@ export class AlojamientoController {
             const nuevo = await this.alojamientoService.create(req.body);
             res.status(201).json(nuevo);
         } catch (error) {
-            if(!error.status) {
-                res.status(500).json({error: "Error en el servidor"})
+            if (!error.status) {
+                res.status(500).json({ error: "Error en el servidor" })
             } else {
-                res.status(error.status).json({error: error.message, tipoError: error.nombreError})
+                res.status(error.status).json({ error: error.message, tipoError: error.nombreError })
             }
         }
     }
@@ -43,9 +54,9 @@ export class AlojamientoController {
             precioMax: req.query.precioMax,
             huespedes: req.query.huespedes,
             // Asumo este Endpoint GET /alojamientos?caracteristicas=PISCINA,WIFI,ESTACIONAMIENTO
-            caracteristicas: req.query.caracteristicas ? req.query.caracteristicas.split(',').map(c=>c.toUpperCase()) //Separa los ids
-            :null,
-            } 
-        
-        };
-    }
+            caracteristicas: req.query.caracteristicas ? req.query.caracteristicas.split(',').map(c => c.toUpperCase()) //Separa los ids
+                : null,
+        }
+
+    };
+}
