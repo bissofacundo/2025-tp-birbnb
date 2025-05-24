@@ -1,7 +1,10 @@
-import { AlojamientoInvalido } from "../exceptions/alojamiento.js";
+import {sumBy} from "lodash-es";
+import { ReservaInvalida, AlojamientoInvalido } from "../exceptions/alojamiento.js";
+import { Reserva } from "./reserva.js";
+import { FactoryNotificacion } from "./factory_notificacion.js";
 
 export class Alojamiento {
-    anfitrion;
+    anfitrion  ;
     nombre;
     descripcion;
     precioPorNoche;
@@ -56,12 +59,19 @@ export class Alojamiento {
                 "horarioCheckOut", "direccion", 15)
     }
 
-    tuPrecioEstaDentroDe(valorMinimo, valorMaximo){
-        return this.precioPorNoche > valorMinimo && this.precioPorNoche < valorMaximo
+
+    tuPrecioEstaDentroDe(valorMinimo, valorMaximo){   
+        if (valorMinimo != null && valorMaximo != null) {
+        return this.precioPorNoche >= valorMinimo && this.precioPorNoche <= valorMaximo;
+    } else if (valorMinimo != null) {
+        return this.precioPorNoche >= valorMinimo;
+    } else if (valorMaximo != null) {
+        return this.precioPorNoche <= valorMaximo;
+    }
     }
 
     tenesCaracteristica(caracteristica){
-        return this.caracteristicas.some(c => c === caracteristica)
+        return this.caracteristicas.some(c => c.nombre === caracteristica)
     }
 
     puedenAlojarse(cantHuespedes){

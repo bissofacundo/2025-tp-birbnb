@@ -4,6 +4,7 @@
     "express": "^5.1.0",
     "lodash-es": "^4.17.21",
     "mongoose": "^8.14.3",
+    "swagger-autogen": "^2.23.7",
     "swagger-ui-express": "^5.0.1"
   },
   "name": "tp-dsw",
