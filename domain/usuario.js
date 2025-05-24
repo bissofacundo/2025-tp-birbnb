@@ -1,4 +1,4 @@
-import {UsuarioInvalido} from '../../exceptions/usuario.js';
+import {UsuarioInvalido} from '../src/exceptions/usuario.js';
 
 
 export class Usuario {
