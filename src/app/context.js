@@ -7,6 +7,8 @@ import { UsuarioController } from "../controllers/usuarioController.js";
 import { NotificacionRepository } from "../repositories/notificacionRepository.js";
 import { AlojamientoController} from "../controllers/alojamientoController.js";
 import { AlojamientoService } from "../services/alojamientoService.js";
+import { NotificacionService } from "../services/notificacionService.js";
+import { NotificacionController } from "../controllers/notificacionController.js"
 
 export const buildAppContext = () => {
     const usuarioRepository = new UsuarioRepository()
@@ -20,6 +22,8 @@ export const buildAppContext = () => {
     const usuarioController = new UsuarioController(usuarioRepository, reservaRepository)
     const alojamientoService = new AlojamientoService(alojamientoRepository)
     const alojamientoController = new AlojamientoController(alojamientoService)
+    const notificacionService = new NotificacionService(notificacionRepository, usuarioRepository)
+    const notificacionController = new NotificacionController(notificacionService)
     return {
         reservaRepository,
         alojamientoRepository,
@@ -28,6 +32,8 @@ export const buildAppContext = () => {
         usuarioController,
         usuarioRepository,
         alojamientoService,
-        alojamientoController
+        alojamientoController,
+        notificacionController,
+        notificacionService
     };
 };

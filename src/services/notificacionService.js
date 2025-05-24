@@ -1,4 +1,4 @@
-import { Notificacion } from "../models/domain/notificacion.js";
+import { Notificacion } from "../domain/notificacion.js";
 
 export class NotificacionService {
     notificacionRepository
@@ -35,7 +35,7 @@ export class NotificacionService {
         const notificacion = await this.notificacionRepository.encontrarNotificacionPorId(id);
         if (!notificacion) {
             throw new Error(`No se encontró la notificación con id ${id}`);
-        }// ver posibilidad de midelware
+        }
         notificacion.marcarComoLeida();
         const notificacionLeida = await this.notificacionRepository.actualizarNotificacion(notificacion);
         return this.aNotificacionREST(notificacionLeida);

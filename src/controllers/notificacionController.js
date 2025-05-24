@@ -1,4 +1,7 @@
-import { FactoryNotificacion } from "../models/domain/factory_notificacion.js"
+import { FactoryNotificacion } from "../domain/factoryNotificacion.js"
+import { ValidacionInvalida } from "../exceptions/datosInvalidos.js"
+import mongoose, { isValidObjectId } from "mongoose"
+
 
 export class NotificacionController  {
     constructor(notificacionService) {
@@ -19,21 +22,39 @@ export class NotificacionController  {
             id_usuario: req.query.id_usuario,
             leida: req.query.leida
         }
+        if(filtros.id_usuario && !isValidObjectId(filtros.id_usuario)) {
+            throw new ValidacionInvalida('El ID de usuario no es valido')
+        }
+        if(filtros.leida && filtros.leida != "true" && filtros.leida != "false"){
+            throw new ValidacionInvalida('El parametro leida debe ser true o false')
+        }
         const notificaciones = await this.notificacionService.encontrarNotificaciones(filtros)
         res.status(200).json(notificaciones)
         } catch (error) {
-            console.error(error)
-            res.status(500).json({ message: 'Error al intentar obtener las notificaciones' })
+            if(!error.status) {
+                console.log(error)
+                res.status(500).json({error: "Error en el servidor"})
+            } else {
+                res.status(error.status).json({error: error.message, tipoError: error.nombreError})
+            }
         }
     }
 
     async marcarComoLeida(req, res) {
         try{
-            const notificacionLeida = await this.notificacionService.marcarNotificacionComoLeida(req.params.id_notificacion)
+            const id = req.params.id_notificacion
+            if( !isValidObjectId(id)) {
+                throw new ValidacionInvalida('El ID de la notificacion no es valido')
+            }
+            const notificacionLeida = await this.notificacionService.marcarNotificacionComoLeida(id)
             res.status(200).json(notificacionLeida)
         } catch (error) {
-            console.error(error)
-            res.status(400).json({ message: 'No se pudo marcar la notificacion como leida' })
+            if(!error.status) {
+                console.log(error)
+                res.status(500).json({error: "Error en el servidor"})
+            } else {
+                res.status(error.status).json({error: error.message, tipoError: error.nombreError})
+            }
         }
     }
 }
