@@ -8,6 +8,16 @@ dotenv.config();
 
 const puerto = 3000
 const app = express()
+app.use(express.json())
+
+MongoDBClient.connect()
+
+const notificacionService = new NotificacionService(NotificacionRepository)
+const usuariosService = new UsuariosService(UsuariosRepository, notificacionService)
+const reservaService = new ReservaService(ReservaRepository, usuariosService)
+
+const usuariosController = new UsuariosController(UsuariosRepository)
+const reservaController = new ReservaController(reservaService)
 
 MongoDBClient.connect(process.env)
 

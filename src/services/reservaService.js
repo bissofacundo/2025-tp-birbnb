@@ -17,6 +17,28 @@ export class ReservaService {
         this.usuarioRepository = usuarioRepository
         this.notificacionRepository = notificacionRepository
     }
+    async cancelar(id, motivo){
+        reservaMongo = await ReservaRepository.findReservaId(id)
+        if (!reservaMongo) {
+            throw new EntidadNoEncontrada(`No se encontro la reserva con el identificador ${id}`)
+        }
+        if(reservaMongo.estado.toUpperCase() === 'CANCELADA'){
+            throw new MismoEstado('la reserva ya se encuentra cancelada')
+        }
+        //const reserva = this.crearReserva(parametrosReserva(reservaMongo))
+        idAnfitrion = reservaMongo.getAnfitrion().id
+        notificacion = reservaMongo.cancelarReserva(motivo) //esta notificacion no tiene el id, que es el id del anfitrion, asi que lo obtengo acá abajo
+        //notificacion.usuario = reservaMongo.alojamiento.anfitrion
+        this.usuariosService.guardarNotificacion(idAnfitrion, notificacion).bind(this)
+        /*reservaMongo.cancelarReserva(motivo)
+        return await ReservaRepository.guardarReserva(this.reservaADoc(reservaMongo))*/
+        //return this.guardarReserva(reserva, reservaMongo) //paso la segunda para obtener el ID
+        return this.guardarReserva(reservaMongo)
+    }
+
+    async eliminarReserva(id){
+        const deleted = await ReservaRepository.eliminarReserva(id)
+    }
 
     async crearReserva(rangoDefechas, idAlojamiento, idHuespedReservador, cantHuespedes) {
         const rangoFechas = new RangoFechas(rangoDefechas.fechaInicio, rangoDefechas.fechaFin)

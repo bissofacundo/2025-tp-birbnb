@@ -76,12 +76,26 @@ export class ReservaController {
             }
             const reservaModificada = await this.reservaService.modificarReserva(rangoDefechas, idAlojamiento, idHuespedReservador, cantHuespedes)
             res.status(200).json(aReservaRest(reservaModificada))
+        }
+    }
+    async cancelarReserva(req, res){
+        try {
+            id = req.params.id
+            motivo = req.body.motivo
+            if(!motivo || motivo === ""){
+                throw new ValidacionInvalida('Se debe elaborar un motivo de cancelacion')
+            }
+            if(typeof id !== 'number'){
+                throw new ValidacionInvalida('el id debe ser un numero')
+            }
+            reservaCancelada = await this.reservaService.cancelar(id, motivo).bind(this)
+            res.json(reservaCancelada);
         } catch (error) {
             if(!error.status) {
                 res.status(500).json({error: "Error en el servidor"})
             } else {
                 res.status(error.status).json({error: error.message, tipoError: error.nombreError})
             }
-        } 
+        }
     }
 }

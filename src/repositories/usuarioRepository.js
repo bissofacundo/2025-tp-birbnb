@@ -35,6 +35,9 @@ export class UsuarioRepository {
         return await this.model.find();
     }
 
+    async obtenerReservas(id) {
+        return await ReservaModelo.find({ huespedReservador: id }, 'alojamiento rangoFechas estado').populate('alojamiento');
+    }
     async eliminarUsuario(id) {
     const resultado = await this.model.findByIdAndDelete(id);
         return resultado !== null;

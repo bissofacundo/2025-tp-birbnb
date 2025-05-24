@@ -20,6 +20,8 @@ const usuarioSchema = new mongoose.Schema({
     //    type: mongoose.Schema.Types.ObjectId,
     //    ref: 'Notificacion'
     //}]
+}, {
+    collection: 'usuarios'
 });
 
 usuarioSchema.loadClass(Usuario);
