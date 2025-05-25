@@ -6,7 +6,7 @@ import dotenv from "dotenv";
 
 dotenv.config(); 
 
-const puerto = 3000
+const puerto = process.env.PORT
 const app = express()
 app.use(express.json()) // es para que entienda/poder usar (req,res)
 
