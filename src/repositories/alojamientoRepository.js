@@ -129,7 +129,7 @@ export class AlojamientoRepository {
             query.caracteristicas = { $all: filters.id_caracteristicas };
         }
         const alojamientosFiltrados = await this.model.find(query)
-        .skip(filters.page)
+        .skip(filters.page * filters.limit)
             .limit(filters.limit);
         return alojamientosFiltrados
     }
