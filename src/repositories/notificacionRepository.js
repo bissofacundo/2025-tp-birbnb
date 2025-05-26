@@ -2,13 +2,10 @@ import { NotificacionModel } from "./schemas/notificacionSchema.js";
 
 export class NotificacionRepository {
     model
-    // notificaciones: [],
+    
     constructor() {
         this.model = NotificacionModel;
     }
-    // guardarNotificacion(notificacion){
-    //     this.notificaciones.push(notificacion)
-    // }
 
     async encontrarNotificaciones(filtro) {
         const query = {};

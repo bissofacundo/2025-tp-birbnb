@@ -16,11 +16,8 @@ export class ReservaRepository {
     }
 
     async findReservaId(id){
-        // return this.reservaModel.findById(id).populate('huespedReservador').populate('alojamiento')
         const reserva = await this.reservaModel.findById(id)
         const alojamiento = await this.alojamientoRepository.findById(reserva.alojamiento)
-        // console.log(alojamiento)
-        // console.log(reserva)
         return this.deReservaDB(reserva, alojamiento)
     }
 
@@ -87,13 +84,9 @@ export class ReservaRepository {
 
     async save(reserva){
         if(reserva.id){
-            // console.log(reserva)
 
             await this.reservaModel.findByIdAndUpdate(reserva.id, this.aReservaDB(reserva))
             return reserva
-            //Aca actualizo
-            //findByIdAndUpdate
-            //findByIdAndDelete
         } else {
             const nuevaReserva = this.reservaModel(aDB(reserva))
             const reservaGuardada = await nuevaReserva.save()
@@ -104,9 +97,4 @@ export class ReservaRepository {
     async obtenerReservas(id) {
         return await this.reservaModel.find({ huespedReservador: id }).populate('alojamiento').populate('huespedReservador');
     }
-    // async findAll() {
-    //     const nombre = "pepe"
-    //     const reservas = await this.reservaModel.findOne({nombre})
-    //     return reservas
-    // }
 }

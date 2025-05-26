@@ -1,4 +1,3 @@
-import { values } from "lodash-es";
 
 export class Caracteristica {
     constructor(nombre) {

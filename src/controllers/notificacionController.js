@@ -1,6 +1,6 @@
 import { FactoryNotificacion } from "../domain/factoryNotificacion.js"
 import { ValidacionInvalida } from "../exceptions/datosInvalidos.js"
-import mongoose, { isValidObjectId } from "mongoose"
+import { isValidObjectId } from "mongoose"
 
 
 export class NotificacionController  {
