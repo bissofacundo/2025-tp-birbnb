@@ -55,7 +55,7 @@ export class ReservaRepository {
     }
 
     async deReservaDB(reservaDB, alojamientoAgregado) {
-        const reservaNueva = Reserva.build()
+        const reservaNueva = new Reserva()
         const rangoFechas = new RangoFechas(reservaDB.rangoFechas.fechaInicio, reservaDB.rangoFechas.fechaFin)
         Object.assign(reservaNueva, {
             id: reservaDB.id,

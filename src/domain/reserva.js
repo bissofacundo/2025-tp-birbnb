@@ -12,7 +12,7 @@ export class Reserva {
     cambiosEstadoReserva
 
     //Requerimiento 1
-    constructor(huespedReservador, cantHuespedes, alojamiento, rangoFechas) {
+    constructor(huespedReservador = " ", cantHuespedes = 1, alojamiento = " ", rangoFechas = " ") {
         this.validarParametros(cantHuespedes)
         this.fechaAlta = new Date();
         this.huespedReservador = huespedReservador
@@ -24,9 +24,6 @@ export class Reserva {
         this.actualizarEstadoConCambioEstadoReserva(Estado.PENDIENTE, "Creacion Reserva")
     }
 
-    static build() {
-        return new Reserva(" ", 1, " ", " ")
-    }
     validarParametros(cantHuespedes) {
         if(!cantHuespedes || isNaN(cantHuespedes) || cantHuespedes < 1 ) {
             throw new ReservaInvalida(`La cantidad de huespedes debe ser mayor a cero, se recibió: ${cantHuespedes}`)
