@@ -1,5 +1,8 @@
-import mongoose, { isValidObjectId } from "mongoose"
+import { isValidObjectId } from "mongoose"
 import { aReservaRest } from "./reservaController.js"
+import { ValidacionInvalida } from "../exceptions/datosInvalidos.js"
+import { ColeccionVacia } from "../exceptions/coleccionVacia.js"
+import { EntidadNoEncontrada } from "../exceptions/busquedaEntidad.js"
 
 export class UsuarioController {
     usuarioRepository
@@ -16,6 +19,9 @@ export class UsuarioController {
     }
     async getUsuario(req, res){
         const usuario = await this.usuarioRepository.findById(req.params.id)
+        if(!usuario){
+            throw new EntidadNoEncontrada("No existe el usuario proporcionado")
+        }
         const usuarioDTO = this.toDTO(usuario)
         res.status(200).json(usuarioDTO)
     }
@@ -33,6 +39,12 @@ export class UsuarioController {
     
                 if(!isValidObjectId(id)){
                     throw new ValidacionInvalida('el id no es valido')
+                }
+
+                const usuario = await this.usuarioRepository.findById(req.params.id)
+
+                if(!usuario){
+                    throw new EntidadNoEncontrada("No existe el usuario proporcionado")
                 }
     
                 const reservas = await this.reservaRepository.obtenerReservas(id)
