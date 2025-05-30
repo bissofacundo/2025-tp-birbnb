@@ -12,7 +12,7 @@ export class Reserva {
     cambiosEstadoReserva
 
     //Requerimiento 1
-    constructor(huespedReservador, cantHuespedes, alojamiento, rangoFechas) {
+    constructor(huespedReservador = " ", cantHuespedes = 1, alojamiento = " ", rangoFechas = " ") {
         this.validarParametros(cantHuespedes)
         this.fechaAlta = new Date();
         this.huespedReservador = huespedReservador
@@ -21,12 +21,9 @@ export class Reserva {
         this.rangoFechas = rangoFechas
         this.precioPorNoche = alojamiento.precioPorNoche
         this.cambiosEstadoReserva = []
-        this.actualizarEstadoConNotificacion(Estado.PENDIENTE, "Creacion Reserva")
+        this.actualizarEstadoConCambioEstadoReserva(Estado.PENDIENTE, "Creacion Reserva")
     }
 
-    static build() {
-        return new Reserva(" ", 1, " ", " ")
-    }
     validarParametros(cantHuespedes) {
         if(!cantHuespedes || isNaN(cantHuespedes) || cantHuespedes < 1 ) {
             throw new ReservaInvalida(`La cantidad de huespedes debe ser mayor a cero, se recibió: ${cantHuespedes}`)
@@ -43,7 +40,7 @@ export class Reserva {
         this.actualizarEstadoConNotificacion(Estado.CONFIRMADA, "Se acepto la reserva")
     }
 
-    actualizarEstadoConNotificacion(estado, motivo) {
+    actualizarEstadoConCambioEstadoReserva(estado, motivo) {
         this.actualizarEstado(estado)
         const cambioRegistrado =  new CambioEstadoReserva(new Date(), this.estado, motivo, this.huespedReservador)
         this.cambiosEstadoReserva.push(cambioRegistrado)
@@ -51,11 +48,7 @@ export class Reserva {
 
     //Requerimiento 3
     cancelarReserva(motivo){
-        this.actualizarEstadoConNotificacion(Estado.CANCELADA, "El huesped ha cancelado la reserva por " + motivo)
-        // notificacion = this.actualizarEstadoConNotificacion(Estado.CANCELADA)
-        // notificacion.aniadirMotivo(motivo)
-        // return notificacion
-        /*this.getAnfitrion().guardarNotificacion(notificacion)*/
+        this.actualizarEstadoConCambioEstadoReserva(Estado.CANCELADA, "El huesped ha cancelado la reserva por " + motivo)
     }
 
     getNombreAlojamiento() {

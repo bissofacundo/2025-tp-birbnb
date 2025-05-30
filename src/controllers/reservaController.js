@@ -1,5 +1,5 @@
 import { ValidacionInvalida } from "../exceptions/datosInvalidos.js"
-import mongoose, { isValidObjectId } from "mongoose"
+import { isValidObjectId } from "mongoose"
 
 export const aReservaRest = (reserva) => {
     return {
@@ -45,11 +45,6 @@ export class ReservaController {
             } else {
                 res.status(error.status).json({error: error.message, tipoError: error.nombreError})
             }
-            // if( error instanceof EntidadNoEncontrada){
-                // res.status(400).json({
-                //     error: error.message,
-                //   })
-            // }
         } 
     }
     async modificarReserva(req, res){
@@ -76,11 +71,6 @@ export class ReservaController {
             } else {
                 res.status(error.status).json({error: error.message, tipoError: error.nombreError})
             }
-            // if( error instanceof EntidadNoEncontrada){
-                // res.status(400).json({
-                //     error: error.message,
-                //   })
-            // }
         }
     }
     async cancelarReserva(req, res){

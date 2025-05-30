@@ -4,7 +4,6 @@ import { Moneda } from "../domain/enums/moneda.js"
 import { Foto } from "../domain/foto.js"
 import { Alojamiento } from "../domain/alojamiento.js"
 import { Caracteristica } from "../domain/enums/caracteristica.js"
-import { filter } from "lodash-es"
 
 export class AlojamientoRepository {
     usuarioRepository

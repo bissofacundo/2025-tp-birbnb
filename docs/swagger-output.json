@@ -12,60 +12,60 @@
   ],
   "paths": {
     "/notificaciones": {
-    "get": {
-      "tags": ["Notificaciones"],
-      "summary": "Obtener notificaciones",
-      "description": "Retorna todas las notificaciones; se puede filtrar por id_usuario y estado de lectura.",
-      "parameters": [
-        {
-          "name": "id_usuario",
-          "in": "query",
-          "description": "ID del usuario para filtrar las notificaciones",
-          "required": false,
-          "type": "string"
-        },
-        {
-          "name": "leida",
-          "in": "query",
-          "description": "Filtrar por estado de lectura",
-          "required": false,
-          "type": "boolean"
-        }
-      ],
-      "responses": {
-        "200": {
-          "description": "Lista de notificaciones"
-        },
-        "500": {
-          "description": "Error al obtener las notificaciones"
-        }
-      }
-    }
-  },
-  "/notificaciones/{id_notificacion}": {
-    "patch": {
-      "tags": ["Notificaciones"],
-      "summary": "Marcar notificación como leída",
-      "description": "Actualiza la notificación indicada, marcándola como leída y seteando la fecha de lectura.",
-      "parameters": [
-        {
-          "name": "id_notificacion",
-          "in": "path",
-          "description": "ID de la notificación",
-          "required": true,
-          "type": "string"
-        }
-      ],
-      "responses": {
-        "200": {
-          "description": "Notificación actualizada"
-        },
-        "400": {
-          "description": "Error al marcar como leída"
+      "get": {
+        "tags": ["Notificaciones"],
+        "summary": "Obtener notificaciones",
+        "description": "Retorna todas las notificaciones; se puede filtrar por id_usuario y estado de lectura.",
+        "parameters": [
+          {
+            "name": "id_usuario",
+            "in": "query",
+            "description": "ID del usuario para filtrar las notificaciones",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "leida",
+            "in": "query",
+            "description": "Filtrar por estado de lectura",
+            "required": false,
+            "type": "boolean"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Lista de notificaciones"
+          },
+          "500": {
+            "description": "Error al obtener las notificaciones"
+          }
         }
       }
-    }
-  },
+    },
+    "/notificaciones/{id_notificacion}": {
+      "patch": {
+        "tags": ["Notificaciones"],
+        "summary": "Marcar notificación como leída",
+        "description": "Actualiza la notificación indicada, marcándola como leída y seteando la fecha de lectura.",
+        "parameters": [
+          {
+            "name": "id_notificacion",
+            "in": "path",
+            "description": "ID de la notificación",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Notificación actualizada"
+          },
+          "400": {
+            "description": "Error al marcar como leída"
+          }
+        }
+      }
+    },
     "/healthCheck": {
       "get": {
         "description": "",
@@ -186,8 +186,7 @@
           "description": "ID de la reserva",
           "required": true,
           "type": "string"
-        }
-      ],
+        }],
         "responses": {
           "200": {
             "description": "Se modifico una reserva"
@@ -197,6 +196,76 @@
           },
           "404": {
             "description": "No se encontró el alojamiento o el huesped que hace la reservación"
+          },
+          "500": {
+            "description": "Error del servidor"
+          }
+        }
+      },
+      "patch": {
+        "tags": ["Reservas"],
+        "description": "Permite cambiar el estado de una reserva a cancelada, generando una notificación en el proceso",
+        "summary": "Cancela una reserva",
+        "parameters": [
+        {
+          "name": "id_reserva",
+          "in": "path",
+          "description": "ID de la reserva",
+          "required": true,
+          "type": "string"
+        },
+        {
+          "name": "motivo",
+          "in": "body",
+          "description": "Motivo de cancelación",
+          "required": false,
+          "type": "string"
+        }
+      ],
+        "responses": {
+          "200": {
+            "description": "Se canceló la reserva"
+          },
+          "400": {
+            "description": "Tuvo un error de validación"
+          },
+          "404": {
+            "description": "No se encontró la reserva a cancelar"
+          },
+          "409": {
+            "description": "La reserva ya se encontraba cancelada"
+          },
+          "500": {
+            "description": "Error del servidor"
+          }
+        }
+      }
+    },
+    "/usuarios/{id_usuario}/reservas": {
+      "get": {
+        "tags": ["Usuarios", "Reservas"],
+        "description": "Obtiene las reservas del usuario especificado",
+        "summary": "Obtener reservas de usuarios",
+        "parameters": [
+        {
+          "name": "id_usuario",
+          "in": "path",
+          "description": "ID del usuario",
+          "required": true,
+          "type": "string"
+        }],
+        "responses": {
+          "200": {
+            "description": "Lista de reservas obtenida"
+          },
+          "400": {
+            "description": "Tuvo un error de validacion"
+          },
+          "404": {
+            "description": "No se encontró el usuario con el ID proporcionado"
+          },
+          "406": {
+            "description": "El usuario no tiene reservas"
           },
           "500": {
             "description": "Error del servidor"
