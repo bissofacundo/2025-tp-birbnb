@@ -22,6 +22,10 @@ export class Ciudad {
         this.nombre = nombre;
         this.pais = pais;
     }
+
+    getPais() {
+        return this.pais.nombre
+    }
 }
 
 export class Direccion {
@@ -68,4 +72,11 @@ export class Direccion {
         return coincideCalle && coincideAltura && coincideCiudad && coincidePais && coincideLat && coincideLong;
     }
 
+    getCiudad() {
+        return this.ciudad.nombre
+    }
+
+    getPais() {
+        return this.ciudad.getPais()
+    }
 }

@@ -26,21 +26,8 @@ export class AlojamientoController {
             });
         }
     }
-    //Falta implementar bien
-    async create(req, res, next) {
-        try {
-            const nuevo = await this.alojamientoService.create(req.body);
-            res.status(201).json(nuevo);
-        } catch (error) {
-            if (!error.status) {
-                res.status(500).json({ error: "Error en el servidor" })
-            } else {
-                res.status(error.status).json({ error: error.message, tipoError: error.nombreError })
-            }
-        }
-    }
 
-    async crearFiltro(req) {
+    crearFiltro(req) {
         return {
             page: req.query.page ? (parseInt(req.query.page)-1) : 1,
             limit: req.query.limit ? parseInt(req.query.limit) : 10,

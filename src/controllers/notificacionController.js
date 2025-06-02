@@ -1,4 +1,3 @@
-import { FactoryNotificacion } from "../domain/factoryNotificacion.js"
 import { ValidacionInvalida } from "../exceptions/datosInvalidos.js"
 import { isValidObjectId } from "mongoose"
 
@@ -8,13 +7,6 @@ export class NotificacionController  {
         this.notificacionService = notificacionService
     }
 
-    crearNotificacion(reserva, mensaje){
-        notificacion = FactoryNotificacion.crearSegunReserva(reserva)
-        if(Estado.CANCELADA === reserva.Estado) {
-            notificacion.mensaje = mensaje
-        }
-        return notificacion
-    }
 
     async obtenerNotificaciones(req, res) {
       try { 

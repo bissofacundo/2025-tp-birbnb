@@ -76,7 +76,7 @@ export class ReservaController {
     async cancelarReserva(req, res){
         try {
             const id = req.params.id
-            const motivo = req.body.motivo
+            let motivo = req.body.motivo
             if(!motivo){
                 motivo = ""
             }

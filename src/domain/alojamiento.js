@@ -86,4 +86,28 @@ export class Alojamiento {
     getAnfitrion(){
         return this.anfitrion
     }
+
+    getCalle() {
+        return this.direccion.calle
+    }
+
+    getAltura() {
+        return this.direccion.altura
+    }
+
+    getCiudad() {
+        return this.direccion.getCiudad()
+    }
+
+    getLatitud() {
+        return this.direccion.lat
+    }
+
+    getLongitud() {
+        return this.direccion.long
+    }
+
+    getPais() {
+        return this.direccion.getPais()
+    }
 }
