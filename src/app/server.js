@@ -1,6 +1,6 @@
 import bodyParser from "body-parser";
 import {configureRoutes} from "./routes.js";
-import { handlerException } from "../exceptions/handlerException.js";
+import { handlerException } from "../exceptions/handlerExceptionYMapper/handlerException.js";
 
 export const startServer = (app, port, appContext) => {
   app.use(bodyParser.json())

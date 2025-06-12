@@ -1,6 +1,15 @@
 import { ValidacionInvalida } from "../exceptions/datosInvalidos.js"
 import { isValidObjectId } from "mongoose"
+import { MapperError } from "../exceptions/handlerExceptionYMapper/mapperErrores.js"
+import { EntidadNoEncontrada } from "../exceptions/busquedaEntidad.js"
+import { ErrorDeHandler } from "../exceptions/handlerExceptionYMapper/errorDeHandler.js"
 
+const mapperComunErroresEndpoints = () => {
+    const mapperError = new MapperError()
+    mapperError.agregarErrorStatusCode(ValidacionInvalida, 400)
+    mapperError.agregarErrorStatusCode(EntidadNoEncontrada, 404)
+    return mapperError
+}
 
 export class NotificacionController  {
     constructor(notificacionService) {
@@ -8,7 +17,8 @@ export class NotificacionController  {
     }
 
 
-    async obtenerNotificaciones(req, res) {
+    async obtenerNotificaciones(req, res, next) {
+      const mapperError = mapperComunErroresEndpoints()
       try { 
         const filtros = {
             id_usuario: req.query.id_usuario,
@@ -23,16 +33,12 @@ export class NotificacionController  {
         const notificaciones = await this.notificacionService.encontrarNotificaciones(filtros)
         res.status(200).json(notificaciones)
         } catch (error) {
-            if(!error.status) {
-                console.log(error)
-                res.status(500).json({error: "Error en el servidor"})
-            } else {
-                res.status(error.status).json({error: error.message, tipoError: error.nombreError})
-            }
+            next(new ErrorDeHandler(error,  mapperError.buscarStatusCodeEnMapper(error)))
         }
     }
 
-    async marcarComoLeida(req, res) {
+    async marcarComoLeida(req, res, next) {
+        const mapperError = mapperComunErroresEndpoints()
         try{
             const id = req.params.id_notificacion
             if( !isValidObjectId(id)) {
@@ -41,12 +47,7 @@ export class NotificacionController  {
             const notificacionLeida = await this.notificacionService.marcarNotificacionComoLeida(id)
             res.status(200).json(notificacionLeida)
         } catch (error) {
-            if(!error.status) {
-                console.log(error)
-                res.status(500).json({error: "Error en el servidor"})
-            } else {
-                res.status(error.status).json({error: error.message, tipoError: error.nombreError})
-            }
+            next(new ErrorDeHandler(error,  mapperError.buscarStatusCodeEnMapper(error)))
         }
     }
 }

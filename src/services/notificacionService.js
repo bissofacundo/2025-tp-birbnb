@@ -1,4 +1,5 @@
 import { Notificacion } from "../domain/notificacion.js";
+import { EntidadNoEncontrada } from "../exceptions/busquedaEntidad.js";
 
 export class NotificacionService {
     notificacionRepository
@@ -34,7 +35,7 @@ export class NotificacionService {
     async marcarNotificacionComoLeida(id) {
         const notificacion = await this.notificacionRepository.encontrarNotificacionPorId(id);
         if (!notificacion) {
-            throw new Error(`No se encontró la notificación con id ${id}`);
+            throw new EntidadNoEncontrada(`No se encontró la notificación con id ${id}`);
         }
         notificacion.marcarComoLeida();
         const notificacionLeida = await this.notificacionRepository.actualizarNotificacion(notificacion);

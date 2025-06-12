@@ -10,9 +10,6 @@ export class AlojamientoController {
             const filters = await this.crearFiltro(req)
 
             const alojamientos = await this.alojamientoService.findAll(filters)
-            if (alojamientos.length === 0) {
-                return res.status(204).json({ message: 'No se encontraron alojamientos con esos filtros' }); // No Content
-            }
             res.status(200).json({
                 pagina: filters.page,
                 limite: filters.limit,
