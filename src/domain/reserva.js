@@ -86,4 +86,8 @@ export class Reserva {
     teSuperponesCon(rangoFechas) {
         return this.rangoFechas.tieneInterseccionCon(rangoFechas)
     }
+
+    noEstaCancelada() {
+        return !(this.estado === Estado.CANCELADA)
+    }
 }

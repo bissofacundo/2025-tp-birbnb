@@ -76,7 +76,7 @@ export class Alojamiento {
     }
 
     estaDisponibleEn(rangoDeFechas){
-        return !this.reservas.some(r => r.teSuperponesCon(rangoDeFechas))
+        return !this.reservas.filter(reserva => reserva.noEstaCancelada()).some(r => r.teSuperponesCon(rangoDeFechas))
     }
 
     agregarReserva(reserva){
