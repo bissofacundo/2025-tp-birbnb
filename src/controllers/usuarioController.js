@@ -11,7 +11,7 @@ const mapperComunErroresEndpoints = () => {
     const mapperError = new MapperError()
     mapperError.agregarErrorStatusCode(ValidacionInvalida, 400)
     mapperError.agregarErrorStatusCode(EntidadNoEncontrada, 404)
-    mapperError.agregarErrorStatusCode(ColeccionVacia, 409)
+    mapperError.agregarErrorStatusCode(ColeccionVacia, 406)
     return mapperError
 }
 export class UsuarioController {

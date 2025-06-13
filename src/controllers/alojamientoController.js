@@ -1,4 +1,3 @@
-import { Caracteristica } from "../domain/enums/caracteristica.js"
 import {ValidacionInvalida} from "../exceptions/datosInvalidos.js"
 import { ErrorDeHandler } from "../exceptions/handlerExceptionYMapper/errorDeHandler.js"
 import { MapperError } from "../exceptions/handlerExceptionYMapper/mapperErrores.js"
@@ -10,10 +9,6 @@ const mapperComunErroresEndpoints = () => {
     return mapperError
 }
 
-const sonCaracteristicasInvalidas = (caracteristicas) => {
-    const ListaDeCaracteristica = caracteristicas.split(',').map(c => c.toUpperCase())
-    return ListaDeCaracteristica.every( caracteristica  => Caracteristica.fromString(caracteristica))
-}
 
 export class AlojamientoController {
     alojamientoService
@@ -69,10 +64,6 @@ export class AlojamientoController {
 
         if(req.query.huespedes && isNaN(parseInt(req.query.huespedes))) {
             throw new ValidacionInvalida('La cantidad de huespedes minima debe ser un numero')
-        }
-
-        if(req.query.caracteristicas && sonCaracteristicasInvalidas(req.query.caracteristicas)) {
-            throw new ValidacionInvalida('Se pasó un conjunto de caracteristicas que no existe')
         }
 
 
