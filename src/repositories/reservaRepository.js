@@ -55,7 +55,7 @@ export class ReservaRepository {
     }
 
     async deReservaDB(reservaDB, alojamientoAgregado) {
-        const reservaNueva = new Reserva()
+        const reservaNueva = Reserva.build()
         const rangoFechas = new RangoFechas(reservaDB.rangoFechas.fechaInicio, reservaDB.rangoFechas.fechaFin)
         Object.assign(reservaNueva, {
             id: reservaDB.id,
@@ -88,7 +88,7 @@ export class ReservaRepository {
             await this.reservaModel.findByIdAndUpdate(reserva.id, this.aReservaDB(reserva))
             return reserva
         } else {
-            const nuevaReserva = this.reservaModel(aDB(reserva))
+            const nuevaReserva = this.reservaModel(this.aReservaDB(reserva))
             const reservaGuardada = await nuevaReserva.save()
             reserva.id = reservaGuardada.id
             return reserva

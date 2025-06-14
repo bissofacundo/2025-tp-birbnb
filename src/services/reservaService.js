@@ -33,9 +33,6 @@ export class ReservaService {
         return this.reservaRepository.save(reservaMongo)
     }
 
-    async eliminarReserva(id){
-        const deleted = await ReservaRepository.eliminarReserva(id)
-    }
 
     async crearReserva(rangoDefechas, idAlojamiento, idHuespedReservador, cantHuespedes) {
         const rangoFechas = new RangoFechas(rangoDefechas.fechaInicio, rangoDefechas.fechaFin)
@@ -55,7 +52,7 @@ export class ReservaService {
             throw new ReservaInvalida(`La reserva supero la maxima cantidad de huespedes que el alojamiento ${alojamiento.nombre} permite. La maxima cantidad de huespedes que admite el alojamiento es ${alojamiento.cantHuespedesMax}`)
         }
 
-        const reservaNueva = new Reserva(huespedReservador, cantHuespedes, alojamiento, rangoFechas)
+        const reservaNueva = new Reserva({huespedReservador, cantHuespedes, alojamiento, rangoFechas})
 
         const reservaGuardada = await this.reservaRepository.crearReserva(reservaNueva)
 

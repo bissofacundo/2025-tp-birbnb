@@ -3,7 +3,17 @@ import { aReservaRest } from "./reservaController.js"
 import { ValidacionInvalida } from "../exceptions/datosInvalidos.js"
 import { ColeccionVacia } from "../exceptions/coleccionVacia.js"
 import { EntidadNoEncontrada } from "../exceptions/busquedaEntidad.js"
+import { MapperError } from "../exceptions/handlerExceptionYMapper/mapperErrores.js"
+import { ErrorDeHandler } from "../exceptions/handlerExceptionYMapper/errorDeHandler.js"
 
+
+const mapperComunErroresEndpoints = () => {
+    const mapperError = new MapperError()
+    mapperError.agregarErrorStatusCode(ValidacionInvalida, 400)
+    mapperError.agregarErrorStatusCode(EntidadNoEncontrada, 404)
+    mapperError.agregarErrorStatusCode(ColeccionVacia, 406)
+    return mapperError
+}
 export class UsuarioController {
     usuarioRepository
     reservaRepository
@@ -33,7 +43,8 @@ export class UsuarioController {
             tipoUsuario: usuario.tipoUsuario
         };
     }
-        async obtenerReservas(req, res){
+        async obtenerReservas(req, res, next){
+            const mapperError = mapperComunErroresEndpoints()
             try {
                 const id = req.params.id
     
@@ -54,12 +65,7 @@ export class UsuarioController {
                 }
                 res.json((reservas.map(reserva => aReservaRest(reserva))))
             } catch (error) {
-                if(!error.status) {
-                    console.log(error)
-                    res.status(500).json({error: "Error en el servidor"})
-                } else {
-                    res.status(error.status).json({error: error.message, tipoError: error.nombreError})
-                }
+                next(new ErrorDeHandler(error,  mapperError.buscarStatusCodeEnMapper(error)))
             }
         }
         toDTOReserva(reserva) {

@@ -1,5 +1,10 @@
+import { ReservaInvalida } from "../exceptions/alojamiento.js"
+import { EntidadNoEncontrada } from "../exceptions/busquedaEntidad.js"
 import { ValidacionInvalida } from "../exceptions/datosInvalidos.js"
 import { isValidObjectId } from "mongoose"
+import { MismoEstado } from "../exceptions/mismoEstado.js"
+import { MapperError } from "../exceptions/handlerExceptionYMapper/mapperErrores.js"
+import { ErrorDeHandler } from "../exceptions/handlerExceptionYMapper/errorDeHandler.js"
 
 export const aReservaRest = (reserva) => {
     return {
@@ -14,13 +19,29 @@ export const aReservaRest = (reserva) => {
     }
 }
 
+const mapperComunErroresEndpoints = () => {
+    const mapperError = new MapperError()
+    mapperError.agregarErrorStatusCode(ValidacionInvalida, 400)
+    mapperError.agregarErrorStatusCode(EntidadNoEncontrada, 404)
+    mapperError.agregarErrorStatusCode(ReservaInvalida, 400)
+    return mapperError
+}
+
+
+const crearMapperErroresCancelarReserva = () => {
+    const mapperError = mapperComunErroresEndpoints()
+    mapperError.agregarErrorStatusCode(MismoEstado, 409)
+    return mapperError
+}
+
 export class ReservaController {
     reservaService
     constructor(reservaService) {
         this.reservaService = reservaService
     }
 
-    async crearReserva(req, res) {
+    async crearReserva(req, res, next) {
+        const mapperError = mapperComunErroresEndpoints()
         try {
             const idAlojamiento = req.body.alojamiento
             const rangoDefechas = { fechaInicio: new Date(req.body.fechaInicio), 
@@ -39,15 +60,11 @@ export class ReservaController {
             res.status(201).json(aReservaRest(reservaNueva))
             
         } catch (error) {
-            if(!error.status) {
-                console.log(error)
-                res.status(500).json({error: "Error en el servidor"})
-            } else {
-                res.status(error.status).json({error: error.message, tipoError: error.nombreError})
-            }
+            next(new ErrorDeHandler(error,  mapperError.buscarStatusCodeEnMapper(error)))
         } 
     }
-    async modificarReserva(req, res){
+    async modificarReserva(req, res, next){
+        const mapperError = mapperComunErroresEndpoints()
         try {
             const idReserva = req.params.id
             const cantHuespedes = req.body.cantHuespedes
@@ -65,18 +82,14 @@ export class ReservaController {
             const reservaModificada = await this.reservaService.modificarReserva(idReserva, rangoDefechas, cantHuespedes)
             res.status(200).json(aReservaRest(reservaModificada))
         }catch (error) {
-            if(!error.status) {
-                console.log(error)
-                res.status(500).json({error: "Error en el servidor"})
-            } else {
-                res.status(error.status).json({error: error.message, tipoError: error.nombreError})
-            }
+            next(new ErrorDeHandler(error,  mapperError.buscarStatusCodeEnMapper(error)))
         }
     }
-    async cancelarReserva(req, res){
+    async cancelarReserva(req, res, next){
+        const mapperError = crearMapperErroresCancelarReserva()
         try {
             const id = req.params.id
-            const motivo = req.body.motivo
+            let motivo = req.body.motivo
             if(!motivo){
                 motivo = ""
             }
@@ -86,12 +99,7 @@ export class ReservaController {
             const reservaCancelada = await this.reservaService.cancelar(id, motivo)
             res.json(aReservaRest(reservaCancelada));
         } catch (error) {
-            if(!error.status) {
-                console.log(error)
-                res.status(500).json({error: "Error en el servidor"})
-            } else {
-                res.status(error.status).json({error: error.message, tipoError: error.nombreError})
-            }
+            next(new ErrorDeHandler(error,  mapperError.buscarStatusCodeEnMapper(error)))
         }
     }
 }

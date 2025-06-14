@@ -14,26 +14,28 @@ export class Alojamiento {
     reservas;
     fotos;
 
-    constructor(anfitrion, nombre, descripcion,
+    constructor({anfitrion, nombre, descripcion,
         precioPorNoche, moneda, horarioCheckIn,
         horarioCheckOut, direccion, cantHuespedesMax,
-        caracteristicas, fotos)
+        caracteristicas, fotos, sinParametros})
     {
-        this.validarParametros(anfitrion, nombre,
-        precioPorNoche, moneda, horarioCheckIn,
-        horarioCheckOut, direccion, cantHuespedesMax)
-        this.anfitrion = anfitrion
-        this.nombre = nombre
-        this.descripcion = descripcion
-        this.precioPorNoche = precioPorNoche
-        this.moneda = moneda
-        this.horarioCheckIn = horarioCheckIn
-        this.horarioCheckOut = horarioCheckOut
-        this.direccion = direccion
-        this.cantHuespedesMax = cantHuespedesMax
-        this.caracteristicas = caracteristicas || []
-        this.fotos = fotos || []
-        this.reservas = []
+        if(!sinParametros) {
+            this.validarParametros(anfitrion, nombre,
+            precioPorNoche, moneda, horarioCheckIn,
+            horarioCheckOut, direccion, cantHuespedesMax)
+            this.anfitrion = anfitrion
+            this.nombre = nombre
+            this.descripcion = descripcion
+            this.precioPorNoche = precioPorNoche
+            this.moneda = moneda
+            this.horarioCheckIn = horarioCheckIn
+            this.horarioCheckOut = horarioCheckOut
+            this.direccion = direccion
+            this.cantHuespedesMax = cantHuespedesMax
+            this.caracteristicas = caracteristicas || []
+            this.fotos = fotos || []
+            this.reservas = []
+        }
     }
 
     validarParametros(anfitrion, nombre,
@@ -51,9 +53,7 @@ export class Alojamiento {
     }
 
     static build(){
-        return new Alojamiento("Hola", "El pinzon", "Una linda casa para veranear",
-                150000, "Hola", "horarioCheckIn",
-                "horarioCheckOut", "direccion", 15)
+        return new Alojamiento({sinParametros: true})
     }
 
 
@@ -76,7 +76,7 @@ export class Alojamiento {
     }
 
     estaDisponibleEn(rangoDeFechas){
-        return !this.reservas.some(r => r.teSuperponesCon(rangoDeFechas))
+        return !this.reservas.filter(reserva => reserva.noEstaCancelada()).some(r => r.teSuperponesCon(rangoDeFechas))
     }
 
     agregarReserva(reserva){
@@ -85,5 +85,29 @@ export class Alojamiento {
 
     getAnfitrion(){
         return this.anfitrion
+    }
+
+    getCalle() {
+        return this.direccion.calle
+    }
+
+    getAltura() {
+        return this.direccion.altura
+    }
+
+    getCiudad() {
+        return this.direccion.getCiudad()
+    }
+
+    getLatitud() {
+        return this.direccion.lat
+    }
+
+    getLongitud() {
+        return this.direccion.long
+    }
+
+    getPais() {
+        return this.direccion.getPais()
     }
 }

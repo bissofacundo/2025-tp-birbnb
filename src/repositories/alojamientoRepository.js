@@ -59,12 +59,12 @@ export class AlojamientoRepository {
             horarioCheckIn: alojamiento.horarioCheckIn,
             horarioCheckOut: alojamiento.horarioCheckOut,
             direccion: {        
-                    calle: alojamiento.direccion.calle,
-                    altura: alojamiento.direccion.altura,
-                    ciudad: alojamiento.direccion.ciudad.nombre,
-                    lat: alojamiento.direccion.lat,
-                    long: alojamiento.direccion.long,
-                    pais: alojamiento.direccion.ciudad.pais.nombre
+                    calle: alojamiento.getCalle(),
+                    altura: alojamiento.getAltura(),
+                    ciudad: alojamiento.getCiudad(),
+                    lat: alojamiento.getLatitud(),
+                    long: alojamiento.getLongitud(),
+                    pais: alojamiento.getPais()
             },
             cantHuespedesMax: alojamiento.cantHuespedesMax,
             caracteristicas: alojamiento.caracteristicas.map(caracteristica => caracteristica.toString()),

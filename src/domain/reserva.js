@@ -12,16 +12,23 @@ export class Reserva {
     cambiosEstadoReserva
 
     //Requerimiento 1
-    constructor(huespedReservador = " ", cantHuespedes = 1, alojamiento = " ", rangoFechas = " ") {
-        this.validarParametros(cantHuespedes)
-        this.fechaAlta = new Date();
-        this.huespedReservador = huespedReservador
-        this.alojamiento = alojamiento
-        this.cantHuespedes = cantHuespedes
-        this.rangoFechas = rangoFechas
-        this.precioPorNoche = alojamiento.precioPorNoche
-        this.cambiosEstadoReserva = []
-        this.actualizarEstadoConCambioEstadoReserva(Estado.PENDIENTE, "Creacion Reserva")
+    constructor({huespedReservador , cantHuespedes , alojamiento , rangoFechas, sinParametros }) {
+        if(!sinParametros) {
+            this.validarParametros(cantHuespedes)
+            this.fechaAlta = new Date();
+            this.huespedReservador = huespedReservador
+            this.alojamiento = alojamiento
+            this.cantHuespedes = cantHuespedes
+            this.rangoFechas = rangoFechas
+            this.precioPorNoche = alojamiento.precioPorNoche
+            this.cambiosEstadoReserva = []
+            this.actualizarEstadoConCambioEstadoReserva(Estado.PENDIENTE, "Creacion Reserva")
+        }
+        
+    }
+
+    static build(){
+        return new Reserva({sinParametros: true})
     }
 
     validarParametros(cantHuespedes) {
@@ -85,5 +92,9 @@ export class Reserva {
 
     teSuperponesCon(rangoFechas) {
         return this.rangoFechas.tieneInterseccionCon(rangoFechas)
+    }
+
+    noEstaCancelada() {
+        return !(this.estado === Estado.CANCELADA)
     }
 }
