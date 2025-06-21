@@ -1,7 +1,10 @@
+import { Carousel } from "./Carousel/Carousel"
+
 export const Home = () => {
     return(
         <>
-            <p>En progreso!</p>
+            <p>Home progreso!</p>
+            <Carousel></Carousel>
         </>
     )
 
