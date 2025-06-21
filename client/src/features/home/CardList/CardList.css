@@ -1,0 +1,50 @@
+
+.cardlist{
+  display: flex;
+  flex-direction: row; 
+  gap: 24px;
+}
+
+.cardAlojamiento {
+    background-color: #F0F0F0;
+}
+
+.cardHeader {
+    margin: 16px 12px;
+}
+
+.cardHeader > content{
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.cardHeader *{
+    margin: 0px;
+}
+
+.cardButton{
+    float: right;
+    padding-bottom: 10px;
+    padding-right: 10px;
+}
+
+.cardButton button {
+    background-color: #FFAAFF;
+    color: #49454F;
+    border-radius: 999px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.cardText{
+    display: flex;
+    flex-direction: column; 
+    font-size: 14px;
+    padding: 24px 16px;
+    gap: 32px;
+}
+
+.cardText p{
+    color: #49454F;
+    margin: 0;
+}
