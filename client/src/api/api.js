@@ -75,3 +75,9 @@ const MOCK = [{
 //export const getAlojamientos = () => axios.get(`${BACK_END_URL}/alojamientos`).then(r => r.data)
 
 export const getAlojamientos = () => Promise.resolve(MOCK)
+
+export const getAlojamientosSlowly = () => new Promise((resolve) => {
+  setTimeout(() => {
+    resolve(MOCK)
+  }, 5000)
+})
