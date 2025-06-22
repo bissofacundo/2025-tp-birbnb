@@ -3,6 +3,7 @@ import axios from "axios"
 
 
 const MOCK = [{
+    "_id": "1",
     "anfitrion": "Juan Perez",
     "nombre": "Casa en la playa",
     "descripcion": "Hermosa casa frente al mar con todas las comodidades",
@@ -36,7 +37,8 @@ const MOCK = [{
         }
     ]
 },
-{
+{   
+    "_id": "2",
     "anfitrion": "Juan Perez",
     "nombre": "Hotel NeyMAR",
     "descripcion": "Hermosa casa en el Brasil",

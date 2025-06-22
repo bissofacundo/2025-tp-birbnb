@@ -1,14 +1,19 @@
 import { Card, CardContent, Button} from '@mui/material'
 import AspectRatio from '@mui/joy/AspectRatio';
 import CardOverflow from '@mui/joy/CardOverflow';
+import {useNavigate} from "react-router";
 import './CardList.css'
 
-const alVerMas = () => {
-    alert('clicked');
-}
 
 export const CardList = ({alojamientos}) => {
-
+    
+    const navigate = useNavigate();
+    
+    const alVerMas = (id) => {
+        //alert('clicked');
+        navigate(`/alojamientos/${id}`);
+        //navigate(`/alojamientos/1`);
+    }
 //console.log(alojamientos.map((alojamiento) =>alojamiento.fotos[0].path))
 
 return(
@@ -45,7 +50,7 @@ return(
                     </div>
                     <div class="cardButton">   
                         <CardOverflow>
-                            <Button variant="contained" color="primary" size="md" onClick={alVerMas}>
+                            <Button variant="contained" color="primary" size="md" onClick={() => alVerMas(alojamiento._id)}>
                                 ver mas +
                             </Button>
                         </CardOverflow>

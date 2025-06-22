@@ -2,7 +2,7 @@
 export const AlojamientoDetail = () => {
     return(
         <>
-            <p>En progreso!</p>
+            <p>En progreso el detalle de alojamiento!</p>
         </>
     )
 }
