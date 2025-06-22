@@ -1,0 +1,4 @@
+.barra-busqueda {
+    display: flex;
+    flex-direction: row;
+}
