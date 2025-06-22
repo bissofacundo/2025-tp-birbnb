@@ -111,7 +111,9 @@ export default function NavBar() {
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">
-        <Toolbar sx={{ backgroundColor: "#F7F7F7" }}>
+        <Toolbar sx={{ backgroundColor: "#FAFAFA" }}>
+        <div style={{display: "flex", paddingLeft: "1vw", alignItems: "center"}}>
+        <img src={process.env.PUBLIC_URL + '/birbnb_logo.png'} height= "30px" width= "30px" alt="" />
           <Typography
             variant="h4"
             noWrap
@@ -119,22 +121,22 @@ export default function NavBar() {
             color="black"
             sx={{ display: { xs: 'none', sm: 'block' }, fontFamily: 'Inter', fontWeight: 'medium' }}
           >
-            <span style={{color: '#D055BB'}}>Bi</span>rbnb
+            <span style={{color: '#D055BB'}}>ir</span>bnb
           </Typography>
+          </div>
           <Box sx={{ flexGrow: 2 }} />
-          <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
+          <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' }, gap: "100px" }}>
             {pages.map((page) => (
               <Button
                 key={page}
-                sx={{ my: 2, color: 'black', display: 'block', fontFamily: 'inter', textTransform: 'capitalize', paddingLeft: '50px', 
-                  paddingRight: '50px', fontSize: "20px", '&:hover': { backgroundColor: alpha('#D055BB', '0.25') }  }}
+                sx={{ my: 2, color: 'black', display: 'block', fontFamily: 'inter', textTransform: 'capitalize', fontSize: "20px", '&:hover': { backgroundColor: alpha('#D055BB', '0.25') }  }}
               >
                 {page}
               </Button>
             ))}
           </Box>
           <Box sx={{ flexGrow: 1 }} />
-          <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
+          <Box sx={{ display: { xs: 'none', md: 'flex' }, paddingRight: "1vw" }}>
             <IconButton size="large" aria-label="home" color="black" sx={{ '&:hover': { backgroundColor: alpha('#D055BB', '0.25') } }}>
               <HomeOutlinedIcon />
             </IconButton>
