@@ -1,59 +1,48 @@
 import { useState } from "react"
-import {FormControlLabel, Switch, Button, Menu } from "@mui/material";
+import {FormControlLabel, Switch} from "@mui/material";
+import "./FiltroCaracteristicas.css"
+import { Filtro } from "./Filtros";
 
 const caracteristicasPosibles = [ {id: "WIFI", nombre: 'WiFi', agregado: false},
     {id: "PISCINA", nombre: 'Piscina', agregado: false}, {id: "MASCOTAS_PERMITIDAS", nombre: 'Mascotas Permitidas', agregado: false}, 
     {id: "ESTACIONAMIENTO", nombre: 'Estacionamiento', agregado: false}] 
 
 
-export const FiltroCaracteristicas = () => {
+export const FiltroCaracteristicas = ({modificarFiltro}) => {
     const [caracteristicas, setCaracteristicas] = useState(caracteristicasPosibles)
-    const [anchorEl, setAnchorEl] = useState(null)
-    const open = Boolean(anchorEl)
-    const clikearBoton = (elementoSeleccionado) => {
-        setAnchorEl(elementoSeleccionado)
-    }
-    const handleClose = () => {
+
+    const obtenerFiltro = () => {
         const caracteristicasElegidas = caracteristicas.filter(caract => caract.agregado)
-        setAnchorEl(null)
+        const filtro = caracteristicasElegidas.map(caract => caract.id).join(',')
+        return {nombre: "caracteristicas", filtro}
     }
     const modificarCaracteristica = (idCaracteristica) => {
-        caracteristicas.map(caract => ( caract.id === idCaracteristica ? {...caract, agregada: !caract.agregada} : caract ))
-        setCaracteristicas(caracteristicas)
+        setCaracteristicas(caracteristicas.map(caract =>  caract.id === idCaracteristica ? {...caract, agregado: !caract.agregado} : caract ))
     }
 
     return(
         <>
-            <Button
-                id="button-menu"
-                aria-controls={open ? 'button-menu' : undefined}
-                aria-haspopup="true"
-                aria-expanded={open ? 'true' : undefined}
-                onClick={(e) => clikearBoton(e.currentTarget)}
-            >
-            Agregar Caracteristicas
-            </Button>
-            <Menu
-                id="menu-caracteristicas"
-                aria-labelledby="button-menu"
-                anchorEl={anchorEl}
-                open={open}
-                onClose={handleClose}
-            >
+            <Filtro obtenerFiltro={obtenerFiltro} modificarFiltro={modificarFiltro} descripcionBoton={"Agregar una caracteristica"}>
+                <div className="elementos-menu">
                 {
-                    caracteristicasPosibles.map(caract => <Caracteristica nombre={caract.nombre} modificarCaracteristica={() => modificarCaracteristica(caract.id)}/>)
+                    caracteristicas.map(caract => <Caracteristica nombre={caract.nombre} modificarCaracteristica={() => modificarCaracteristica(caract.id)} agregado={caract.agregado}/>)
                 }
-            </Menu>
+                </div> 
+            </Filtro>  
         </>
     )
 }
 
-const Caracteristica = ({ idCaracteristica, nombre, modificarCaracteristica}) => {
+const Caracteristica = ({ nombre, modificarCaracteristica, agregado}) => {
     return(
-        <div>
+        <div key={nombre} >
             <FormControlLabel control={
-                <Switch inputProps={{ 'aria-label': `Caracteristica ${nombre}` } }
-                onChange={modificarCaracteristica(idCaracteristica)}/>} label={`${nombre}`}/>
+                <Switch aria-label= {`Caracteristica ${nombre}` }
+                onChange={modificarCaracteristica} 
+                className="Switch"
+                checked={agregado}
+                />} 
+            label={`${nombre}`}/>
         </div>
     )
 }

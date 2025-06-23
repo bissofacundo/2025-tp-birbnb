@@ -6,7 +6,6 @@ import {Alojamientos} from "./features/alojamientos/AlojamientosPage"
 import {Reserva} from "./features/reserva/ReservaPage"
 import { Notificaciones } from "./features/notificacionesUsuario/NotificacionesPage";
 import { ReservasUsuario } from "./features/reservasUsuario/ReservasUsuarioPage";
-import { BarraDeBusqueda } from "./components/barraDeBusqueda/BarraDeBusqueda";
 
 export const AppRoutes = () => {
     return <BrowserRouter>
