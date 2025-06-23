@@ -3,10 +3,12 @@ import {Button} from "@mui/material"
 import "./BarraDeBusqueda.css"
 import { useState } from "react"
 import { FiltroUbicacion } from "../filtros/FiltroUbicacion"
+import { FiltroCantidadHuespedes } from "../filtros/FiltroCantidadHuespedes"
 
 const filtrosPosibles = [{nombre:"caracteristicas", valor:""}, 
-    {nombre:"huespedes", valor:""}
-]
+    {nombre:"huespedes", valor:""}, {nombre:"ciudad", valor:""}, {nombre:"pais", valor:""},
+    {nombre:"precioMin", valor:""}, {nombre:"precioMax", valor:""}]
+
 export const BarraDeBusqueda = ({alBuscarAlojamientos}) => {
     const [filtros, setFiltros] = useState([])
     const modificarFiltro = (nombre, valor) => setFiltros(filtrosPosibles.map(filt =>
@@ -25,6 +27,8 @@ export const BarraDeBusqueda = ({alBuscarAlojamientos}) => {
                 <FiltroCaracteristicas modificarFiltro={modificarFiltro}/>
                 <div className="separador-filtros"></div>
                 <FiltroUbicacion/>
+                <div className="separador-filtros"></div>
+                <FiltroCantidadHuespedes modificarFiltro={modificarFiltro}/>
             </div>
             <Button variant="contained" className="boton-busqueda" onClick={buscarAlojamientos} >Buscar</Button>
         </div>
