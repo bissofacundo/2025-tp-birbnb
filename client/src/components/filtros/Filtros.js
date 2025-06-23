@@ -1,53 +1,53 @@
-import {TextField} from "@mui/material";
+import { TextField } from "@mui/material";
 import { useState } from "react";
-import {Button, Menu } from "@mui/material";
+import { Button, Menu } from "@mui/material";
 import "./Filtros.css"
 
 export const FiltroPrecioMax = () => {
     const [precioMax, setPrecioMax] = useState(Infinity)
 
-    return(
+    return (
         <div className='filtro'>
             <h5>Precio Maximo</h5>
-            <TextField 
+            <TextField
                 name='Filtro Precio Max'
                 value={precioMax}
                 onChange={(e) => setPrecioMax(e.target.value)}
             />
         </div>
     )
-} 
+}
 
 export const FiltroPrecioMin = () => {
     const [precioMin, setPrecioMin] = useState(0)
 
-    return(
+    return (
         <div className='filtro'>
             <h5>Precio Minimo</h5>
-            <TextField 
+            <TextField
                 name='Filtro Precio Minimo'
                 value={precioMin}
                 onChange={(e) => setPrecioMin(e.target.value)}
             />
         </div>
     )
-} 
+}
 
 
-export const Filtro = ({children, obtenerFiltro, modificarFiltro, descripcionBoton}) => {
-     const [anchorEl, setAnchorEl] = useState(null)
+export const Filtro = ({ children, obtenerFiltro, modificarFiltro, descripcionBoton }) => {
+    const [anchorEl, setAnchorEl] = useState(null)
     const open = Boolean(anchorEl)
     const clikearBoton = (elementoSeleccionado) => {
         setAnchorEl(elementoSeleccionado)
     }
 
     const handleClose = () => {
-        const {nombre ,filtro} = obtenerFiltro()
-        modificarFiltro( nombre, filtro)
+        const { nombre, filtro } = obtenerFiltro()
+        modificarFiltro(nombre, filtro)
         setAnchorEl(null)
     }
 
-    return(
+    return (
         <>
             <Button
                 aria-controls={open ? 'button-menu' : undefined}
@@ -56,7 +56,7 @@ export const Filtro = ({children, obtenerFiltro, modificarFiltro, descripcionBot
                 onClick={(e) => clikearBoton(e.currentTarget)}
                 className="boton-filtro"
             >
-            {descripcionBoton}
+                {descripcionBoton}
             </Button>
             <Menu
                 aria-labelledby="button-menu"
@@ -64,8 +64,8 @@ export const Filtro = ({children, obtenerFiltro, modificarFiltro, descripcionBot
                 open={open}
                 onClose={handleClose}
                 className="menu-filtro"
-            > 
-            {children}
+            >
+                {children}
             </Menu>
         </>
     )
