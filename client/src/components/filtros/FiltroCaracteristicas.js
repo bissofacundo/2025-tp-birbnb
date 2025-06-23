@@ -23,11 +23,9 @@ export const FiltroCaracteristicas = ({modificarFiltro}) => {
     return(
         <>
             <Filtro obtenerFiltro={obtenerFiltro} modificarFiltro={modificarFiltro} descripcionBoton={"Agregar una caracteristica"}>
-                <div className="elementos-menu">
                 {
                     caracteristicas.map(caract => <Caracteristica nombre={caract.nombre} modificarCaracteristica={() => modificarCaracteristica(caract.id)} agregado={caract.agregado}/>)
                 }
-                </div> 
             </Filtro>  
         </>
     )
@@ -39,8 +37,9 @@ const Caracteristica = ({ nombre, modificarCaracteristica, agregado}) => {
             <FormControlLabel control={
                 <Switch aria-label= {`Caracteristica ${nombre}` }
                 onChange={modificarCaracteristica} 
-                className="Switch"
                 checked={agregado}
+                className="boton-caracteristica"
+                key={nombre}
                 />} 
             label={`${nombre}`}/>
         </div>

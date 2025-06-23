@@ -1,8 +1,11 @@
-.elementos-menu {
-    padding-left: 10px;
+
+
+.boton-caracteristica >  span.Mui-checked + span.MuiSwitch-track{
+    background-color: red;
 }
 
-.Switch {
-    background-image: red;
-    color-scheme: red;
+.boton-caracteristica .Mui-checked > span.MuiSwitch-thumb {
+    color:red;
 }
+
+

@@ -1,6 +1,8 @@
 import {TextField} from "@mui/material";
 import { useState } from "react";
 import {Button, Menu } from "@mui/material";
+import "./Filtros.css"
+
 export const FiltroPrecioMax = () => {
     const [precioMax, setPrecioMax] = useState(Infinity)
 
@@ -48,20 +50,20 @@ export const Filtro = ({children, obtenerFiltro, modificarFiltro, descripcionBot
     return(
         <>
             <Button
-                id="button-menu"
                 aria-controls={open ? 'button-menu' : undefined}
                 aria-haspopup="true"
                 aria-expanded={open ? 'true' : undefined}
                 onClick={(e) => clikearBoton(e.currentTarget)}
+                className="boton-filtro"
             >
             {descripcionBoton}
             </Button>
             <Menu
-                id="menu-filtro"
                 aria-labelledby="button-menu"
                 anchorEl={anchorEl}
                 open={open}
                 onClose={handleClose}
+                className="menu-filtro"
             > 
             {children}
             </Menu>
