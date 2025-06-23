@@ -5,13 +5,15 @@ import { getAlojamientosFiltrados } from "../../api/alojamientosAPI"
 
 export const Alojamientos = () => {
     const [alojamientos, setAlojamientos] = useState([])
-    
+
     const mostrarError = (mensajeError) => {
-        //TODO
+        console.error(mensajeError)
     }
     const alBuscarAlojamientos = async (queryParams) => {
         try {
-            setAlojamientos( await getAlojamientosFiltrados(queryParams) ) 
+            const alojamientosObtenidos = await getAlojamientosFiltrados(queryParams)
+            console.log(alojamientosObtenidos)
+            setAlojamientos( alojamientosObtenidos ) 
         } catch(error) {
             mostrarError(error.message)
         }
