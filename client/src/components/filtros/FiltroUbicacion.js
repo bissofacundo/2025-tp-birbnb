@@ -8,8 +8,7 @@ export const FiltroUbicacion = ({modificarFiltros, nombrePais, nombreCiudad}) =>
     const [parametros, setParametros] = useState([{nombreParam: nombrePais, input: ""}, {nombreParam: nombreCiudad, input: ""}]) 
     
     const guardarFiltros = () => {
-        const filtros = parametros.filter(param => param.input !== "").map(param => ({nombre: param.nombreParam, valor: param.input}))
-        console.log(filtros)
+        const filtros = parametros.map(param => ({nombre: param.nombreParam, valor: param.input}))
         modificarFiltros(filtros)
     }
 

@@ -12,14 +12,13 @@ const filtrosPosibles = [{nombre:"caracteristicas", valor:""},
 
 export const BarraDeBusqueda = ({alBuscarAlojamientos}) => {
     const [filtros, setFiltros] = useState(filtrosPosibles)
-    const modificarFiltro = (nombre, valor) => { 
-        setFiltros(filtros.map(filt =>
-            filt.nombre === nombre ? ({ ...filt, valor: valor }) : filt
-        ))
+    const modificarFiltroPor = (filtro, filtrosModificados) => { 
+        const filtroObtenido = filtrosModificados.find( filtroModificado => filtroModificado.nombre === filtro.nombre)
+        return filtroObtenido ? {...filtro, valor: filtroObtenido.valor} : filtro
     }
 
-    const modificarFiltros = (filtros) => {
-        filtros.forEach(filtro => modificarFiltro(filtro.nombre, filtro.valor));
+    const modificarFiltros = (filtrosModificados) => {
+        setFiltros(filtros.map( filtro => modificarFiltroPor(filtro, filtrosModificados)))
     }
 
     const buscarAlojamientos = async () => {
@@ -31,7 +30,7 @@ export const BarraDeBusqueda = ({alBuscarAlojamientos}) => {
     return (
         <div className="barra-busqueda">
             <div className="filtros-busqueda">
-                <FiltroCaracteristicas modificarFiltros={modificarFiltros} nombreParam="caracteristicas" />
+                <FiltroCaracteristicas modificarFiltros={modificarFiltros} nombreparam="caracteristicas"/>
                 <div className="separador-filtros"></div>
                 <FiltroCantidadHuespedes modificarFiltros={modificarFiltros} nombreParam="huespedes"/>
                 <div className="separador-filtros"></div>

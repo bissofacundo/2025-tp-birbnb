@@ -125,7 +125,7 @@ export class AlojamientoRepository {
 
         // Características
         if (filters.caracteristicas && filters.caracteristicas.length > 0) {
-            query.caracteristicas = { $all: filters.id_caracteristicas };
+            query.caracteristicas = { $all: filters.caracteristicas };
         }
         const alojamientosFiltrados = await this.model.find(query).populate('anfitrion');
         //.skip(filters.page * filters.limit)

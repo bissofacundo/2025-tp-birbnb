@@ -21,7 +21,7 @@ export class AlojamientoController {
         const mapperError = mapperComunErroresEndpoints()
         try {
             const filters = this.crearFiltro(req)
-
+            console.log(filters)
             const alojamientos = await this.alojamientoService.findAll(filters)
             res.status(200).json({
                 pagina: filters.page,
