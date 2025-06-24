@@ -1,6 +1,6 @@
 .toolbar {
     background-color: #FAFAFA;
-    height: 10vh;
+    height: 6vh;
     justify-content: space-between;
     display: flex;
 }
@@ -15,27 +15,27 @@
 }
 .logo-text {
     display: block;
-    font-family: "sans-serif";
+    font-family: "Roboto", "sans-serif";
     font-weight: 600;
-    color: black;
+    color: rgba(0, 0, 0, 0.9);
     font-size: 30px;    
 }
 .logo-text span {
-    color: #D055BB;
+    color: #C922B0;
 }
 #button {
-    color: black;
+    color: rgba(0, 0, 0, 0.7);
     display: block;
-    font-family: "Inter, sans-serif";
+    font-family: "Roboto", "sans-serif";
     text-transform: capitalize;
     font-size: 20px;
     font-weight: 500;
 }
 #button:hover {
-    background-color: rgba(208, 85, 187, 0.25);
+    background-color: rgba(201, 34, 176, 0.25);
 }
 #appbar-icon:hover {
-        background-color: rgba(208, 85, 187, 0.25);
+        background-color: rgba(201, 34, 176, 0.25);
 }
 .appbar-buttons {
     display: flex;

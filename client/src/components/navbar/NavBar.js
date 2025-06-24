@@ -39,7 +39,7 @@ export default function NavBar() {
               color="black"
               id="appbar-icon"
             >
-              <Badge badgeContent={17} color="error">
+              <Badge badgeContent={1} color="error">
                 <NotificationsNoneOutlinedIcon />
               </Badge>
             </IconButton>
