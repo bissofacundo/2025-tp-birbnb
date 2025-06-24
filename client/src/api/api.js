@@ -73,10 +73,10 @@ const MOCK = [{
     ]
 }]
 
-//const BACK_END_URL = 'http://localhost:27017' //cambiar BACK_END_URL en .env
-//export const getAlojamientos = () => axios.get(`${BACK_END_URL}/alojamientos`).then(r => r.data)
+const BACK_END_URL = 'http://localhost:27017' //cambiar BACK_END_URL en .env
+export const getAlojamientos = () => axios.get(`${BACK_END_URL}/alojamientos`).then(r => r.data)
 
-export const getAlojamientos = () => Promise.resolve(MOCK)
+//export const getAlojamientos = () => Promise.resolve(MOCK)
 
 export const getAlojamientosSlowly = () => new Promise((resolve) => {
   setTimeout(() => {

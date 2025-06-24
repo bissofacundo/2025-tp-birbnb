@@ -4,10 +4,10 @@ import Footer from "../../components/footer/Footer.js";
 
 export const Layout = () => {
     return(
-        <>
+        <div>
             <NavBar></NavBar>
             <Outlet />
             <Footer></Footer>
-        </>
+        </div>
     )
 }

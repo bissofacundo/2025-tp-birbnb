@@ -4,7 +4,7 @@ import { AlojamientosContext } from '../../../context/alojamientoProvider'
 import { useState, useContext, useEffect } from 'react'
 import LinearProgress from '@mui/material/LinearProgress';
 
-export const Carousel = () => {
+export const Carousel = ({subtitulo}) => {
 
     const {alojamientos: alojamientosDeBDD} = useContext(AlojamientosContext); 
 
@@ -17,7 +17,7 @@ export const Carousel = () => {
 
     return(
         <div class="carousel">
-            <p>Alojamientos populares</p>
+            <p>{subtitulo}</p>
             {alojamientos.length !== 0 ? <CardList alojamientos={alojamientos}></CardList> : <LinearProgress color="secondary" />}
         </div>
     )

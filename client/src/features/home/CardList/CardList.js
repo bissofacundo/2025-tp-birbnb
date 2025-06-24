@@ -29,7 +29,7 @@ const BirbnbCard = ({alojamiento}) => {
             <CardOverflow sx={{width: '100%'}}>
                 <AspectRatio sx={{ minWidth: 200, width:'100%'}}>
                 <img class="imagenAlojamiento"
-                    src={alojamiento.fotos[0].path}
+                    src={ alojamiento.fotos[0].path}
                     srcSet=""
                     loading="lazy"
                     alt={alojamiento.fotos[0].descripcion}

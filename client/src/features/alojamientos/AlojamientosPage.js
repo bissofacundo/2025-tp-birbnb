@@ -1,11 +1,13 @@
 import { BarraDeBusqueda } from "../../components/barraDeBusqueda/BarraDeBusqueda"
 import "./Alojamientos.css"
-import { useState } from "react"
 import { getAlojamientosFiltrados } from "../../api/alojamientosAPI"
+import { Carousel } from "../home/Carousel/Carousel"
+import { useContext } from "react"
+import { AlojamientosContext } from "../../context/alojamientoProvider"
 
 export const Alojamientos = () => {
-    const [alojamientos, setAlojamientos] = useState([])
-
+    const {setAlojamientos} = useContext(AlojamientosContext); 
+    
     const mostrarError = (mensajeError) => {
         console.error(mensajeError)
     }
@@ -25,6 +27,7 @@ export const Alojamientos = () => {
             <header className="cabecera-alojamientos">
                 <BarraDeBusqueda alBuscarAlojamientos={alBuscarAlojamientos}/>
             </header>
+            <Carousel subtitulo={"Tus Alojamientos Recomendados"}></Carousel> 
         </section>
         </>
     )
