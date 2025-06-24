@@ -4,6 +4,7 @@ import "./BarraDeBusqueda.css"
 import { useState } from "react"
 import { FiltroCantidadHuespedes } from "../filtros/FiltroCantidadHuespedes"
 import { FiltroUbicacion } from "../filtros/FiltroUbicacion"
+import { FiltroPrecio } from "../filtros/FiltroPrecio"
 
 const filtrosPosibles = [{nombre:"caracteristicas", valor:""}, 
     {nombre:"huespedes", valor:""}, {nombre:"ciudad", valor:""}, {nombre:"pais", valor:""},
@@ -36,6 +37,8 @@ export const BarraDeBusqueda = ({alBuscarAlojamientos}) => {
                 <FiltroCantidadHuespedes modificarFiltros={modificarFiltros} nombreParam="huespedes"/>
                 <div className="separador-filtros"></div>
                 <FiltroUbicacion modificarFiltros={modificarFiltros} nombrePais={"pais"} nombreCiudad={"ciudad"} />
+                <div className="separador-filtros"></div>
+                <FiltroPrecio modificarFiltros={modificarFiltros} precioMin={"precioMin"} precioMax={"precioMax"} />
             </div>
             <Button variant="contained" className="boton-busqueda" onClick={buscarAlojamientos} >Buscar</Button>
         </div>

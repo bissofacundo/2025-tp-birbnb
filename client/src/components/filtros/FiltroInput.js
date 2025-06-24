@@ -1,6 +1,5 @@
-import { useState } from "react";
 import { TextField } from "@mui/material";
-import { Filtro } from "./Filtros";
+import "./FiltroInput.css"
 
 
 export const FiltrosInput = ({ parametros, modificarInput}) => {
@@ -14,7 +13,7 @@ export const FiltrosInput = ({ parametros, modificarInput}) => {
 
 const Input = ({ nombre, modificarInput, input }) => {
     return (
-        <div key={nombre} >
+        <div key={nombre} className="input">
              <TextField
                 label={nombre}
                 variant="outlined"
