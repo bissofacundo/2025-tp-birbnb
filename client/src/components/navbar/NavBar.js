@@ -8,15 +8,17 @@ import HomeOutlinedIcon from '@mui/icons-material/HomeOutlined';
 import NotificationsNoneOutlinedIcon from '@mui/icons-material/NotificationsNoneOutlined';
 import Button from '@mui/material/Button';
 import './NavBar.css'
+import { useNavigate } from 'react-router';
 
 const pages = ['Alojamientos', 'Reservas'];
 
 export default function NavBar() {
+  const navigate = useNavigate();
 
   return (
       <AppBar position="static">
         <Toolbar className="toolbar" >
-          <div className="logo">
+          <div className="logo" onClick={()=>navigate(`/`)} >
             <img src={process.env.PUBLIC_URL + '/birbnb_logo.png'} id="logo" alt="" />
             <h4 className='logo-text'>
               <span>ir</span>bnb
@@ -24,7 +26,7 @@ export default function NavBar() {
           </div>
           <div  className="appbar-buttons" >
             {pages.map((page) => (
-              <Button key={page} id="button" >
+              <Button key={page} id="button" onClick={()=>navigate(`/${page.toLowerCase()}`)}>
                 {page}
               </Button>
             ))}

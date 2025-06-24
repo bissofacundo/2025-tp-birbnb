@@ -13,7 +13,6 @@ const filtrosPosibles = [{nombre:"caracteristicas", valor:""},
 export const BarraDeBusqueda = ({alBuscarAlojamientos}) => {
     const [filtros, setFiltros] = useState(filtrosPosibles)
     const modificarFiltro = (nombre, valor) => { 
-        console.log(nombre === 'pais')
         setFiltros(filtros.map(filt =>
             filt.nombre === nombre ? ({ ...filt, valor: valor }) : filt
         ))
