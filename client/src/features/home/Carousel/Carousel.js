@@ -17,7 +17,7 @@ export const Carousel = () => {
 
     return(
         <div class="carousel">
-            <p>Alojamientos populares en Rio de Janeiro</p>
+            <p>Alojamientos populares</p>
             {alojamientos.length !== 0 ? <CardList alojamientos={alojamientos}></CardList> : <LinearProgress color="secondary" />}
         </div>
     )

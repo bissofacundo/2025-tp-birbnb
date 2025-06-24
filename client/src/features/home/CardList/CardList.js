@@ -3,51 +3,54 @@ import AspectRatio from '@mui/joy/AspectRatio';
 import CardOverflow from '@mui/joy/CardOverflow';
 import {useNavigate} from "react-router";
 import './CardList.css'
+import { useContext } from 'react';
+import { AlojamientosContext } from '../../../context/alojamientoProvider';
 
 
-const BirbnbCard = ({nombre, anfitrion, fotos, direccion, cantHuespedesMax, precioPorNoche, caracteristicas, id}) => {
+const BirbnbCard = ({alojamiento}) => {
 
     const navigate = useNavigate();
 
-    const alVerMas = (id) => {
-        //alert('clicked');
-        navigate(`/alojamientos/${id}`);
-        //navigate(`/alojamientos/1`);
+    const {detallarAlojamiento: detallarAlojamiento} = useContext(AlojamientosContext); 
+
+    const alVerMas = (alojamiento) => {
+        detallarAlojamiento(alojamiento)
+        navigate(`/alojamientos/${alojamiento._id}`);
     }
 
     return(
         <Card class= 'cardAlojamiento' color="primary" variant='outlined' sx={{ width: 320, maxWidth: '100%', boxShadow: 'lg' }} >
             <div class="cardHeader">
                 <content>
-                    <h3 class="nombre">{nombre}</h3> 
-                    <p class="anfitrion">{anfitrion}</p>
+                    <h3 class="nombre">{alojamiento.nombre}</h3> 
+                    <p class="anfitrion">{alojamiento.anfitrion}</p>
                 </content>
             </div>
             <CardOverflow sx={{width: '100%'}}>
                 <AspectRatio sx={{ minWidth: 200, width:'100%'}}>
                 <img class="imagenAlojamiento"
-                    src={fotos[0].path}
+                    src={alojamiento.fotos[0].path}
                     srcSet=""
                     loading="lazy"
-                    alt={fotos[0].descripcion}
+                    alt={alojamiento.fotos[0].descripcion}
                 />
                 </AspectRatio>
             </CardOverflow>
             <div class="cardDescripcion">
                 <div class="cardText"> 
                     <div class="ubicacion">
-                        <p>Ciudad: {direccion.ciudad} </p>    
-                        <p>Pais: {direccion.pais}</p>
+                        <p>Ciudad: {alojamiento.direccion.ciudad} </p>    
+                        <p>Pais: {alojamiento.direccion.pais}</p>
                     </div>
                     <div class="detalles">
-                        <p>Cantidad de Huspedes: {cantHuespedesMax}</p>
-                        <p>Precio por noche: ${precioPorNoche}</p>
-                        <p>Caracteristicas: {caracteristicas.map(caracterista => caracterista.toLowerCase()).join(", ")}</p>
+                        <p>Cantidad de Huspedes: {alojamiento.cantHuespedesMax}</p>
+                        <p>Precio por noche: ${alojamiento.precioPorNoche}</p>
+                        <p>Caracteristicas: {alojamiento.caracteristicas.map(caracterista => caracterista.toLowerCase()).join(", ")}</p>
                     </div>
                 </div>
                 <div class="cardButton">   
                     <CardOverflow>
-                        <Button variant="contained" color="primary" size="md" onClick={() => alVerMas(id)}>
+                        <Button variant="contained" color="primary" size="md" onClick={() => alVerMas(alojamiento)}>
                             ver mas +
                         </Button>
                     </CardOverflow>
@@ -63,9 +66,7 @@ export const CardList = ({alojamientos}) => {
     return(
         <div class="cardlist">{
             alojamientos.map((alojamiento) => 
-                <BirbnbCard nombre={alojamiento.nombre} anfitrion={alojamiento.anfitrion} fotos={alojamiento.fotos} direccion={alojamiento.direccion}
-                            cantHuespedesMax={alojamiento.cantHuespedesMax} precioPorNoche={alojamiento.precioPorNoche} caracteristicas={alojamiento.caracteristicas}
-                            id={alojamiento._id}>
+                <BirbnbCard alojamiento={alojamiento}>
                 </BirbnbCard>
             )}
         </div>
