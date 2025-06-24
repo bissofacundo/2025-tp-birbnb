@@ -1,44 +1,41 @@
 import { FiltroCaracteristicas } from "../filtros/FiltroCaracteristicas"
-import { FiltroPais } from "../filtros/FiltroPais"
-import { FiltroInput } from "../filtros/FiltroInput"
-import { FiltroPrecio } from "../filtros/FiltroPrecio"
 import { Button } from "@mui/material"
 import "./BarraDeBusqueda.css"
 import { useState } from "react"
-import { FiltroUbicacion } from "../filtros/FiltroUbicacion"
 import { FiltroCantidadHuespedes } from "../filtros/FiltroCantidadHuespedes"
+import { FiltroUbicacion } from "../filtros/FiltroUbicacion"
 
 const filtrosPosibles = [{nombre:"caracteristicas", valor:""}, 
     {nombre:"huespedes", valor:""}, {nombre:"ciudad", valor:""}, {nombre:"pais", valor:""},
     {nombre:"precioMin", valor:""}, {nombre:"precioMax", valor:""}]
 
 export const BarraDeBusqueda = ({alBuscarAlojamientos}) => {
-    const [filtros, setFiltros] = useState([])
-    const modificarFiltro = (nombre, valor) => setFiltros(filtrosPosibles.map(filt =>
-        filt.nombre === nombre ? ({ ...filt, valor: valor }) : filt
-    ))
+    const [filtros, setFiltros] = useState(filtrosPosibles)
+    const modificarFiltro = (nombre, valor) => { 
+        console.log(nombre === 'pais')
+        setFiltros(filtros.map(filt =>
+            filt.nombre === nombre ? ({ ...filt, valor: valor }) : filt
+        ))
+    }
+
+    const modificarFiltros = (filtros) => {
+        filtros.forEach(filtro => modificarFiltro(filtro.nombre, filtro.valor));
+    }
 
     const buscarAlojamientos = async () => {
         const filtrosElegidos = filtros.filter(filtro => filtro.valor)
-        await alBuscarAlojamientos(filtros)
+        await alBuscarAlojamientos(filtrosElegidos)
     }
 
 
     return (
         <div className="barra-busqueda">
             <div className="filtros-busqueda">
-                <FiltroCaracteristicas modificarFiltro={modificarFiltro} />
+                <FiltroCaracteristicas modificarFiltros={modificarFiltros} nombreParam="caracteristicas" />
                 <div className="separador-filtros"></div>
-                <FiltroUbicacion/>
+                <FiltroCantidadHuespedes modificarFiltros={modificarFiltros} nombreParam="huespedes"/>
                 <div className="separador-filtros"></div>
-                <FiltroCantidadHuespedes modificarFiltro={modificarFiltro}/>
-                <FiltroInput modificarFiltro={modificarFiltro} nombreParam="Pais" />
-                <div className="separador-filtros"></div>
-                <FiltroInput modificarFiltro={modificarFiltro} nombreParam="Ciudad" />
-                <div className="separador-filtros"></div>
-                <FiltroInput modificarFiltro={modificarFiltro} nombreParam="PrecioMin" />
-                <div className="separador-filtros"></div>
-                <FiltroInput modificarFiltro={modificarFiltro} nombreParam="PrecioMax" />
+                <FiltroUbicacion modificarFiltros={modificarFiltros} nombrePais={"pais"} nombreCiudad={"ciudad"} />
             </div>
             <Button variant="contained" className="boton-busqueda" onClick={buscarAlojamientos} >Buscar</Button>
         </div>

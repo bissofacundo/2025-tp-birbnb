@@ -8,13 +8,13 @@ const caracteristicasPosibles = [ {id: "WIFI", nombre: 'WiFi', agregado: false},
     {id: "ESTACIONAMIENTO", nombre: 'Estacionamiento', agregado: false}] 
 
 
-export const FiltroCaracteristicas = ({modificarFiltro}) => {
+export const FiltroCaracteristicas = ({modificarFiltros, nombreparam}) => {
     const [caracteristicas, setCaracteristicas] = useState(caracteristicasPosibles)
 
-    const obtenerFiltro = () => {
+    const guardarFiltros = () => {
         const caracteristicasElegidas = caracteristicas.filter(caract => caract.agregado)
         const filtro = caracteristicasElegidas.map(caract => caract.id).join(',')
-        return {nombre: "caracteristicas", filtro}
+        modificarFiltros([{nombre: nombreparam, valor: filtro}])
     }
     const modificarCaracteristica = (idCaracteristica) => {
         setCaracteristicas(caracteristicas.map(caract =>  caract.id === idCaracteristica ? {...caract, agregado: !caract.agregado} : caract ))
@@ -22,7 +22,7 @@ export const FiltroCaracteristicas = ({modificarFiltro}) => {
 
     return(
         <>
-            <Filtro obtenerFiltro={obtenerFiltro} modificarFiltro={modificarFiltro} descripcionBoton={"Agregar una caracteristica"}>
+            <Filtro guardarFiltros={guardarFiltros} descripcionBoton={"Agregar una caracteristica"}>
                 {
                     caracteristicas.map(caract => <Caracteristica nombre={caract.nombre} modificarCaracteristica={() => modificarCaracteristica(caract.id)} agregado={caract.agregado}/>)
                 }

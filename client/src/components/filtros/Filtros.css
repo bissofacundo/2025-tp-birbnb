@@ -1,5 +1,5 @@
 .filtros-busqueda .boton-filtro {
-    color:brown;
+    color: rgba(0, 0, 0, 0.8);
     text-transform: capitalize;
 }
 

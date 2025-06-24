@@ -34,7 +34,7 @@ export const FiltroPrecioMin = () => {
 }
 
 
-export const Filtro = ({ children, obtenerFiltro, modificarFiltro, descripcionBoton }) => {
+export const Filtro = ({ children, guardarFiltros, descripcionBoton }) => {
     const [anchorEl, setAnchorEl] = useState(null)
     const open = Boolean(anchorEl)
     const clikearBoton = (elementoSeleccionado) => {
@@ -42,8 +42,7 @@ export const Filtro = ({ children, obtenerFiltro, modificarFiltro, descripcionBo
     }
 
     const handleClose = () => {
-        const { nombre, filtro } = obtenerFiltro()
-        modificarFiltro(nombre, filtro)
+        guardarFiltros()
         setAnchorEl(null)
     }
 
