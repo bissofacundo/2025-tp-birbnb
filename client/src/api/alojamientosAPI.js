@@ -1,12 +1,7 @@
 import axios from "axios"
-
+import qs from "qs"
 
 export const getAlojamientosFiltrados = async (filtros) => {
-    const params = new URLSearchParams()
-    if(filtros){
-        filtros.forEach(filtro => 
-        params.append(filtro.nombre, filtro.valor) )
-    }
-    
-    return axios.get(`http://localhost:4000/alojamientos`, params).then(r => r.data.resultados)
+    const filtrosTransformados = filtros ? filtros.map(filtro => `params[${filtro.nombre}]=${filtro.valor}`).join("&") : ''
+    return axios.get(`http://localhost:4000/alojamientos`, qs.parse(filtrosTransformados)).then(r => r.data.resultados)
 }

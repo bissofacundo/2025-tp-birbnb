@@ -9,8 +9,7 @@ export const FiltroPrecio = ({modificarFiltros, precioMin, precioMax}) => {
     const [parametros, setParametros] = useState([{nombreParam: precioMin, input: ""}, {nombreParam: precioMax, input: ""}]) 
     
     const guardarFiltros = () => {
-        const filtros = parametros.filter(param => param.input !== "").map(param => ({nombre: param.nombreParam, valor: param.input}))
-        console.log(filtros)
+        const filtros = parametros.map(param => ({nombre: param.nombreParam, valor: param.input}))
         modificarFiltros(filtros)
     }
 
