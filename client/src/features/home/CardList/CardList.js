@@ -61,7 +61,6 @@ const BirbnbCard = ({alojamiento}) => {
 }
 
 export const CardList = ({alojamientos}) => {
-//console.log(alojamientos)
 
     return(
         <div class="cardlist">{
