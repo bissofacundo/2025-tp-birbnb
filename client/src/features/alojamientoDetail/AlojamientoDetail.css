@@ -1,0 +1,56 @@
+.body {
+    display: flex;
+    flex-direction: column;
+    width: 100vw;
+    padding-bottom: 48px;
+}
+
+.image {
+    display: flex;
+    width: 100vw;
+    border: 1px solid black;
+    align-items: center;
+    justify-content: center;
+}
+
+
+.image img {
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  padding: 5px;
+  height: 40vw;
+  min-width: 20vw;
+}
+
+.image button {
+    height: 40vw;
+    width: 2vw;
+    background-color: rgba(254, 247, 255, 0.2);
+    padding: 0;
+    border-radius: 0;
+}
+
+.image button:hover {
+    background-color: rgba(254, 247, 255, 1);
+}
+
+.leftButton > button{
+    left: 4vw;
+}
+
+.rightButton > button {
+    right: 4vw;
+}
+
+.image-footer {
+    display: flex;
+}
+
+.description {
+    padding: 8px 12px;
+    border: 1px solid black;
+}
+
+.buying-section {
+    border: 1px solid black;
+}
