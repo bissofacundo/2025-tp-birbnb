@@ -1,8 +1,12 @@
 .filtros-busqueda .boton-filtro {
     color: rgba(0, 0, 0, 0.8);
     text-transform: capitalize;
-}
 
+}
+.filtros-busqueda .boton-filtro:hover {
+  border-bottom: solid rgba(201, 34, 92, 0.3);
+  background-color: transparent;
+}
 .menu-filtro ul.MuiList-root{
     border: 2px;
     padding-left: 10px;
