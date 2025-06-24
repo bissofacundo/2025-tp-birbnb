@@ -27,9 +27,9 @@ const BotonSelectorDeCantidad = ({cantHuespedes, agregarCantHuespedes}) => {
     return(
         <div>
                 <ButtonGroup variant="contained" aria-label="Basic button group">
-                    <Button onClick={() => agregarCantHuespedes(-1)} disabled={cantHuespedes <= 1}>-</Button>
+                    <Button className="boton" onClick={() => agregarCantHuespedes(-1)} disabled={cantHuespedes <= 1}>-</Button>
                     <div className="cantidad-huespedes">{cantHuespedes}</div>
-                    <Button onClick={() => agregarCantHuespedes(1)}>+</Button>
+                    <Button className="boton" onClick={() => agregarCantHuespedes(1)}>+</Button>
                 </ButtonGroup>
         </div>
     )
