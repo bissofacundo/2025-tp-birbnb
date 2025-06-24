@@ -15,7 +15,8 @@ export const AppRoutes = () => {
                 <Route path='/' element={<Layout />}>
                     <Route index element={<Home />}/>
                     <Route path='/alojamientos' element={<Alojamientos />}/>
-                    <Route path='/alojamientos/:nombre' element={<AlojamientoDetail />}/> 
+                    {/* <Route path='/alojamientos/:nombre' element={<AlojamientoDetail />}/>  */}
+                    <Route path='/alojamientos/:id' element={<AlojamientoDetail />}/>
                     <Route path='/reservas' element={<Reserva />}/>
                     <Route path='/:idUsuario/notificaciones' element={<Notificaciones />}/>
                     <Route path='/:idUsuario/reservas' element={<ReservasUsuario />}/>
