@@ -1,0 +1,21 @@
+.barra-busqueda {
+    display: flex;
+    flex-direction: row;
+    border-radius: 50px;
+    box-shadow: 0px 2px 8px 1px rgba(0, 0, 0, 0.2);
+    padding: 8px;
+}
+
+.filtros-busqueda {
+    display: flex;
+}
+
+.filtros-busqueda > .separador-filtros {
+    border-left: 1px rgba(0, 0, 0, 0.2) solid;
+    padding: 0.1px;
+}
+
+.boton-busqueda.MuiButton-contained.MuiButton-root {
+    background-color: blueviolet;
+    border-radius: 50px;
+}

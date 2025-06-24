@@ -1,7 +1,6 @@
 import { Layout } from "./features/layout/Layout"
 import { Home } from "./features/home/HomePage"
-import {Route, Routes} from "react-router-dom";
-import {BrowserRouter} from "react-router";
+import {Route, Routes, BrowserRouter, Outlet} from "react-router-dom";
 import {AlojamientoDetail} from "./features/alojamientoDetail/AlojamientoDetailPage"
 import {Alojamientos} from "./features/alojamientos/AlojamientosPage"
 import {Reserva} from "./features/reserva/ReservaPage"
@@ -9,8 +8,7 @@ import { Notificaciones } from "./features/notificacionesUsuario/NotificacionesP
 import { ReservasUsuario } from "./features/reservasUsuario/ReservasUsuarioPage";
 
 export const AppRoutes = () => {
-    return (
-        <BrowserRouter>
+    return <BrowserRouter>
              <Routes>
                 <Route path='/' element={<Layout />}>
                     <Route index element={<Home />}/>
@@ -23,5 +21,4 @@ export const AppRoutes = () => {
                 </Route>
             </Routes>
         </BrowserRouter>
-    )
 }

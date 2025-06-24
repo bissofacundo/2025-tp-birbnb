@@ -1,0 +1,13 @@
+
+
+.boton-caracteristica >  span.Mui-checked + span.MuiSwitch-track{
+    background-color:#C922B0
+;
+}
+
+.boton-caracteristica .Mui-checked > span.MuiSwitch-thumb {
+    color:#C922B0
+;
+}
+
+
