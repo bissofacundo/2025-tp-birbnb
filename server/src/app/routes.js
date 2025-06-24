@@ -15,6 +15,6 @@ export const configureRoutes = (app, {reservaController, usuarioController, aloj
     app.patch("/reservas/:id", reservaController.cancelarReserva.bind(reservaController))    
     app.get("/usuarios/:id/reservas", usuarioController.obtenerReservas.bind(usuarioController))
     app.get("/alojamientos", alojamientoController.findAll.bind(alojamientoController))
-    app.get("/notificaciones", notificacionController.obtenerNotificaciones.bind(notificacionController))     
+    app.get("/", notificacionController.obtenerNotificaciones.bind(notificacionController))     
     app.patch("/notificaciones/:id_notificacion", notificacionController.marcarComoLeida.bind(notificacionController))
 }
