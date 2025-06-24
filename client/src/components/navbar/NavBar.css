@@ -1,0 +1,47 @@
+.toolbar {
+    background-color: #FAFAFA;
+    height: 10vh;
+    justify-content: space-between;
+    display: flex;
+}
+.logo {
+    display: flex;
+    padding-left: 1vw;
+    align-items: center;
+}
+#logo {
+    height: 30px;
+    width: 30px;
+}
+.logo-text {
+    display: block;
+    font-family: "sans-serif";
+    font-weight: 600;
+    color: black;
+    font-size: 30px;    
+}
+.logo-text span {
+    color: #D055BB;
+}
+#button {
+    color: black;
+    display: block;
+    font-family: "Inter, sans-serif";
+    text-transform: capitalize;
+    font-size: 20px;
+    font-weight: 500;
+}
+#button:hover {
+    background-color: rgba(208, 85, 187, 0.25);
+}
+#appbar-icon:hover {
+        background-color: rgba(208, 85, 187, 0.25);
+}
+.appbar-buttons {
+    display: flex;
+    gap: 100px;
+}
+.appbar-icons {
+    display: flex;
+    padding-right: 1vw;
+}

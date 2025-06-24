@@ -1,7 +1,13 @@
+import { Outlet } from "react-router";
+import NavBar from "../../components/navbar/Navbar.js";
+import Footer from "../../components/footer/Footer.js";
+
 export const Layout = () => {
     return(
         <>
-            <p>En progreso!</p>
+            <NavBar></NavBar>
+            <Outlet />
+            <Footer></Footer>
         </>
     )
 }

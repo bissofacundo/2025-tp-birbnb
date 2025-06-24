@@ -1,0 +1,36 @@
+.copyright {
+    text-align: left;
+    font-family: 'Inter, sans-serif';
+    margin-right: auto;
+    padding-left: 5vw;
+}
+.footer-right {
+    display: flex;
+    align-items: center;
+    padding-right: 5vw;
+    gap: 10px;
+}
+.language-select {
+    background-color: #f5f6f7;
+}
+.coin-select {
+    background-color: #f5f6f7;
+}
+.social-icons {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    padding-left: 0.75rem;
+}
+
+.footer {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    height: 0.5vh;
+    display: flex;
+    align-items: center;
+    padding: 24px;
+    background-color: #f5f6f7;
+    margin: auto;
+}
