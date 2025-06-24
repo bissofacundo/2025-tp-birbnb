@@ -49,6 +49,6 @@
     padding-right: 1vw;
 }
 
-span > span.icono-notificacion {
+span.icono-notificacion > span {
     background-color: #8F22C9;
 }
