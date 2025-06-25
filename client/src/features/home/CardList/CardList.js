@@ -4,14 +4,14 @@ import CardOverflow from '@mui/joy/CardOverflow';
 import {useNavigate} from "react-router";
 import './CardList.css'
 import { useContext } from 'react';
-import { AlojamientosContext } from '../../../context/alojamientoProvider';
+import { DetailContext } from '../../../context/detailProvider';
 
 
 const BirbnbCard = ({alojamiento}) => {
 
     const navigate = useNavigate();
 
-    const {detallarAlojamiento: detallarAlojamiento} = useContext(AlojamientosContext); 
+    const {detallarAlojamiento} = useContext(DetailContext); 
 
     const alVerMas = (alojamiento) => {
         detallarAlojamiento(alojamiento)

@@ -1,17 +1,19 @@
-import { useContext } from 'react';
+import { useContext, useEffect } from 'react';
 import { AlojamientosContext } from '../../context/alojamientoProvider';
 import "./AlojamientoDetail.css"
 import { Button, ImageListItemBar } from '@mui/material';
 import Chip from '@mui/material/Chip';
 import Stack from '@mui/material/Stack';
 import { useState } from 'react';
+import { DetailContext } from '../../context/detailProvider';
+import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
+import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 
 export const AlojamientoDetail = () => {
 
+    const {alojamientoDetallado: alojamiento} = useContext(DetailContext); 
 
 
-
-    const {alojamientoDetallado: alojamiento} = useContext(AlojamientosContext); 
     const [showedFoto, setShowed] = useState({fotos: alojamiento.fotos, indice: 0})
 
     const handleLeft = () => {
@@ -33,20 +35,24 @@ export const AlojamientoDetail = () => {
         <div class="body">
             <div class="image">
                 <div class="leftButton">
-                    <Button onClick={() => handleLeft()}></Button>
+                    <Button onClick={() => handleLeft()}>
+                        <ArrowBackIosIcon></ArrowBackIosIcon>
+                    </Button>
                 </div>
                     <img src={showedFoto.fotos[showedFoto.indice].path}></img>
                 <div class="rightButton">
-                    <Button onClick={() => handleRight()}></Button>
+                    <Button onClick={() => handleRight()}>
+                        <ArrowForwardIosIcon></ArrowForwardIosIcon>
+                    </Button>
                 </div>
             </div>
             <div class="image-footer">
                 <div class="description">
-                    <Stack direction="row" spacing={1}>
+                    <div class="chips-box">
                         {alojamiento.caracteristicas.map(carac => {
-                        return (<Chip label={carac} spacinc={1}></Chip>)
+                        return (<Chip label={carac}></Chip>)
                     })}
-                    </Stack>
+                    </div>
                     <h1>{alojamiento.nombre}</h1>
                     <p>{alojamiento.descripcion}</p>
                     <p>direccion: {alojamiento.direccion.calle} {alojamiento.direccion.altura}, {alojamiento.direccion.ciudad}, {alojamiento.direccion.pais}</p>
