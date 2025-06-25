@@ -11,11 +11,9 @@ const BirbnbCard = ({alojamiento}) => {
 
     const navigate = useNavigate();
 
-    const {detallarAlojamiento} = useContext(DetailContext); 
 
     const alVerMas = (alojamiento) => {
-        detallarAlojamiento(alojamiento)
-        navigate(`/alojamientos/${alojamiento._id}`);
+        navigate(`/alojamientos/${alojamiento.idFront}`);
     }
 
     return(

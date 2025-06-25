@@ -8,9 +8,16 @@ export const AlojamientosProvider = ({children}) => {
 
   const [alojamientos, setAlojamientos] = useState([]);
 
+  const parseId = (alojamientos) => {
+    let i = 0
+    const alojamientosFront = alojamientos.map(alojamiento => {
+      return {...alojamiento, idFront: ++i}
+    })
+    setAlojamientos(alojamientosFront)
+  }
 
   useEffect(() => {
-    const cargarAlojamientos = async () => setAlojamientos(await getAlojamientosFiltrados())
+    const cargarAlojamientos = async () => parseId(await getAlojamientosFiltrados())
     cargarAlojamientos()
   }, [])
 

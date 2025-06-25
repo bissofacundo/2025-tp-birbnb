@@ -7,9 +7,9 @@ function App() {
   return (
     <>
       <AlojamientosProvider>
-      <DetailProvider>
-        <AppRoutes/>
-      </DetailProvider>
+        <DetailProvider>
+          <AppRoutes/>
+        </DetailProvider>
       </AlojamientosProvider>
     </>
   );
