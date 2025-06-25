@@ -32,6 +32,7 @@ export const DetailProvider = ({children}) => {
   const [alojamientoDetallado, setDetallado] = useState(mocker())
   
   const detallarAlojamiento = (id) => {
+    console.log(alojamientos)
     setDetallado(alojamientos.find(alojamiento => alojamiento.idFront === parseInt(id)))
   }
 

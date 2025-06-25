@@ -8,8 +8,9 @@ import { DetailContext } from '../../context/detailProvider';
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import { useParams } from 'react-router';
+import LinearProgress from '@mui/material/LinearProgress';
 
-export const AlojamientoDetail = () => {
+const AlojamientoDetailLoaded = () => {
     
     const params = useParams();
     const {alojamientoDetallado, detallarAlojamiento} = useContext(DetailContext);
@@ -90,5 +91,15 @@ export const AlojamientoDetail = () => {
             </div>
         </div>
         </>  
+    )
+}
+
+export const AlojamientoDetail = () => {
+    
+    const {alojamientos} = useContext(AlojamientosContext); 
+    return(
+        <>
+            {alojamientos.length !== 0 ? <AlojamientoDetailLoaded></AlojamientoDetailLoaded> : <LinearProgress color="secondary" />}
+        </>
     )
 }
