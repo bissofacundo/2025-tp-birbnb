@@ -1,27 +1,25 @@
 import { useContext, useEffect } from 'react';
 import { AlojamientosContext } from '../../context/alojamientoProvider';
 import "./AlojamientoDetail.css"
-import { Button, ImageListItemBar } from '@mui/material';
+import { Button} from '@mui/material';
 import Chip from '@mui/material/Chip';
 import { useState } from 'react';
-import { DetailContext } from '../../context/detailProvider';
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import { useParams } from 'react-router';
 import LinearProgress from '@mui/material/LinearProgress';
 
-const AlojamientoDetailLoaded = () => {
+const AlojamientoDetailLoaded = ({alojamientoDetallado}) => {
     
-    const params = useParams();
-    const {alojamientoDetallado, detallarAlojamiento} = useContext(DetailContext);
-    
-    
+    const [showedFoto, setShowed] = useState({fotos: alojamientoDetallado.fotos, indice: 0})
+
     const handleLeft = () => {
         setShowed(prev => {
             const nuevoIndice = prev.indice === 0 ? prev.indice : prev.indice - 1
             return { ...prev, indice: nuevoIndice};
         });
     }
+
     
     const handleRight = () => {
         setShowed(prev => {
@@ -29,31 +27,13 @@ const AlojamientoDetailLoaded = () => {
             return { ...prev, indice: nuevoIndice};
         });
     }
-    
-    const mockFotos = () => {
-        return {
-            fotos: [{
-                path: ""
-            }],
-            indice: 0
-        }
+
+    const testeo = () => {
+        console.log(alojamientoDetallado)
+        console.log(showedFoto)
+        return <></>
     }
     
-    const fillFotos = () => {
-        return alojamientoDetallado.fotos.length === 0 ? mockFotos() : {fotos: alojamientoDetallado.fotos, indice: 0}
-    }
-
-    useEffect(() => {
-        detallarAlojamiento(params.id)
-    }, []);
-
-    
-    const [showedFoto, setShowed] = useState(fillFotos())
-
-    useEffect(() => {
-        setShowed(fillFotos())
-    }, [alojamientoDetallado.fotos]) //mmmmh, algo huele mal
-
     return(
         <>
         <div class="body">
@@ -63,7 +43,8 @@ const AlojamientoDetailLoaded = () => {
                         <ArrowBackIosIcon></ArrowBackIosIcon>
                     </Button>
                 </div>
-                    <img src={showedFoto.fotos[showedFoto.indice].path}></img>
+                    {testeo()}
+                    <img src={showedFoto.fotos[showedFoto.indice].path} alt={`Alojamiento con ${alojamientoDetallado.id} y nombre ${alojamientoDetallado.nombre}`}></img>
                 <div class="rightButton">
                     <Button onClick={() => handleRight()}>
                         <ArrowForwardIosIcon></ArrowForwardIosIcon>
@@ -96,10 +77,36 @@ const AlojamientoDetailLoaded = () => {
 
 export const AlojamientoDetail = () => {
     
-    const {alojamientos} = useContext(AlojamientosContext); 
+    const {id} = useParams();
+    const [alojamientoDetallado, setDetallado] = useState(undefined)
+    const {findAlojamientoById} = useContext(AlojamientosContext)
+
+    const fillFotos = (alojamientoDetalle) => {
+        return alojamientoDetalle.fotos.length === 0 ? mockFotos() : {fotos: alojamientoDetalle.fotos, indice: 0}
+    }
+
+    const mockFotos = () => {
+        return {
+            fotos: [{
+                path: ""
+            }],
+            indice: 0
+        }
+    }
+
+   
+    useEffect(() => { 
+         const cargarAlojamiento = async () => {
+            setDetallado(findAlojamientoById(id))
+        }
+        cargarAlojamiento()
+    }, []);
+
+    
+    
     return(
         <>
-            {alojamientos.length !== 0 ? <AlojamientoDetailLoaded></AlojamientoDetailLoaded> : <LinearProgress color="secondary" />}
+            {alojamientoDetallado ? <AlojamientoDetailLoaded alojamientoDetallado={alojamientoDetallado} fillFotos={fillFotos}></AlojamientoDetailLoaded> : <LinearProgress color="secondary" />}
         </>
     )
 }

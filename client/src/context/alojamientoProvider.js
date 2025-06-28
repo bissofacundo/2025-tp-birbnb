@@ -16,6 +16,10 @@ export const AlojamientosProvider = ({children}) => {
     setAlojamientos(alojamientosFront)
   }
 
+  const findAlojamientoById = (idAlojamiento) => {
+    return alojamientos.find(alojamiento => alojamiento.id === idAlojamiento)
+  }
+
   useEffect(() => {
     const cargarAlojamientos = async () => parseId(await getAlojamientosFiltrados())
     cargarAlojamientos()
@@ -23,7 +27,8 @@ export const AlojamientosProvider = ({children}) => {
 
   const contextValue = {
     alojamientos,
-    setAlojamientos
+    setAlojamientos,
+    findAlojamientoById
   }
 
   return <AlojamientosContext value={contextValue}>
