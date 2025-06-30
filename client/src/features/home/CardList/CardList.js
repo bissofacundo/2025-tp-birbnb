@@ -13,7 +13,7 @@ const BirbnbCard = ({alojamiento}) => {
 
 
     const alVerMas = (alojamiento) => {
-        navigate(`/alojamientos/${alojamiento.id}`);
+        navigate(`/alojamientos/${alojamiento.idFront}`);
     }
 
     return(

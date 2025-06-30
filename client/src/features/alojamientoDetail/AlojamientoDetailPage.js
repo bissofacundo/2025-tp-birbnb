@@ -9,9 +9,9 @@ import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import { useParams } from 'react-router';
 import LinearProgress from '@mui/material/LinearProgress';
 
-const AlojamientoDetailLoaded = ({alojamientoDetallado}) => {
+const AlojamientoDetailLoaded = ({alojamientoDetallado, fillFotos}) => {
     
-    const [showedFoto, setShowed] = useState({fotos: alojamientoDetallado.fotos, indice: 0})
+    const [showedFoto, setShowed] = useState(fillFotos(alojamientoDetallado))
 
     const handleLeft = () => {
         setShowed(prev => {
@@ -78,11 +78,10 @@ const AlojamientoDetailLoaded = ({alojamientoDetallado}) => {
 export const AlojamientoDetail = () => {
     
     const {id} = useParams();
-    const [alojamientoDetallado, setDetallado] = useState(undefined)
     const {findAlojamientoById} = useContext(AlojamientosContext)
 
     const fillFotos = (alojamientoDetalle) => {
-        return alojamientoDetalle.fotos.length === 0 ? mockFotos() : {fotos: alojamientoDetalle.fotos, indice: 0}
+        return alojamientoDetalle.fotos.path === "" ? mockFotos() : {fotos: alojamientoDetalle.fotos, indice: 0}
     }
 
     const mockFotos = () => {
@@ -94,19 +93,12 @@ export const AlojamientoDetail = () => {
         }
     }
 
-   
-    useEffect(() => { 
-         const cargarAlojamiento = async () => {
-            setDetallado(findAlojamientoById(id))
-        }
-        cargarAlojamiento()
-    }, []);
-
-    
-    
     return(
         <>
-            {alojamientoDetallado ? <AlojamientoDetailLoaded alojamientoDetallado={alojamientoDetallado} fillFotos={fillFotos}></AlojamientoDetailLoaded> : <LinearProgress color="secondary" />}
+            {console.log(findAlojamientoById(id))}
+            {findAlojamientoById(id) 
+            ? <AlojamientoDetailLoaded alojamientoDetallado={findAlojamientoById(id)} fillFotos={fillFotos}></AlojamientoDetailLoaded> 
+            : <LinearProgress color="secondary" />}
         </>
     )
 }
