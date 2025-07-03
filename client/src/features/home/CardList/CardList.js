@@ -1,10 +1,8 @@
-import { Card, CardContent, Button} from '@mui/material'
+import { Card, Button} from '@mui/material'
 import AspectRatio from '@mui/joy/AspectRatio';
 import CardOverflow from '@mui/joy/CardOverflow';
 import {useNavigate} from "react-router";
 import './CardList.css'
-import { useContext } from 'react';
-import { DetailContext } from '../../../context/detailProvider';
 
 
 const BirbnbCard = ({alojamiento}) => {
@@ -17,7 +15,7 @@ const BirbnbCard = ({alojamiento}) => {
     }
 
     return(
-        <Card class= 'cardAlojamiento' color="primary" variant='outlined' sx={{ width: 320, maxWidth: '100%', boxShadow: 'lg' }} >
+        <Card class= 'cardAlojamiento' color="primary" variant='outlined' sx={{ width: 320, maxWidth: '100%', boxShadow: 'lg' }} onClick={() => alVerMas(alojamiento)} >
             <div class="cardHeader">
                 <content>
                     <h3 class="nombre">{alojamiento.nombre}</h3> 
@@ -63,7 +61,7 @@ export const CardList = ({alojamientos}) => {
     return(
         <div class="cardlist">{
             alojamientos.map((alojamiento) => 
-                <BirbnbCard alojamiento={alojamiento}>
+                <BirbnbCard alojamiento={alojamiento} key={alojamiento.idFront}>
                 </BirbnbCard>
             )}
         </div>

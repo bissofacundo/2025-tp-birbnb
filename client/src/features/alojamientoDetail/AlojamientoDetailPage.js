@@ -1,4 +1,4 @@
-import { useContext, useEffect } from 'react';
+import { useContext } from 'react';
 import { AlojamientosContext } from '../../context/alojamientoProvider';
 import "./AlojamientoDetail.css"
 import { Button} from '@mui/material';
@@ -95,9 +95,8 @@ export const AlojamientoDetail = () => {
 
     return(
         <>
-            {console.log(findAlojamientoById(id))}
             {findAlojamientoById(id) 
-            ? <AlojamientoDetailLoaded alojamientoDetallado={findAlojamientoById(id)} fillFotos={fillFotos}></AlojamientoDetailLoaded> 
+            ? <AlojamientoDetailLoaded alojamientoDetallado={findAlojamientoById(id)} fillFotos={fillFotos} key={id} ></AlojamientoDetailLoaded> 
             : <LinearProgress color="secondary" />}
         </>
     )

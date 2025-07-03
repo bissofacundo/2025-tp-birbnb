@@ -6,7 +6,7 @@ export const FiltrosInput = ({ parametros, modificarInput}) => {
 
     return (
         <>
-            {parametros.map(parametro =>  <Input nombre={parametro.nombreParam} modificarInput={modificarInput} input={parametro.input} />)}
+            {parametros.map(parametro =>  <Input nombre={parametro.nombreParam} modificarInput={modificarInput} input={parametro.input} key={parametro.nombreParam}/>)}
         </>
     )
 }

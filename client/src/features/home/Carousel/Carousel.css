@@ -3,3 +3,8 @@
     border-style: hidden;
     padding-left: 80px;
 }
+
+.subtitulo-carousel {
+    font-size: 2em;
+    color: rgba(0, 0, 0, 0.7);
+}

@@ -24,7 +24,7 @@ export const FiltroCaracteristicas = ({modificarFiltros, nombreparam}) => {
         <>
             <Filtro guardarFiltros={guardarFiltros} descripcionBoton={"Agregar una caracteristica"}>
                 {
-                    caracteristicas.map(caract => <Caracteristica nombre={caract.nombre} modificarCaracteristica={() => modificarCaracteristica(caract.id)} agregado={caract.agregado}/>)
+                    caracteristicas.map(caract => <Caracteristica nombre={caract.nombre} modificarCaracteristica={() => modificarCaracteristica(caract.id)} agregado={caract.agregado} key={caract.nombre}/>)
                 }
             </Filtro>  
         </>
@@ -33,7 +33,7 @@ export const FiltroCaracteristicas = ({modificarFiltros, nombreparam}) => {
 
 const Caracteristica = ({ nombre, modificarCaracteristica, agregado}) => {
     return(
-        <div key={nombre} >
+        <div >
             <FormControlLabel control={
                 <Switch aria-label= {`Caracteristica ${nombre}` }
                 onChange={modificarCaracteristica} 

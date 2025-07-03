@@ -10,7 +10,7 @@ export const Carousel = ({subtitulo}) => {
 
     return(
         <div class="carousel">
-            <p>{subtitulo}</p>
+            <p className='subtitulo-carousel'>{subtitulo}</p>
             {alojamientos.length !== 0 ? <CardList alojamientos={alojamientos}></CardList> : <LinearProgress color="secondary" />}
         </div>
     )
