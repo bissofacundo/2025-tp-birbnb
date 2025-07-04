@@ -14,10 +14,28 @@
 }
 
 .boton-busqueda.MuiButton-contained.MuiButton-root {
-    background-color: #C9225C;
+    background-color: var(--color-principal-cta);
+    min-width: 100px;
     border-radius: 50px;
 
     span {
         padding-left: 5px;
     }
+
+    &:hover {
+        background-color: var(--color-principal-cta-hover);
+    }
 }
+
+
+@media(max-width: 600px){
+    .barra-busqueda {
+        flex-direction: column;
+        height: fit-content;
+        align-items: center;
+        padding: 1em;
+    }
+
+}
+
+

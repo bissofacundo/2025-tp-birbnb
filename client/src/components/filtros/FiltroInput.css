@@ -2,6 +2,10 @@
     padding: 5%;
 }
 
-.input .text-field-input fieldset + .Mui-focused  {
-    border-color: #C922B0;
+.input > .text-field-input > .Mui-focused  fieldset {
+    border-color: var(--color-violeta-claro);
+}
+
+.input > .text-field-input > label.Mui-focused {
+    color: var(--color-violeta-claro);
 }

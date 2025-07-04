@@ -48,15 +48,21 @@
 
 .image-footer {
     display: flex;
+    flex-direction: row;
+    justify-content:space-around;
 }
 
 .description {
     padding: 8px 12px;
-    border: 1px solid black;
 }
 
-.buying-section {
-    border: 1px solid black;
+.buying-section > form {
+    display: flex;
+    flex-direction: column;
+    width: fit-content;
+    padding: 5em;
+    border-radius: 25%;
+    box-shadow:  0 4px 8px rgba(0, 0, 0, 0.4);
 }
 
 .chips-box {
@@ -64,4 +70,22 @@
     flex-direction: row;
     justify-content: flex-start;
     gap: 0.5vw;
+}
+
+
+.boton-reservar.MuiButton-contained.MuiButton-root {
+    background-color: var(--color-principal-cta);
+    min-width: 100px;
+    border-radius: 50px;
+    text-transform: capitalize;
+
+    &:hover {
+        background-color: var(--color-principal-cta-hover);
+    }
+}
+
+@media(max-width: 600px) {
+    .image-footer {
+        flex-direction: column-reverse;
+    }
 }

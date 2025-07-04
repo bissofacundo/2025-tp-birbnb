@@ -11,4 +11,12 @@
 .menu-filtro ul.MuiList-root{
     border: 2px;
     padding-left: 10px;
+    padding-right: 10px;
+}
+
+@media(max-width: 600px) {
+  .barra-busqueda .boton-filtro:hover {
+    background-color: rgba(201, 34, 92, 0.3);
+    border-bottom: none;
+  }
 }

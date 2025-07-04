@@ -42,7 +42,7 @@
     background-color: #FFAAFF;
     color: #49454F;
     border-radius: 999px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
 }
 
 .cardText{
@@ -55,7 +55,7 @@
 
 .cardText .icono-mundo-card {
     font-size: 20px;
-    color: #8F22C9;
+    color: var(--color-violeta-oscuro);
 }
 
 .cardText p{

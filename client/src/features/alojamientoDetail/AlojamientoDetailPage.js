@@ -1,7 +1,7 @@
 import { useContext } from 'react';
 import { AlojamientosContext } from '../../context/alojamientoProvider';
 import "./AlojamientoDetail.css"
-import { Button} from '@mui/material';
+import { Button, FormControl, Input, InputLabel, TextField} from '@mui/material';
 import { useState } from 'react';
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
@@ -27,6 +27,12 @@ const AlojamientoDetailLoaded = ({alojamientoDetallado, fillFotos}) => {
             return { ...prev, indice: nuevoIndice};
         });
     }
+
+    const fechaFinal = () => {
+        var fecha = new Date()
+        fecha.setDate(fecha.getDate() + 5)
+        return fecha.toISOString().split('T')[0]
+    }
     
     return(
         <>
@@ -49,14 +55,27 @@ const AlojamientoDetailLoaded = ({alojamientoDetallado, fillFotos}) => {
                     <ChipBoxCaracteristicas caracteristicas={alojamientoDetallado.caracteristicas}/>
                     <h1>{alojamientoDetallado.nombre}</h1>
                     <p>{alojamientoDetallado.descripcion}</p>
-                    <p>direccion: {alojamientoDetallado.direccion.calle} {alojamientoDetallado.direccion.altura}, {alojamientoDetallado.direccion.ciudad}, {alojamientoDetallado.direccion.pais}</p>
-                    <p>precio por noche: {alojamientoDetallado.precioPorNoche} {alojamientoDetallado.moneda}</p>
-                    <p>horario de Check In: {alojamientoDetallado.horarioCheckIn}</p>
-                    <p>horario de Check Out: {alojamientoDetallado.horarioCheckOut}</p>
-                    <p>hasta {alojamientoDetallado.cantHuespedesMax} huesped/es</p>
+                    <p>Dirección: {alojamientoDetallado.direccion.calle} {alojamientoDetallado.direccion.altura}, {alojamientoDetallado.direccion.ciudad}, {alojamientoDetallado.direccion.pais}</p>
+                    <p>Precio por noche: {alojamientoDetallado.precioPorNoche} {alojamientoDetallado.moneda}</p>
+                    <p>Horario de Check In: {alojamientoDetallado.horarioCheckIn}</p>
+                    <p>Horario de Check Out: {alojamientoDetallado.horarioCheckOut}</p>
+                    <p>Hasta {alojamientoDetallado.cantHuespedesMax} huesped/es</p>
                 </div>
                 <div class="buying-section">
-
+                    <form>
+                        <FormControl>
+                            <InputLabel htmlFor='cant-huespedes'>Cantidad de Huespedes</InputLabel>
+                            <Input type='number' aria-label='Cantidad de huespedes' id='cant-huespedes' />
+                        </FormControl>
+                        <FormControl>
+                            <TextField type='date' label='Fecha de Inicio' defaultValue={new Date().toISOString().split('T')[0]} aria-label='Fecha de Inicio' id='fecha-inicio' name='fecha-inicio' required/>
+                        </FormControl>
+                        <FormControl>
+                            <TextField type='date' label='Fecha de Finalización' defaultValue={fechaFinal()} aria-label='Fecha de Finalizacion' id='fecha-fin' name='fecha-fin' required/>
+                        </FormControl>
+                            <Button variant='contained' className='boton-reservar'>Reservar</Button>
+                    </form>
+                    
                 </div>
             </div>
         </div>
