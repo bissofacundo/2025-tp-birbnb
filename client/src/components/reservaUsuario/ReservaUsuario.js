@@ -3,7 +3,7 @@ import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 import './ReservaUsuario.css'
 
 
-const ReservaUsuario = () => {
+export const ReservaUsuario = () => {
     return <div className="reserva-usuario">
         <div>
             <h5>Reserva</h5>

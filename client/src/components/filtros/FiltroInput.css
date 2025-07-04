@@ -1,3 +1,7 @@
 .input{
     padding: 5%;
 }
+
+.input .text-field-input fieldset + .Mui-focused  {
+    border-color: #C922B0;
+}

@@ -19,6 +19,7 @@ const Input = ({ nombre, modificarInput, input }) => {
                 variant="outlined"
                 onChange={(e) => modificarInput(e.target.value, nombre)}
                 value={input}
+                className="text-field-input"
             />
         </div>
     )

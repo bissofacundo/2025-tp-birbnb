@@ -3,7 +3,8 @@ import AspectRatio from '@mui/joy/AspectRatio';
 import CardOverflow from '@mui/joy/CardOverflow';
 import {useNavigate} from "react-router";
 import './CardList.css'
-
+import PublicIcon from '@mui/icons-material/Public';
+import { ChipBoxCaracteristicas } from '../../../components/chipBoxCaracteristicas/ChipBoxCaracteristicas';
 
 const BirbnbCard = ({alojamiento}) => {
 
@@ -19,7 +20,7 @@ const BirbnbCard = ({alojamiento}) => {
             <div class="cardHeader">
                 <content>
                     <h3 class="nombre">{alojamiento.nombre}</h3> 
-                    <p class="anfitrion">{alojamiento.anfitrion}</p>
+                    <p class="anfitrion">Anfitrión: {alojamiento.anfitrion}</p>
                 </content>
             </div>
             <CardOverflow sx={{width: '100%'}}>
@@ -35,13 +36,12 @@ const BirbnbCard = ({alojamiento}) => {
             <div class="cardDescripcion">
                 <div class="cardText"> 
                     <div class="ubicacion">
-                        <p>Ciudad: {alojamiento.direccion.ciudad} </p>    
-                        <p>Pais: {alojamiento.direccion.pais}</p>
+                        <p><PublicIcon className='icono-mundo-card'/>{alojamiento.direccion.ciudad}, {alojamiento.direccion.pais}</p>    
                     </div>
                     <div class="detalles">
-                        <p>Cantidad de Huspedes: {alojamiento.cantHuespedesMax}</p>
-                        <p>Precio por noche: ${alojamiento.precioPorNoche}</p>
-                        <p>Caracteristicas: {alojamiento.caracteristicas.map(caracterista => caracterista.toLowerCase()).join(", ")}</p>
+                        <p>Hasta {alojamiento.cantHuespedesMax} personas</p>
+                        <p>${alojamiento.precioPorNoche} por noche</p>
+                        <ChipBoxCaracteristicas caracteristicas={alojamiento.caracteristicas} />
                     </div>
                 </div>
                 <div class="cardButton">   

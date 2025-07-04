@@ -9,7 +9,13 @@
     background-color: #FEF7FF;
     border-radius: 2%;
     border: 1px solid #e0e0e0;
-      
+    cursor: pointer;
+    box-shadow: 0;
+    transition: box-shadow 0.2s;
+}
+
+.cardAlojamiento:hover {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 .cardHeader {
@@ -47,7 +53,19 @@
     gap: 32px;
 }
 
+.cardText .icono-mundo-card {
+    font-size: 20px;
+    color: #8F22C9;
+}
+
 .cardText p{
     color: #49454F;
     margin: 0;
+    display: flex;
+    align-items: center;
+
+    & + p {
+        margin-bottom: 0.75em;
+    }
 }
+

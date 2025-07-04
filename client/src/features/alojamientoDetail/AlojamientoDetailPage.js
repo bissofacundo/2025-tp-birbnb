@@ -2,12 +2,12 @@ import { useContext } from 'react';
 import { AlojamientosContext } from '../../context/alojamientoProvider';
 import "./AlojamientoDetail.css"
 import { Button} from '@mui/material';
-import Chip from '@mui/material/Chip';
 import { useState } from 'react';
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import { useParams } from 'react-router';
 import LinearProgress from '@mui/material/LinearProgress';
+import { ChipBoxCaracteristicas } from '../../components/chipBoxCaracteristicas/ChipBoxCaracteristicas';
 
 const AlojamientoDetailLoaded = ({alojamientoDetallado, fillFotos}) => {
     
@@ -27,12 +27,6 @@ const AlojamientoDetailLoaded = ({alojamientoDetallado, fillFotos}) => {
             return { ...prev, indice: nuevoIndice};
         });
     }
-
-    const testeo = () => {
-        console.log(alojamientoDetallado)
-        console.log(showedFoto)
-        return <></>
-    }
     
     return(
         <>
@@ -43,7 +37,6 @@ const AlojamientoDetailLoaded = ({alojamientoDetallado, fillFotos}) => {
                         <ArrowBackIosIcon></ArrowBackIosIcon>
                     </Button>
                 </div>
-                    {testeo()}
                     <img src={showedFoto.fotos[showedFoto.indice].path} alt={`Alojamiento con ${alojamientoDetallado.id} y nombre ${alojamientoDetallado.nombre}`}></img>
                 <div class="rightButton">
                     <Button onClick={() => handleRight()}>
@@ -53,11 +46,7 @@ const AlojamientoDetailLoaded = ({alojamientoDetallado, fillFotos}) => {
             </div>
             <div class="image-footer">
                 <div class="description">
-                    <div class="chips-box">
-                        {alojamientoDetallado.caracteristicas.map(carac => {
-                        return (<Chip label={carac}></Chip>)
-                    })}
-                    </div>
+                    <ChipBoxCaracteristicas caracteristicas={alojamientoDetallado.caracteristicas}/>
                     <h1>{alojamientoDetallado.nombre}</h1>
                     <p>{alojamientoDetallado.descripcion}</p>
                     <p>direccion: {alojamientoDetallado.direccion.calle} {alojamientoDetallado.direccion.altura}, {alojamientoDetallado.direccion.ciudad}, {alojamientoDetallado.direccion.pais}</p>
