@@ -32,7 +32,7 @@ export const AlojamientosProvider = ({children}) => {
   }
 
   const findAlojamientoById = (idAlojamiento) => {
-    return alojamientos.find(alojamiento => alojamiento.idFront === parseInt(idAlojamiento))
+    return alojamientos.find(alojamiento => alojamiento.id === idAlojamiento)
   }
 
   useEffect(() => {
