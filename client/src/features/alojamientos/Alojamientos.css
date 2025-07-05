@@ -7,4 +7,11 @@
 .sin-alojamientos {
     font-size: 2em;
     color: rgba(0, 0, 0, 0.7);
+    padding-left: 1em;
+}
+
+.paginacion {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
 }

@@ -25,13 +25,13 @@
 .image button {
     height: 40vw;
     width: 2vw;
-    background-color: rgba(254, 247, 255, 0.2);
+    background-color: rgba(0, 0, 0, 0.33);
     padding: 0;
     border-radius: 0;
 }
 
 .image button:hover {
-    background-color: rgba(254, 247, 255, 1);
+    background-color: rgba(143, 34, 201, 1);
 }
 
 .leftButton > button{
@@ -42,15 +42,50 @@
     right: 4vw;
 }
 
+.image svg {
+    color: black
+}
+
 .image-footer {
     display: flex;
+    flex-direction: row;
+    justify-content:space-around;
 }
 
 .description {
     padding: 8px 12px;
-    border: 1px solid black;
 }
 
-.buying-section {
-    border: 1px solid black;
+.buying-section > form {
+    display: flex;
+    flex-direction: column;
+    width: fit-content;
+    padding: 5em;
+    border-radius: 25%;
+    box-shadow:  0 4px 8px rgba(0, 0, 0, 0.4);
+}
+
+.chips-box {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    gap: 0.5vw;
+}
+
+
+.boton-reservar.MuiButton-contained.MuiButton-root {
+    background-color: var(--color-principal-cta);
+    min-width: 100px;
+    border-radius: 50px;
+    text-transform: capitalize;
+
+    &:hover {
+        background-color: var(--color-principal-cta-hover);
+    }
+}
+
+@media(max-width: 600px) {
+    .image-footer {
+        flex-direction: column-reverse;
+    }
 }

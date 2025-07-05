@@ -1,0 +1,7 @@
+.chips-box {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    gap: 0.5vw;
+    margin-top: 2em;
+}

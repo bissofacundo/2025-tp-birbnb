@@ -1,13 +1,22 @@
-.filtros-busqueda .boton-filtro {
+.barra-busqueda .boton-filtro {
     color: rgba(0, 0, 0, 0.8);
     text-transform: capitalize;
-
+    font-size: 1em;    
 }
-.filtros-busqueda .boton-filtro:hover {
+
+.barra-busqueda .boton-filtro:hover {
   border-bottom: solid rgba(201, 34, 92, 0.3);
   background-color: transparent;
 }
 .menu-filtro ul.MuiList-root{
     border: 2px;
     padding-left: 10px;
+    padding-right: 10px;
+}
+
+@media(max-width: 600px) {
+  .barra-busqueda .boton-filtro:hover {
+    background-color: rgba(201, 34, 92, 0.3);
+    border-bottom: none;
+  }
 }

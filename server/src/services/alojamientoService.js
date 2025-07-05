@@ -15,6 +15,7 @@ export class AlojamientoService {
 
     async alojamientoADTO(alojamiento) { 
         const alojamientoDTO = {
+            "id": alojamiento.id,
             "anfitrion": alojamiento.anfitrion.nombre,
             "nombre": alojamiento.nombre,
             "descripcion": alojamiento.descripcion,

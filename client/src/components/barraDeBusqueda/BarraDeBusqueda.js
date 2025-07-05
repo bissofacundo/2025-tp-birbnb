@@ -5,6 +5,7 @@ import { useState } from "react"
 import { FiltroCantidadHuespedes } from "../filtros/FiltroCantidadHuespedes"
 import { FiltroUbicacion } from "../filtros/FiltroUbicacion"
 import { FiltroPrecio } from "../filtros/FiltroPrecio"
+import TravelExploreIcon from '@mui/icons-material/TravelExplore';
 
 const filtrosPosibles = [{nombre:"caracteristicas", valor:""}, 
     {nombre:"huespedes", valor:""}, {nombre:"ciudad", valor:""}, {nombre:"pais", valor:""},
@@ -29,7 +30,6 @@ export const BarraDeBusqueda = ({alBuscarAlojamientos}) => {
 
     return (
         <div className="barra-busqueda">
-            <div className="filtros-busqueda">
                 <FiltroCaracteristicas modificarFiltros={modificarFiltros} nombreparam="caracteristicas"/>
                 <div className="separador-filtros"></div>
                 <FiltroCantidadHuespedes modificarFiltros={modificarFiltros} nombreParam="huespedes"/>
@@ -37,8 +37,8 @@ export const BarraDeBusqueda = ({alBuscarAlojamientos}) => {
                 <FiltroUbicacion modificarFiltros={modificarFiltros} nombrePais={"pais"} nombreCiudad={"ciudad"} />
                 <div className="separador-filtros"></div>
                 <FiltroPrecio modificarFiltros={modificarFiltros} precioMin={"precioMin"} precioMax={"precioMax"} />
-            </div>
-            <Button variant="contained" className="boton-busqueda" onClick={buscarAlojamientos} >Buscar</Button>
+            
+            <Button variant="contained" className="boton-busqueda" onClick={buscarAlojamientos} > <TravelExploreIcon/><span>Buscar</span></Button>
         </div>
     )
 }
