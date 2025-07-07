@@ -4,17 +4,10 @@ import { getAlojamientosFiltrados } from "../../api/alojamientosAPI"
 import { Carousel } from "../home/Carousel/Carousel"
 import { useContext } from "react"
 import { AlojamientosContext } from "../../context/alojamientoProvider"
-import { useState } from "react"
 import {Pagination, Input} from "@mui/material"
 
 export const Alojamientos = () => {
     const {setAlojamientos, alojamientos} = useContext(AlojamientosContext); 
-    const [page, setPage] = useState(0);
-    const [limit, setLimit] = useState(10);
-
-
-
-
 
     const mostrarError = (mensajeError) => {
         console.error(mensajeError)

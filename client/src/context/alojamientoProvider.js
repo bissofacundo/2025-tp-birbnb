@@ -38,7 +38,7 @@ export const AlojamientosProvider = ({children}) => {
   useEffect(() => {
     const cargarAlojamientos = async () => parseIdYFotos(await getAlojamientosFiltrados())
     cargarAlojamientos()
-  }, [])
+  })
 
   const contextValue = {
     alojamientos,

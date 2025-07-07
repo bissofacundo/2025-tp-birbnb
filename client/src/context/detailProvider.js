@@ -1,5 +1,4 @@
-import {createContext, useEffect, useState} from "react";
-import { getAlojamientosFiltrados } from "../api/alojamientosAPI";
+import {createContext, useState} from "react";
 import { AlojamientosContext } from "./alojamientoProvider";
 import { useContext } from "react";
 
