@@ -73,7 +73,7 @@ const MOCK = [{
     ]
 }]
 
-const BACK_END_URL = 'http://localhost:4000' //cambiar BACK_END_URL en .env
+const BACK_END_URL = 'https://two025-tp-birbnb.onrender.com' //cambiar BACK_END_URL en .env
 export const getAlojamientos = () => axios.get(`${BACK_END_URL}/alojamientos`).then(r => r.data)
 
 //export const getAlojamientos = () => Promise.resolve(MOCK)
